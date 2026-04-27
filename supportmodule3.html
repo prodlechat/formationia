@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Module 03 — Architecture d'entité de marque. JSON-LD, Wikidata, Wikipedia, harmonisation cross-plateformes, Knowledge Panel Google. Devenir une entité reconnue par les IA, pas juste un site." />
+<title>Module 03 — Architecture d'entité de marque | Cité par les IA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:           #F7F1E8;
+    --bg-soft:      #FCF8F2;
+    --bg-card:      #FFFFFF;
+    --ink:          #1F1A15;
+    --ink-soft:     #5C4F42;
+    --ink-muted:    #8A7A6A;
+    --accent:       #5B14FF;
+    --accent-dark:  #4910CC;
+    --accent-soft:  #EDE9FE;
+    --accent-line:  #A78BFA;
+    --border:       #E8DDC9;
+    --border-soft:  #F0E6D4;
+    --warning:      #C2410C;
+    --warning-soft: #FFEDD5;
+    --success:      #15803D;
+    --success-soft: #DCFCE7;
+    --shadow-sm:    0 1px 2px rgba(31, 26, 21, 0.04);
+    --shadow-md:    0 4px 16px rgba(31, 26, 21, 0.06);
+    --shadow-lg:    0 16px 48px rgba(31, 26, 21, 0.08);
+    --radius-sm:    8px;
+    --radius-md:    14px;
+    --radius-lg:    24px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+  }
+  h1 { font-size: clamp(2.4rem, 5.5vw, 4rem); line-height: 1.05; }
+  h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); }
+  h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 700; }
+  h4 { font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
+  p { margin-bottom: 1.1rem; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 700; }
+  em { font-style: normal; color: var(--accent); font-weight: 800; }
+  a { color: var(--accent); text-decoration: none; transition: color .15s ease; }
+  a:hover { color: var(--accent-dark); }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.85em;
+  }
+
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+  .container-narrow { max-width: 760px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* —————— Progress bar —————— */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-line));
+    z-index: 9999;
+    transition: width 0.1s ease;
+  }
+
+  /* —————— Top header —————— */
+  header.top-nav {
+    position: sticky;
+    top: 0;
+    background: rgba(247, 241, 232, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-soft);
+    z-index: 100;
+  }
+  .nav-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .brand-mark {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .brand-mark em { color: var(--accent); font-style: normal; }
+  .nav-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+  }
+  .nav-meta span:not(:last-child)::after {
+    content: '·';
+    margin-left: 1rem;
+    color: var(--border);
+  }
+  @media (max-width: 600px) { .nav-meta { display: none; } }
+
+  /* —————— Hero —————— */
+  .hero {
+    padding: 5rem 0 4rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.22) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    right: -150px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(91, 20, 255, 0.14) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 1.8rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .hero h1 { margin-bottom: 1.5rem; }
+  .hero-lead {
+    font-size: clamp(1.1rem, 1.7vw, 1.3rem);
+    color: var(--ink-soft);
+    max-width: 720px;
+    margin: 0 auto 3rem;
+    line-height: 1.55;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    max-width: 880px;
+    margin: 3rem auto 0;
+  }
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .stat-num {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    line-height: 1.35;
+  }
+  @media (max-width: 720px) { .hero-stats { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 420px) { .hero-stats { grid-template-columns: 1fr; } }
+
+  /* —————— Section labels —————— */
+  .section-label {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  /* —————— TOC —————— */
+  .toc-section {
+    padding: 4rem 0;
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+    text-align: center;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    max-width: 800px;
+    margin: 1rem auto 0;
+  }
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.3rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    text-align: left;
+    color: var(--ink);
+    transition: all 0.15s ease;
+  }
+  .toc-item:hover {
+    border-color: var(--accent);
+    transform: translateX(2px);
+    box-shadow: var(--shadow-sm);
+    color: var(--ink);
+  }
+  .toc-num {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    width: 36px;
+  }
+  .toc-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+  @media (max-width: 600px) { .toc-grid { grid-template-columns: 1fr; } }
+
+  /* —————— Module sections —————— */
+  section.module {
+    padding: 6rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  section.module:nth-child(even) {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  section.module::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: -180px;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.16) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  section.module > .container,
+  section.module > .container-narrow {
+    position: relative;
+    z-index: 1;
+  }
+  .module-header { margin-bottom: 2.5rem; }
+  .module-num {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .module-lead {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    margin: 1.5rem 0 2.5rem;
+    line-height: 1.55;
+    max-width: 720px;
+  }
+
+  /* —————— Prose —————— */
+  .prose p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 1.3rem;
+  }
+  .prose p strong { color: var(--ink); }
+  .prose ul {
+    margin: 1rem 0 1.5rem;
+    padding-left: 1.5rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+  .prose ul li { margin-bottom: 0.6rem; }
+  .prose ul li strong { color: var(--ink); }
+
+  /* —————— Callouts —————— */
+  .callout {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-md);
+    padding: 1.6rem 1.8rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-sm);
+  }
+  .callout.warning {
+    border-left-color: var(--warning);
+    background: linear-gradient(135deg, var(--warning-soft) 0%, var(--bg-card) 60%);
+  }
+  .callout.success {
+    border-left-color: var(--success);
+    background: linear-gradient(135deg, var(--success-soft) 0%, var(--bg-card) 60%);
+  }
+  .callout-tag {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .callout.warning .callout-tag { color: var(--warning); }
+  .callout.success .callout-tag { color: var(--success); }
+  .callout p {
+    margin: 0;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+
+  /* —————— Flow / step components —————— */
+  .flow {
+    margin: 2.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .flow-step {
+    display: flex;
+    gap: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s ease;
+  }
+  .flow-step:hover { border-color: var(--accent-line); }
+  .flow-circle {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    box-shadow: 0 6px 20px rgba(91, 20, 255, 0.3);
+  }
+  .flow-step > div:last-child { flex: 1; min-width: 0; }
+  .step-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+    margin-bottom: 0.4rem;
+  }
+  .flow-step h4 { margin-bottom: 0.6rem; }
+  .flow-step p { margin: 0 0 0.8rem; line-height: 1.55; }
+  .flow-step p:last-child { margin-bottom: 0; }
+
+  /* —————— Schema cards (5 JSON-LD types) —————— */
+  .schemas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    margin: 2rem 0;
+  }
+  .schema-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .schema-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .schema-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .schema-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  .schema-card h4 { margin-bottom: 0.8rem; }
+  .schema-card > p { font-size: 0.95rem; line-height: 1.55; margin-bottom: 1rem; }
+  .schema-when {
+    background: var(--accent-soft);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .schema-when strong {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  @media (max-width: 740px) { .schemas-grid { grid-template-columns: 1fr; } }
+
+  /* —————— Code block —————— */
+  .code-block {
+    background: #1a1612;
+    color: #e5e7eb;
+    padding: 1.4rem 1.6rem;
+    border-radius: var(--radius-md);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    white-space: pre;
+  }
+  .code-comment { color: rgba(255, 255, 255, 0.45); font-style: italic; }
+  .code-tag { color: #ff9b9b; }
+  .code-attr { color: #b8b8ff; }
+  .code-string { color: #9ec8ff; }
+  .code-prop { color: #ffd591; }
+  .code-h1 { color: #fde68a; font-weight: 700; }
+  @media (max-width: 600px) {
+    .code-block { font-size: 0.75rem; padding: 1.1rem 1.2rem; }
+  }
+
+  /* —————— Platforms grid (8 platforms harmonization) —————— */
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .platform-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.4rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .platform-icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 0.92rem;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+  .platform-content { flex: 1; min-width: 0; }
+  .platform-name {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+    line-height: 1.2;
+  }
+  .platform-tag {
+    font-size: 0.72rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  .platform-must {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.45;
+    margin: 0;
+  }
+  .platform-must strong { color: var(--ink); }
+  @media (max-width: 720px) { .platforms-grid { grid-template-columns: 1fr; } }
+
+  /* —————— Knowledge Panel viz —————— */
+  .kp-viz {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-sm);
+  }
+  .kp-mockup {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem;
+    margin-top: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+  .kp-mockup-search {
+    background: #FFF;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.7rem 1.2rem;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .kp-mockup-search::before {
+    content: '🔍';
+    font-size: 0.9em;
+  }
+  .kp-mockup-card {
+    background: #FFF;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1.2rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .kp-mockup-name {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+  .kp-mockup-role {
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    margin-bottom: 0.8rem;
+  }
+  .kp-mockup-bio {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+  .kp-mockup-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .kp-mockup-fields div strong {
+    display: block;
+    color: var(--ink-muted);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    margin-bottom: 0.1rem;
+  }
+
+  /* —————— Deliverable checklist —————— */
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin: 2rem 0;
+  }
+  .check-item {
+    display: flex;
+    gap: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.2rem 1.4rem;
+    cursor: pointer;
+    user-select: none;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .check-item:hover { border-color: var(--accent-line); }
+  .check-item.checked {
+    background: var(--success-soft);
+    border-color: var(--success);
+  }
+  .check-box {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: transparent;
+    background: var(--bg-soft);
+    transition: all 0.15s ease;
+    margin-top: 0.15rem;
+  }
+  .check-item.checked .check-box {
+    background: var(--success);
+    border-color: var(--success);
+    color: #FFF;
+  }
+  .check-content { flex: 1; min-width: 0; }
+  .check-title {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+    line-height: 1.4;
+  }
+  .check-desc {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+
+  /* —————— Recap —————— */
+  .recap {
+    background: var(--ink);
+    color: rgba(247, 241, 232, 0.9);
+    padding: 4rem 0;
+    margin-top: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .recap::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(91, 20, 255, 0.25) 0%, transparent 60%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .recap > .container { position: relative; z-index: 1; }
+  .recap h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: #FFF;
+    margin-bottom: 1.5rem;
+  }
+  .recap-list {
+    list-style: none;
+    counter-reset: item;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 760px;
+  }
+  .recap-list li {
+    counter-increment: item;
+    padding-left: 3rem;
+    position: relative;
+    line-height: 1.55;
+    color: rgba(247, 241, 232, 0.85);
+  }
+  .recap-list li::before {
+    content: counter(item, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0.05em;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--accent-line);
+    letter-spacing: -0.02em;
+  }
+  .recap-list li strong { color: #FFF; }
+
+  /* —————— Inline CTA banner —————— */
+  .next-cta {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    margin: 4rem auto;
+    max-width: 760px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+  }
+  .next-cta h3 { margin-bottom: 1rem; }
+  .next-cta p { margin-bottom: 1.5rem; font-size: 1.05rem; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1.1rem 2.2rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #FFF;
+    box-shadow: 0 6px 20px rgba(91, 20, 255, 0.3);
+  }
+  .btn-primary:hover {
+    background: var(--accent-dark);
+    color: #FFF;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px rgba(91, 20, 255, 0.4);
+  }
+
+  /* —————— Footer —————— */
+  footer.site-footer {
+    background: var(--ink);
+    color: rgba(247, 241, 232, 0.5);
+    padding: 2.5rem 0;
+    text-align: center;
+    font-size: 0.88rem;
+    border-top: 1px solid rgba(247, 241, 232, 0.08);
+  }
+  footer.site-footer a { color: rgba(247, 241, 232, 0.7); }
+
+  /* —————— Mobile —————— */
+  @media (max-width: 860px) {
+    section.module { padding: 4rem 0; }
+    .toc-section { padding: 3rem 0; }
+    .module-header { margin-bottom: 1.8rem; }
+    .module-lead { font-size: 1.05rem; margin: 1rem 0 1.8rem; }
+    .flow-step { padding: 1.4rem; gap: 1rem; }
+    .flow-circle { width: 48px; height: 48px; font-size: 1.3rem; }
+    .next-cta { padding: 1.8rem 1.4rem; }
+    .recap-list li { padding-left: 2.4rem; }
+    section.module::before { width: 320px !important; height: 320px !important; }
+  }
+  @media (max-width: 480px) {
+    .hero { padding: 3rem 0 2.5rem; }
+    .hero h1 { font-size: 2rem; }
+    .flow-step { flex-direction: column; gap: 0.8rem; }
+    .flow-circle { align-self: flex-start; }
+    .platform-card { flex-direction: column; }
+    .kp-mockup-fields { grid-template-columns: 1fr; }
+  }
+
+  /* —————— Fade in animation —————— */
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress-bar"></div>
+
+<header class="top-nav">
+  <div class="nav-inner">
+    <a href="https://ia.producteurasucces.com/" class="brand-mark">Cité par les <em>IA</em></a>
+    <div class="nav-meta">
+      <span>Module 03 / 06</span>
+      <span>Producteur à Succès</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== HERO ============================== -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-tag">Module 03 — Le module qui justifie le prix</span>
+    <h1>Architecture <em>d'entité</em> de marque.</h1>
+    <p class="hero-lead">Un site, c'est bien. Une <strong>entité reconnue</strong>, c'est ce qui te fait citer par les IA. JSON-LD, Wikidata, Wikipedia, harmonisation cross-plateformes, Knowledge Panel — exactement la méthode que j'ai utilisée pour Muzisecur et Producteur à Succès.</p>
+
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Schémas JSON-LD à maîtriser pour ton entité</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">8</div>
+        <div class="stat-label">Plateformes à harmoniser pour cohérence d'entité</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">30 min</div>
+        <div class="stat-label">Pour créer ta fiche Wikidata pas à pas</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3-6 mois</div>
+        <div class="stat-label">Délai moyen pour décrocher ton Knowledge Panel</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== TABLE OF CONTENTS ============================== -->
+<section class="toc-section">
+  <div class="container-narrow">
+    <div class="section-label">Plan du module</div>
+    <div class="toc-grid">
+      <a href="#why-entity" class="toc-item"><span class="toc-num">01</span><span class="toc-title">Pourquoi une entité reconnue, pas juste un site</span></a>
+      <a href="#json-ld" class="toc-item"><span class="toc-num">02</span><span class="toc-title">JSON-LD, le code qui parle aux IA</span></a>
+      <a href="#schemas" class="toc-item"><span class="toc-num">03</span><span class="toc-title">Les 5 schémas qui te concernent</span></a>
+      <a href="#wikidata" class="toc-item"><span class="toc-num">04</span><span class="toc-title">Wikidata, ta fiche pas à pas</span></a>
+      <a href="#wikipedia" class="toc-item"><span class="toc-num">05</span><span class="toc-title">Wikipedia, rédiger ton brouillon en wikicode</span></a>
+      <a href="#cohesion" class="toc-item"><span class="toc-num">06</span><span class="toc-title">Cohérence cross-plateformes (8 minimum)</span></a>
+      <a href="#knowledge-panel" class="toc-item"><span class="toc-num">07</span><span class="toc-title">Le Knowledge Panel Google</span></a>
+      <a href="#deliverable" class="toc-item"><span class="toc-num">08</span><span class="toc-title">Livrable, ton entité complète déployée</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 01 — WHY ENTITY ============================== -->
+<section class="module" id="why-entity">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 01 / 08</span>
+      <h2>Pourquoi une <em>entité reconnue</em>, pas juste un site</h2>
+    </div>
+    <p class="module-lead">Pour les IA, "Tarik Hamiche" doit être une <strong>entité unique</strong> avec un parcours, une fonction, des œuvres. Pas une chaîne de caractères qui pourrait référer à n'importe quel homonyme.</p>
+
+    <div class="prose">
+      <p>Quand un fan demande à ChatGPT "qui est Tarik Hamiche", l'IA fait une recherche sémantique dans ce qu'on appelle son <strong>knowledge graph</strong>. Ce graph est une carte d'entités connectées entre elles : personnes, lieux, marques, œuvres. Chaque entité a un identifiant unique (par exemple Q123456 sur Wikidata), une fiche d'identité, et des liens vers d'autres entités.</p>
+
+      <p>Si tu n'es pas une entité dans ce graph, l'IA ne sait pas quoi répondre. Elle peut hésiter entre plusieurs personnes du même nom, sortir une info datée ou fausse, ou ne rien dire du tout. Tu deviens invisible aux requêtes nominatives.</p>
+    </div>
+
+    <div class="callout warning">
+      <div class="callout-tag">⚠ Le piège de l'homonyme</div>
+      <p>Si tu t'appelles Marc Dupont et qu'il existe 3 autres Marc Dupont notables (un footballeur, un journaliste, un acteur), l'IA va majoritairement citer les 3 autres parce qu'eux ont une <strong>entité Wikidata claire</strong>. Toi, sans entité, tu seras au mieux mentionné en passant, au pire complètement omis. <strong>L'absence d'entité = absence de citation, point.</strong></p>
+    </div>
+
+    <div class="prose">
+      <p>Construire ton entité, c'est mettre en place 4 piliers complémentaires :</p>
+      <ul>
+        <li><strong>JSON-LD sur ton site</strong> : tu dis explicitement "voilà qui je suis, voilà ce que je fais"</li>
+        <li><strong>Fiche Wikidata</strong> : tu intègres le knowledge graph mondial avec un Q-ID unique</li>
+        <li><strong>Brouillon Wikipedia</strong> : tu construis l'autorité éditoriale (citations dans la presse, parcours documenté)</li>
+        <li><strong>Cohérence cross-plateformes</strong> : tu envoies les mêmes signaux sur 8+ plateformes pour que les IA confirment l'entité</li>
+      </ul>
+
+      <p>Ces 4 piliers se renforcent mutuellement. Wikidata pointe vers ton site (qui contient ton JSON-LD). Wikipedia cite tes plateformes externes. Tes plateformes pointent vers ton site et vers Wikipedia. Tout converge. <strong>C'est cette convergence qui fait basculer la décision des IA.</strong></p>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ La preuve par mes 2 marques</div>
+      <p>Quand on tape "Producteur à Succès" sur Perplexity, la fiche d'entité ressort propre, avec ma photo, ma fonction, mes livres, mes liens. Idem pour "Muzisecur". Pourquoi ? Parce que j'ai construit ces 4 piliers exactement comme on va le faire ici, sur 18 mois cumulés. Ce qui prenait 18 mois en learning-by-doing, je te le donne en 1 module structuré.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 02 — JSON-LD ============================== -->
+<section class="module" id="json-ld">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 02 / 08</span>
+      <h2>JSON-LD, le <em>code qui parle aux IA</em></h2>
+    </div>
+    <p class="module-lead">JSON-LD est un format structuré qui décrit ton entité dans un langage que toutes les IA et tous les moteurs comprennent. Tu le mets dans ton HTML, et la magie opère.</p>
+
+    <div class="prose">
+      <p>Concrètement, JSON-LD c'est un bloc de code <code>&lt;script type="application/ld+json"&gt;</code> que tu places dans le <code>&lt;head&gt;</code> ou en bas du <code>&lt;body&gt;</code> de chaque page. Il décrit l'entité principale de la page : qui c'est, ce qu'elle fait, à quoi elle est liée.</p>
+
+      <p>Le vocabulaire utilisé s'appelle <strong>schema.org</strong>. C'est le standard mondial cofondé par Google, Microsoft, Yahoo et Yandex en 2011. Toutes les IA modernes (ChatGPT, Perplexity, Gemini, Claude) lisent et exploitent ce vocabulaire. C'est gratuit, ouvert, et c'est <strong>la lingua franca des entités sur le web</strong>.</p>
+    </div>
+
+    <pre class="code-block"><span class="code-comment">&lt;!-- À placer dans le &lt;head&gt; de ta page Accueil --&gt;</span>
+&lt;<span class="code-tag">script</span> <span class="code-attr">type</span>=<span class="code-string">"application/ld+json"</span>&gt;
+{
+  <span class="code-prop">"@context"</span>: <span class="code-string">"https://schema.org"</span>,
+  <span class="code-prop">"@type"</span>: <span class="code-string">"Person"</span>,
+  <span class="code-prop">"name"</span>: <span class="code-string">"Tarik Hamiche"</span>,
+  <span class="code-prop">"jobTitle"</span>: <span class="code-string">"Fondateur de Producteur à Succès et Muzisecur"</span>,
+  <span class="code-prop">"url"</span>: <span class="code-string">"https://producteurasucces.com"</span>,
+  <span class="code-prop">"sameAs"</span>: [
+    <span class="code-string">"https://www.wikidata.org/wiki/QXXXXXX"</span>,
+    <span class="code-string">"https://fr.wikipedia.org/wiki/Tarik_Hamiche"</span>,
+    <span class="code-string">"https://www.linkedin.com/in/tarik-hamiche"</span>,
+    <span class="code-string">"https://www.youtube.com/@producteurasucces"</span>
+  ]
+}
+&lt;/<span class="code-tag">script</span>&gt;</pre>
+
+    <div class="callout">
+      <div class="callout-tag">★ Les 3 propriétés magiques</div>
+      <p><code>@type</code> dit aux IA <strong>quel genre d'entité tu es</strong> (Person, MusicGroup, Organization...). <code>name</code> donne ton identité officielle. <code>sameAs</code> est <strong>la propriété la plus importante</strong> : elle liste tous tes profils externes (Wikipedia, Wikidata, LinkedIn, YouTube...) qui prouvent que tu es la même entité partout. Sans <code>sameAs</code>, ton JSON-LD reste isolé. Avec <code>sameAs</code> bien rempli, tu fais converger tes signaux.</p>
+    </div>
+
+    <div class="prose">
+      <p>Tu peux valider ton JSON-LD avec deux outils gratuits :</p>
+      <ul>
+        <li><strong>Schema Markup Validator</strong> de schema.org : vérifie la syntaxe et les propriétés autorisées</li>
+        <li><strong>Rich Results Test</strong> de Google : confirme que Google comprend bien ton entité</li>
+      </ul>
+      <p>Tu colles l'URL de ta page, ils te disent si tout est bon ou s'il y a des warnings à corriger.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 03 — 5 SCHEMAS ============================== -->
+<section class="module" id="schemas">
+  <div class="container">
+    <div class="module-header">
+      <span class="module-num">— 03 / 08</span>
+      <h2>Les <em>5 schémas</em> qui te concernent</h2>
+    </div>
+    <p class="module-lead">Schema.org définit 800+ types d'entités. Pour 95% des artistes, producteurs et labels, <strong>5 suffisent</strong>. Voilà lesquels et quand les utiliser.</p>
+
+    <div class="schemas-grid">
+      <div class="schema-card">
+        <div class="schema-icon">P</div>
+        <div class="schema-name">Person</div>
+        <h4>Toi, l'humain derrière la marque</h4>
+        <p>Le schéma de base pour décrire une personne réelle : nom, fonction, parcours, liens. À mettre sur ta page Accueil et ta page À propos. Indispensable pour tout le monde.</p>
+        <div class="schema-when">
+          <strong>Propriétés clés</strong>
+          name, jobTitle, birthDate, image, url, sameAs, worksFor, alumniOf, hasOccupation, knowsAbout
+        </div>
+      </div>
+
+      <div class="schema-card">
+        <div class="schema-icon">O</div>
+        <div class="schema-name">Organization</div>
+        <h4>Ton label, ta société, ta marque</h4>
+        <p>Pour les entités morales : ton label, ta SAS, ton agence. À combiner avec Person via la propriété <code>founder</code> ou <code>employee</code>. Indispensable si tu opères en société.</p>
+        <div class="schema-when">
+          <strong>Propriétés clés</strong>
+          name, founder, foundingDate, logo, url, sameAs, address, contactPoint, taxID (SIRET)
+        </div>
+      </div>
+
+      <div class="schema-card">
+        <div class="schema-icon">M</div>
+        <div class="schema-name">MusicGroup</div>
+        <h4>Le projet artistique (groupe ou artiste)</h4>
+        <p>Si tu es artiste ou si tu produis sous un nom d'artiste/groupe, c'est ce schéma qu'il te faut. Permet de déclarer membres, genre, albums, dates d'activité. Sous-classe de Person quand tu es solo.</p>
+        <div class="schema-when">
+          <strong>Propriétés clés</strong>
+          name, genre, member, foundingDate, album, sameAs, image, url
+        </div>
+      </div>
+
+      <div class="schema-card">
+        <div class="schema-icon">C</div>
+        <div class="schema-name">Course</div>
+        <h4>Tes formations en ligne ou en présentiel</h4>
+        <p>Pour décrire une formation comme "Cité par les IA". Permet aux IA de citer ta formation comme réponse à "quelle formation pour X". Très puissant si tu as un produit pédagogique.</p>
+        <div class="schema-when">
+          <strong>Propriétés clés</strong>
+          name, description, provider, courseCode, hasCourseInstance, educationalLevel, teaches, offers
+        </div>
+      </div>
+
+      <div class="schema-card">
+        <div class="schema-icon">B</div>
+        <div class="schema-name">Book</div>
+        <h4>Tes livres édités ou auto-édités</h4>
+        <p>Pour les livres comme "Comment vivre de sa musique" ou "Créer son label simplement". Permet d'apparaître quand quelqu'un demande "quels livres lire pour X". Indispensable si tu as publié.</p>
+        <div class="schema-when">
+          <strong>Propriétés clés</strong>
+          name, author, isbn, datePublished, publisher, numberOfPages, inLanguage, bookFormat
+        </div>
+      </div>
+
+      <div class="schema-card">
+        <div class="schema-icon">+</div>
+        <div class="schema-name">Bonus à connaître</div>
+        <h4>Article, FAQPage, BreadcrumbList</h4>
+        <p>Pour les contenus du Module 4 (articles piliers). <code>Article</code> pour chaque article, <code>FAQPage</code> pour les blocs Q/R, <code>BreadcrumbList</code> pour la navigation hiérarchique.</p>
+        <div class="schema-when">
+          <strong>À utiliser plus tard</strong>
+          On les mettra en place dans le Module 4 quand on créera tes articles piliers.
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow" style="padding: 0;">
+      <div class="callout success">
+        <div class="callout-tag">✓ Mon kit de templates JSON-LD</div>
+        <p>Pour chacun de ces 5 schémas, je te livre un <strong>template JSON-LD pré-rempli</strong> que tu n'as plus qu'à adapter avec tes infos perso. Tu copies, tu colles, tu remplaces les valeurs entre crochets, tu valides avec Schema Markup Validator. Compte 30 min par schéma maximum.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 04 — WIKIDATA ============================== -->
+<section class="module" id="wikidata">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 04 / 08</span>
+      <h2>Wikidata, ta fiche <em>pas à pas</em></h2>
+    </div>
+    <p class="module-lead">Wikidata est la base de données structurée mondiale qui alimente Wikipedia, Google, et la plupart des IA. <strong>Avoir une fiche Wikidata = exister dans le knowledge graph mondial.</strong></p>
+
+    <div class="prose">
+      <p>Bonne nouvelle : créer une fiche Wikidata est <strong>beaucoup plus accessible que créer un Wikipedia</strong>. Wikidata accepte des entités plus larges (artistes mid-tier, entrepreneurs, marques) et n'exige pas la même densité de sources secondaires. Pour la plupart des artistes pros et des fondateurs de marque, c'est faisable en 30 minutes.</p>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-circle">1</div>
+        <div>
+          <span class="step-tag">Phase 01 — Préparation</span>
+          <h4>Crée ton compte + identifie tes Q-IDs liés</h4>
+          <p>Inscris-toi sur <a href="https://www.wikidata.org" target="_blank" rel="noopener">wikidata.org</a> (1 minute). Puis identifie les Q-IDs des entités auxquelles tu vas te lier : ton label (s'il existe sur Wikidata), tes collaborateurs notables, ton lieu de naissance, tes diplômes. Ces Q-IDs sont des numéros style Q42, Q123456 — tu les trouves en cherchant directement sur Wikidata.</p>
+          <p><strong>Temps :</strong> 10-15 minutes.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-circle">2</div>
+        <div>
+          <span class="step-tag">Phase 02 — Création</span>
+          <h4>Crée ta fiche avec les bonnes propriétés</h4>
+          <p>Clique "Créer un nouvel élément". Ajoute ton libellé (ton nom), ta description courte ("producteur de musique français" — pas "génie créatif"), tes alias (ton nom d'artiste si différent). Puis ajoute les <strong>déclarations clés</strong> : <code>P31</code> instance of (human), <code>P21</code> sex or gender, <code>P27</code> country of citizenship, <code>P106</code> occupation, <code>P19</code> place of birth, <code>P569</code> date of birth.</p>
+          <p><strong>Temps :</strong> 15-20 minutes pour la base.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-circle">3</div>
+        <div>
+          <span class="step-tag">Phase 03 — Liens externes</span>
+          <h4>Lie ta fiche à tes profils web</h4>
+          <p>Section <strong>Identifiers</strong> en bas de la fiche : ajoute tes profils externes via les propriétés dédiées. <code>P1953</code> Discogs artist ID, <code>P434</code> MusicBrainz artist ID, <code>P2002</code> Twitter username, <code>P2013</code> Facebook ID, <code>P3417</code> Quora username, <code>P2031</code> work period, <code>P856</code> official website, <code>P2438</code> Spotify artist ID. <strong>Plus tu en mets, plus ton entité converge.</strong></p>
+          <p><strong>Temps :</strong> 10-15 minutes.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-tag">★ La règle des sources</div>
+      <p>Pour chaque déclaration importante, ajoute une <strong>référence</strong> (bouton "Add reference" sous chaque statement). Source idéale : un article de presse qui mentionne le fait, ou une page officielle. Sans sources, ta fiche peut être marquée comme "à vérifier" et perdre du poids dans les knowledge graphs des IA.</p>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Conséquence immédiate</div>
+      <p>Quelques heures après publication de ta fiche Wikidata, elle est indexée par Google et par la plupart des IA. Dans les 2-4 semaines, tu vois ton entité commencer à apparaître proprement dans les réponses Perplexity et ChatGPT en mode search. <strong>C'est l'investissement avec le meilleur ROI du module.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 05 — WIKIPEDIA ============================== -->
+<section class="module" id="wikipedia">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 05 / 08</span>
+      <h2>Wikipedia, rédiger ton <em>brouillon</em> en wikicode</h2>
+    </div>
+    <p class="module-lead">Wikipedia est <strong>plus exigeant que Wikidata</strong> mais infiniment plus puissant comme signal d'autorité. Une page Wikipedia te place automatiquement dans le top 1% des entités citées par les IA.</p>
+
+    <div class="callout warning">
+      <div class="callout-tag">⚠ Premier check avant tout</div>
+      <p>Wikipedia exige <strong>la notoriété démontrée par des sources secondaires indépendantes</strong>. Concrètement : tu dois avoir été cité dans au moins 2-3 articles de presse établis (Tsugi, Trax, Music Business France, Booska-P, Pure Charts, Le Monde, Libération, etc.) qui parlent de toi en sujet principal, pas en citation incidente. Si tu n'as pas ces sources, <strong>commence par le Module 6 (Earned media)</strong> avant de revenir sur Wikipedia.</p>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-circle">1</div>
+        <div>
+          <span class="step-tag">Phase 01 — Vérification d'admissibilité</span>
+          <h4>Évalue tes sources secondaires</h4>
+          <p>Liste tous les articles de presse, podcasts, livres qui t'ont mentionné de manière substantielle (pas juste cité). Pour chaque source, vérifie : <strong>indépendance</strong> (pas un blog que tu contrôles), <strong>fiabilité</strong> (média reconnu), <strong>profondeur</strong> (plus qu'une mention). Si tu as 3+ sources qui cochent les 3 cases, tu es admissible. Sinon, fais d'abord le Module 6.</p>
+          <p><strong>Temps :</strong> 30-45 minutes.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-circle">2</div>
+        <div>
+          <span class="step-tag">Phase 02 — Rédaction du brouillon</span>
+          <h4>Rédige en wikicode dans ton brouillon perso</h4>
+          <p>Inscris-toi sur Wikipedia FR. Va dans ton brouillon personnel (Spécial:MyDraft). Utilise la structure standard : <strong>infobox</strong> (modèle Personnalité ou Musicien), <strong>introduction</strong> (3-4 phrases neutres), sections <strong>Biographie</strong>, <strong>Carrière</strong>, <strong>Œuvres</strong>, <strong>Notes et références</strong>. Ton neutre, factuel, pas promotionnel. Chaque affirmation = une source citée entre <code>&lt;ref&gt;</code> tags.</p>
+          <p><strong>Temps :</strong> 4-6 heures pour un brouillon complet bien sourcé.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-circle">3</div>
+        <div>
+          <span class="step-tag">Phase 03 — Soumission + suivi</span>
+          <h4>Soumets via le bot AfC et suis les retours</h4>
+          <p>Quand le brouillon est prêt, ajoute le modèle <code>{{Brouillon AfC}}</code> en haut. Un relecteur va l'examiner sous 1 à 8 semaines (variable). Tu reçois soit l'acceptation (la page est publiée), soit un refus avec explications (sources insuffisantes, ton non-neutre, manque de notoriété). En cas de refus, corrige et resoumets — c'est normal, la majorité des brouillons passent en 2-3 itérations.</p>
+          <p><strong>Temps :</strong> 30 min de soumission + délai de relecture variable.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-tag">★ Le truc qui change tout</div>
+      <p>Quand ta page Wikipedia est publiée, ajoute la propriété <code>P31</code> (instance of) avec ton Q-ID dans Wikidata, <strong>et</strong> ajoute le lien Wikipedia dans la section "Sitelinks" de ta fiche Wikidata. Cette double connexion fait que les IA traitent ta fiche Wikidata + ton article Wikipedia comme <strong>une entité unique consolidée</strong>. C'est le moment où ton autorité explose dans le knowledge graph.</p>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Mon retour d'expérience</div>
+      <p>Pour ma fiche Wikipedia perso, j'ai eu 2 refus avant acceptation. À chaque fois, le relecteur m'a indiqué clairement ce qu'il manquait (plus de sources francophones, ton trop biographique-perso). En itérant, j'ai obtenu validation sur la 3e soumission. C'est <strong>normal et attendu</strong> — ne te décourage pas si ton premier brouillon est refusé.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 06 — COHESION CROSS-PLATEFORMES ============================== -->
+<section class="module" id="cohesion">
+  <div class="container">
+    <div class="module-header">
+      <span class="module-num">— 06 / 08</span>
+      <h2>Cohérence cross-plateformes <em>(8 minimum)</em></h2>
+    </div>
+    <p class="module-lead">Pour les IA, la <strong>convergence d'identité</strong> est un signal fort. Plus tu apparais avec la même bio, la même photo, les mêmes liens sur des plateformes différentes, plus ton entité est validée.</p>
+
+    <div class="prose">
+      <p>L'erreur classique : avoir 12 profils en ligne, tous légèrement différents. Bio Insta qui dit "music producer & creative", bio LinkedIn qui dit "Founder @ Muzisecur, ex-Sony Music", bio YouTube qui dit "On parle de music business !". Pour les IA, ce sont 3 entités potentiellement différentes. Tu te dilues toi-même.</p>
+
+      <p>La solution : une <strong>bio canonique</strong> de 200-300 mots, traduite en EN (et autres langues si pertinent), avec quelques variations de longueur (50, 100, 200, 300 mots) selon les contraintes de chaque plateforme. Photo identique partout. Liens externes vers les mêmes 3-5 destinations. <strong>Cohérence absolue.</strong></p>
+    </div>
+
+    <div class="platforms-grid">
+      <div class="platform-card">
+        <div class="platform-icon">YT</div>
+        <div class="platform-content">
+          <div class="platform-name">YouTube</div>
+          <div class="platform-tag">À propos de la chaîne</div>
+          <p class="platform-must"><strong>Bio canonique 300 mots</strong> + photo de profil pro + bannière avec ton positionnement. Liens externes : ton site + 2-3 autres. Pays correctement renseigné.</p>
+        </div>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-icon">IN</div>
+        <div class="platform-content">
+          <div class="platform-name">Instagram</div>
+          <div class="platform-tag">Bio + lien</div>
+          <p class="platform-must"><strong>Bio canonique 150 caractères</strong> (compressed version) + photo identique + lien vers ton site (pas Linktree, ton site direct). Pro account activé.</p>
+        </div>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-icon">LI</div>
+        <div class="platform-content">
+          <div class="platform-name">LinkedIn</div>
+          <div class="platform-tag">Headline + About</div>
+          <p class="platform-must"><strong>Headline = ton jobTitle exact</strong> (cohérent avec ton JSON-LD). Section "About" = ta bio canonique 300 mots. Photo pro identique. URL personnalisée propre.</p>
+        </div>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-icon">SP</div>
+        <div class="platform-content">
+          <div class="platform-name">Spotify for Artists</div>
+          <div class="platform-tag">Bio artiste</div>
+          <p class="platform-must"><strong>Bio courte 1500 caractères max</strong> + photo pro identique + liens vers Insta, YouTube, ton site. À jour avec ton dernier projet.</p>
+        </div>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-icon">IM</div>
+        <div class="platform-content">
+          <div class="platform-name">IMDb</div>
+          <div class="platform-tag">Profil pro (si applicable)</div>
+          <p class="platform-must"><strong>Pour les artistes ayant fait du sync placement</strong>, du composing pour film/série/pub. Inscription via IMDbPro. Bio + filmographie + photo identique.</p>
+        </div>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-icon">DI</div>
+        <div class="platform-content">
+          <div class="platform-name">Discogs</div>
+          <div class="platform-tag">Profil artiste</div>
+          <p class="platform-must"><strong>Indispensable pour producteurs et labels.</strong> Profil avec bio, photo, discographie complète. Liens vers ton site et autres plateformes.</p>
+        </div>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-icon">MB</div>
+        <div class="platform-content">
+          <div class="platform-name">MusicBrainz</div>
+          <div class="platform-tag">Base de données ouverte</div>
+          <p class="platform-must"><strong>L'équivalent Wikidata pour la musique.</strong> Très consulté par les IA. Crée ton profil artiste, lie ta discographie, ajoute les ISRCs si tu les as.</p>
+        </div>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-icon">AP</div>
+        <div class="platform-content">
+          <div class="platform-name">Apple Music for Artists</div>
+          <div class="platform-tag">Bio + portrait</div>
+          <p class="platform-must"><strong>Bio identique à Spotify</strong> + photo pro. Importante pour les recherches "artistes similaires" sur Apple. Réclame ton compte si pas déjà fait.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow" style="padding: 0;">
+      <div class="callout success">
+        <div class="callout-tag">✓ Méthode pratique</div>
+        <p>Crée un fichier "bio-canonique.txt" sur ton ordinateur avec 4 versions de ta bio (50, 150, 300 mots, EN/FR). Crée un dossier "photos-pro" avec 3 versions de ta photo (carrée, portrait, paysage). Crée une note "liens-canoniques" avec tes 5 liens prioritaires. <strong>Quand tu mets à jour une plateforme, tu copies depuis ces 3 sources.</strong> Cohérence garantie sans avoir à se souvenir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 07 — KNOWLEDGE PANEL ============================== -->
+<section class="module" id="knowledge-panel">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 07 / 08</span>
+      <h2>Le <em>Knowledge Panel</em> Google</h2>
+    </div>
+    <p class="module-lead">Le Knowledge Panel, c'est cette carte qui apparaît à droite des résultats Google quand tu cherches une personne ou une marque connue. C'est <strong>le signal d'autorité ultime</strong> aux yeux des IA.</p>
+
+    <div class="kp-viz">
+      <p style="margin-bottom: 0; font-size: 0.92rem; color: var(--ink-muted);"><strong style="color: var(--accent);">À quoi ça ressemble :</strong></p>
+      <div class="kp-mockup">
+        <div class="kp-mockup-search">tarik hamiche</div>
+        <div class="kp-mockup-card">
+          <div class="kp-mockup-name">Tarik Hamiche</div>
+          <div class="kp-mockup-role">Producteur de musique</div>
+          <div class="kp-mockup-bio">Tarik Hamiche est un producteur de musique français, fondateur de Producteur à Succès et Muzisecur, deux marques dédiées à l'industrie musicale indépendante.</div>
+          <div class="kp-mockup-fields">
+            <div><strong>Né le</strong>1985</div>
+            <div><strong>Nationalité</strong>Française</div>
+            <div><strong>Profession</strong>Producteur, fondateur</div>
+            <div><strong>Sites</strong>producteurasucces.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Le Knowledge Panel n'apparaît pas sur demande. Il se déclenche <strong>automatiquement</strong> quand Google considère que ton entité a accumulé assez de signaux convergents :</p>
+      <ul>
+        <li><strong>Entité Wikidata</strong> avec un Q-ID rempli</li>
+        <li><strong>Article Wikipedia</strong> publié et stable depuis 1+ mois</li>
+        <li><strong>Site personnel</strong> avec JSON-LD Person/Organization correct</li>
+        <li><strong>Présence cohérente</strong> sur 8+ plateformes externes</li>
+        <li><strong>Citations dans la presse</strong> (au moins 3-5 articles bien sourcés)</li>
+      </ul>
+      <p>Une fois ces 5 piliers en place, Google met généralement <strong>3 à 6 mois</strong> pour générer ton Knowledge Panel. C'est variable selon la fréquence de re-crawl et la cohérence des signaux. <strong>Patience et constance.</strong></p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-tag">★ Le claim process</div>
+      <p>Une fois ton Knowledge Panel apparu, tu peux le <strong>revendiquer</strong> via ton compte Google. En bas à droite du panel, tu verras "Vous représentez cette personne ?" — clique, vérifie ton identité (preuve via tes profils Twitter, YouTube, Wikipedia officiels), et tu obtiens le contrôle. À partir de là, tu peux suggérer des modifications, mettre à jour la photo, corriger les infos. <strong>Sans claim, tu n'as aucun contrôle sur ce qui s'affiche.</strong></p>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Pourquoi c'est l'aboutissement</div>
+      <p>Quand tu as ton Knowledge Panel, tu deviens une entité de référence dans le graph Google. <strong>Ça multiplie ton autorité aux yeux de toutes les IA</strong> qui s'appuient sur ce graph (ChatGPT en mode search, Perplexity, Gemini, Claude). Tes citations augmentent mécaniquement de 30-50% sur les requêtes nominatives. C'est l'objectif final du module.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 08 — DELIVERABLE ============================== -->
+<section class="module" id="deliverable">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 08 / 08</span>
+      <h2>Livrable — ton <em>entité complète</em> déployée</h2>
+    </div>
+    <p class="module-lead">Ce module est dense — c'est normal, c'est <strong>le module qui justifie le prix</strong>. À la fin, tu dois cocher chacun de ces 10 items. Si tu en coches moins de 7, ne passe pas au Module 4. Sans entité, le contenu ne porte pas.</p>
+
+    <div class="checklist">
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">JSON-LD Person installé sur ton site</div>
+        <div class="check-desc">Sur ta page Accueil et ta page À propos, validé via Schema Markup Validator (zéro erreur)</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">JSON-LD Organization (si pro)</div>
+        <div class="check-desc">Schéma Organization avec founder, taxID (SIRET), contactPoint, sameAs vers tes profils</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">JSON-LD MusicGroup, Course, Book si applicable</div>
+        <div class="check-desc">Selon ton profil : MusicGroup pour artistes, Course pour formations, Book pour livres édités</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">Fiche Wikidata créée et publiée</div>
+        <div class="check-desc">Q-ID attribué, propriétés clés remplies (P31, P21, P27, P106, P19, P569), 5+ identifiers externes</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">Brouillon Wikipedia rédigé</div>
+        <div class="check-desc">Brouillon complet avec infobox, intro neutre, sections sourcées. Soumis via {{Brouillon AfC}} (validation peut prendre 4-8 semaines)</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">Bio canonique rédigée (4 longueurs)</div>
+        <div class="check-desc">50 mots, 150 mots, 300 mots, en FR + EN. Stockée dans ton fichier bio-canonique.txt</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">Photo pro identique sur 8+ plateformes</div>
+        <div class="check-desc">YouTube, Instagram, LinkedIn, Spotify for Artists, IMDb, Discogs, MusicBrainz, Apple Music for Artists</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">Bio canonique déployée sur 8+ plateformes</div>
+        <div class="check-desc">Version adaptée à la longueur de chaque plateforme, mais message et infos identiques</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">Liens externes croisés cohérents</div>
+        <div class="check-desc">Chaque plateforme pointe vers ton site + 2-3 autres plateformes. Wikidata référence Wikipedia + ton site. Convergence totale.</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">Test final dans Perplexity & ChatGPT</div>
+        <div class="check-desc">Tape ton nom + "qui est X". L'IA doit sortir une réponse cohérente avec photo, fonction, projets. Sinon, identifie ce qui manque.</div>
+      </div></div>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Comment lire ton score</div>
+      <p><strong>10/10</strong> : ton entité est solidement construite — tu peux passer au Module 4 (contenu citable). Le Knowledge Panel arrivera naturellement dans 3-6 mois. <strong>7-9/10</strong> : ton entité est correcte, identifie les manques et corrige. <strong>Moins de 7/10</strong> : ne passe pas au Module 4 — sans entité reconnue, ton contenu ne sera pas attribué à toi par les IA.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== RECAP ============================== -->
+<section class="recap">
+  <div class="container-narrow">
+    <div class="section-label" style="color: var(--accent-line);">Synthèse</div>
+    <h3>Ce que tu dois retenir de ce module</h3>
+    <ol class="recap-list">
+      <li>Une <strong>entité reconnue</strong> est radicalement différente d'un site. C'est la condition pour être cité de manière fiable par les IA sur des requêtes nominatives.</li>
+      <li><strong>JSON-LD</strong> est le code qui parle aux IA. La propriété <code>sameAs</code> est la plus importante : elle fait converger tes signaux externes.</li>
+      <li>Cinq schémas suffisent : <strong>Person, Organization, MusicGroup, Course, Book</strong>. À combiner selon ton profil.</li>
+      <li><strong>Wikidata</strong> est ton premier pas dans le knowledge graph mondial. 30 minutes suffisent pour créer une fiche basique. Très bon ROI.</li>
+      <li><strong>Wikipedia</strong> exige des sources secondaires solides. Si tu n'en as pas, fais le Module 6 (Earned media) d'abord.</li>
+      <li>La <strong>cohérence cross-plateformes</strong> sur 8+ plateformes (bio, photo, liens) est le signal de convergence qui valide ton entité aux yeux des IA.</li>
+      <li>Le <strong>Knowledge Panel Google</strong> apparaît automatiquement quand les 5 piliers sont en place. Compte 3-6 mois après mise en place.</li>
+      <li>Ce module est <strong>structurel</strong> : sans entité, le contenu (Module 4) et les signaux d'autorité (Modules 5-6) ne portent pas. Ne saute pas d'étape.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================== NEXT CTA ============================== -->
+<div class="next-cta">
+  <h3>Prêt pour le <em>Module 04</em> ?</h3>
+  <p>Produire du contenu citable — la structure exacte d'un article que les IA citent, et comment écrire pour devenir la meilleure réponse possible.</p>
+  <a href="https://ia.producteurasucces.com/" class="btn btn-primary">Retour à la formation</a>
+</div>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="site-footer">
+  <div class="container">
+    © 2026 Tarik Hamiche — Producteur à Succès • <a href="https://drive.google.com/file/d/1j34jogzEWH8ggeVDIT8qRimJGh30SV38/view?usp=sharing" target="_blank" rel="noopener">Mentions légales &amp; Confidentialité</a> • <a href="https://drive.google.com/file/d/1POBlG9RlTZgRYuJWRe_bHUIqdLE2vpVn/view?usp=sharing" target="_blank" rel="noopener">CGV</a> • <a href="mailto:tarik@producteurasucces.com">Contact</a>
+  </div>
+</footer>
+
+<!-- ============================== CRISP CHAT ============================== -->
+<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="1c4155b7-339c-4746-99b4-8d1a09e952ad";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+
+<!-- ============================== JS ============================== -->
+<script>
+  // Progress bar
+  (function(){
+    const bar = document.getElementById('progress-bar');
+    if (!bar) return;
+    function update(){
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      bar.style.width = progress + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+
+  // Checklist toggle
+  (function(){
+    document.querySelectorAll('.check-item').forEach(function(item){
+      item.addEventListener('click', function(){ item.classList.toggle('checked'); });
+    });
+  })();
+
+  // Fade-in on scroll
+  (function(){
+    if (!('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('section.module, .toc-section, .recap, .next-cta').forEach(function(el){
+      el.classList.add('fade-up');
+      observer.observe(el);
+    });
+  })();
+</script>
+
+</body>
+</html>
