@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Module 06 — Qwoted, HARO, Featured et presse spé pour earned media. Décrocher 3 à 5 citations dans des médias en 30 jours, qui deviennent des signaux GEO premium." />
+<title>Module 06 — Earned media (Qwoted, HARO, presse spé) | Cité par les IA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #F7F1E8; --bg-soft: #FCF8F2; --bg-card: #FFFFFF;
+    --ink: #1F1A15; --ink-soft: #5C4F42; --ink-muted: #8A7A6A;
+    --accent: #5B14FF; --accent-dark: #4910CC; --accent-soft: #EDE9FE; --accent-line: #A78BFA;
+    --border: #E8DDC9; --border-soft: #F0E6D4;
+    --warning: #C2410C; --warning-soft: #FFEDD5;
+    --success: #15803D; --success-soft: #DCFCE7;
+    --shadow-sm: 0 1px 2px rgba(31, 26, 21, 0.04);
+    --shadow-md: 0 4px 16px rgba(31, 26, 21, 0.06);
+    --shadow-lg: 0 16px 48px rgba(31, 26, 21, 0.08);
+    --radius-sm: 8px; --radius-md: 14px; --radius-lg: 24px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-text-size-adjust: 100%; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.65; font-size: 17px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+  h1, h2, h3, h4 { font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 800; line-height: 1.1; letter-spacing: -0.035em; color: var(--ink); }
+  h1 { font-size: clamp(2.4rem, 5.5vw, 4rem); line-height: 1.05; }
+  h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); }
+  h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 700; }
+  h4 { font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
+  p { margin-bottom: 1.1rem; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 700; }
+  em { font-style: normal; color: var(--accent); font-weight: 800; }
+  a { color: var(--accent); text-decoration: none; transition: color .15s ease; }
+  a:hover { color: var(--accent-dark); }
+  code { font-family: 'JetBrains Mono', monospace; background: var(--accent-soft); color: var(--accent-dark); padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.85em; }
+
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+  .container-narrow { max-width: 760px; margin: 0 auto; padding: 0 1.5rem; }
+
+  .progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent-line)); z-index: 9999; transition: width 0.1s ease; }
+
+  header.top-nav { position: sticky; top: 0; background: rgba(247, 241, 232, 0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-soft); z-index: 100; }
+  .nav-inner { max-width: 1080px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .brand-mark { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 1rem; letter-spacing: -0.02em; color: var(--ink); }
+  .brand-mark em { color: var(--accent); font-style: normal; }
+  .nav-meta { display: flex; gap: 1rem; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-muted); }
+  .nav-meta span:not(:last-child)::after { content: '·'; margin-left: 1rem; color: var(--border); }
+  @media (max-width: 600px) { .nav-meta { display: none; } }
+
+  .hero { padding: 5rem 0 4rem; position: relative; overflow: hidden; text-align: center; }
+  .hero::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 700px; height: 700px; background: radial-gradient(circle, rgba(167, 139, 250, 0.22) 0%, transparent 65%); border-radius: 50%; pointer-events: none; }
+  .hero::after { content: ''; position: absolute; bottom: -150px; right: -150px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(91, 20, 255, 0.14) 0%, transparent 65%); border-radius: 50%; pointer-events: none; }
+  .hero-inner { max-width: 880px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1; }
+  .hero-tag { display: inline-block; background: var(--bg-card); border: 1px solid var(--border); padding: 0.5rem 1.1rem; border-radius: 999px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 1.8rem; box-shadow: var(--shadow-sm); }
+  .hero h1 { margin-bottom: 1.5rem; }
+  .hero-lead { font-size: clamp(1.1rem, 1.7vw, 1.3rem); color: var(--ink-soft); max-width: 720px; margin: 0 auto 3rem; line-height: 1.55; }
+
+  .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; max-width: 880px; margin: 3rem auto 0; }
+  .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem 1rem; text-align: center; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .stat-num { font-family: 'Manrope', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; color: var(--accent); line-height: 1; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
+  .stat-label { font-size: 0.82rem; color: var(--ink-soft); line-height: 1.35; }
+  @media (max-width: 720px) { .hero-stats { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 420px) { .hero-stats { grid-template-columns: 1fr; } }
+
+  .section-label { display: inline-block; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 1.5rem; }
+
+  .toc-section { padding: 4rem 0; background: var(--bg-soft); border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); text-align: center; }
+  .toc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; max-width: 800px; margin: 1rem auto 0; }
+  .toc-item { display: flex; align-items: center; gap: 1rem; padding: 1.1rem 1.3rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); text-align: left; color: var(--ink); transition: all 0.15s ease; }
+  .toc-item:hover { border-color: var(--accent); transform: translateX(2px); box-shadow: var(--shadow-sm); color: var(--ink); }
+  .toc-num { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--accent); flex-shrink: 0; width: 36px; }
+  .toc-title { font-weight: 600; font-size: 0.95rem; line-height: 1.3; }
+  @media (max-width: 600px) { .toc-grid { grid-template-columns: 1fr; } }
+
+  section.module { padding: 6rem 0; position: relative; overflow: hidden; }
+  section.module:nth-child(even) { background: var(--bg-soft); border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
+  section.module::before { content: ''; position: absolute; top: 10%; right: -180px; width: 480px; height: 480px; background: radial-gradient(circle, rgba(167, 139, 250, 0.16) 0%, transparent 65%); border-radius: 50%; pointer-events: none; z-index: 0; }
+  section.module > .container, section.module > .container-narrow { position: relative; z-index: 1; }
+  .module-header { margin-bottom: 2.5rem; }
+  .module-num { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--accent); letter-spacing: 0.05em; margin-bottom: 0.6rem; display: block; }
+  .module-lead { font-size: 1.15rem; color: var(--ink-soft); margin: 1.5rem 0 2.5rem; line-height: 1.55; max-width: 720px; }
+
+  .prose p { font-size: 1.05rem; line-height: 1.7; color: var(--ink-soft); margin-bottom: 1.3rem; }
+  .prose p strong { color: var(--ink); }
+  .prose ul { margin: 1rem 0 1.5rem; padding-left: 1.5rem; color: var(--ink-soft); line-height: 1.7; }
+  .prose ul li { margin-bottom: 0.6rem; }
+  .prose ul li strong { color: var(--ink); }
+
+  .callout { background: var(--bg-card); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius-md); padding: 1.6rem 1.8rem; margin: 2rem 0; box-shadow: var(--shadow-sm); }
+  .callout.warning { border-left-color: var(--warning); background: linear-gradient(135deg, var(--warning-soft) 0%, var(--bg-card) 60%); }
+  .callout.success { border-left-color: var(--success); background: linear-gradient(135deg, var(--success-soft) 0%, var(--bg-card) 60%); }
+  .callout-tag { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 0.6rem; }
+  .callout.warning .callout-tag { color: var(--warning); }
+  .callout.success .callout-tag { color: var(--success); }
+  .callout p { margin: 0; color: var(--ink); line-height: 1.55; }
+
+  .flow { margin: 2.5rem 0; display: flex; flex-direction: column; gap: 1.5rem; }
+  .flow-step { display: flex; gap: 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.8rem; box-shadow: var(--shadow-sm); transition: border-color 0.2s ease; }
+  .flow-step:hover { border-color: var(--accent-line); }
+  .flow-circle { flex-shrink: 0; width: 60px; height: 60px; border-radius: 50%; background: var(--accent); color: #FFF; display: flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 1.6rem; box-shadow: 0 6px 20px rgba(91, 20, 255, 0.3); }
+  .flow-step > div:last-child { flex: 1; min-width: 0; }
+  .step-tag { display: inline-block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-muted); margin-bottom: 0.4rem; }
+  .flow-step h4 { margin-bottom: 0.6rem; }
+  .flow-step p { margin: 0 0 0.8rem; line-height: 1.55; }
+  .flow-step p:last-child { margin-bottom: 0; }
+
+  /* Platforms (Qwoted, HARO, etc.) */
+  .platforms-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin: 2rem 0; }
+  .platform-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.8rem; box-shadow: var(--shadow-sm); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .platform-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .platform-card.featured { border: 2px solid var(--accent); background: linear-gradient(180deg, var(--accent-soft) 0%, var(--bg-card) 50%); }
+  .platform-name { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 0.3rem; }
+  .platform-tag { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--border); }
+  .platform-spec { display: flex; gap: 0.8rem; padding: 0.5rem 0; font-size: 0.9rem; line-height: 1.45; }
+  .platform-spec-label { flex-shrink: 0; width: 80px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); padding-top: 0.2rem; }
+  .platform-spec-value { flex: 1; color: var(--ink-soft); }
+  .platform-spec-value strong { color: var(--ink); }
+  @media (max-width: 800px) { .platforms-grid { grid-template-columns: 1fr; } }
+
+  /* Press cards (FR media) */
+  .press-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 2rem 0; }
+  .press-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.4rem 1.5rem; box-shadow: var(--shadow-sm); transition: border-color 0.15s ease; }
+  .press-card:hover { border-color: var(--accent-line); }
+  .press-name { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+  .press-type { font-size: 0.72rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0.7rem; }
+  .press-data { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.45; margin-bottom: 0.5rem; }
+  .press-data strong { color: var(--ink); }
+  .press-angle { font-size: 0.78rem; color: var(--ink-muted); font-style: italic; padding-top: 0.5rem; border-top: 1px dashed var(--border-soft); }
+
+  /* Pitch template */
+  .pitch-block { background: #1a1612; color: #e5e7eb; padding: 1.6rem 1.8rem; border-radius: var(--radius-md); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.7; margin: 1.5rem 0; border: 1px solid var(--border); }
+  .pitch-section { margin-bottom: 1rem; }
+  .pitch-section:last-child { margin-bottom: 0; }
+  .pitch-label { font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-line); margin-bottom: 0.4rem; }
+  .pitch-text { color: #e5e7eb; }
+  .pitch-text em { color: #fde68a; font-style: normal; font-weight: 600; }
+
+  /* Comparison good vs bad */
+  .compare-good-bad { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin: 2rem 0; }
+  .compare-side { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.6rem; box-shadow: var(--shadow-sm); }
+  .compare-side.bad { border-left: 4px solid var(--warning); }
+  .compare-side.good { border-left: 4px solid var(--success); }
+  .compare-side-tag { font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.8rem; }
+  .compare-side.bad .compare-side-tag { color: var(--warning); }
+  .compare-side.good .compare-side-tag { color: var(--success); }
+  .compare-side h4 { margin-bottom: 0.6rem; }
+  .compare-side p { font-size: 0.9rem; line-height: 1.5; margin: 0; color: var(--ink-soft); }
+  .compare-side p strong { color: var(--ink); }
+  @media (max-width: 720px) { .compare-good-bad { grid-template-columns: 1fr; } }
+
+  /* As featured in mockup */
+  .featured-mockup { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 2.5rem 2rem; margin: 2rem 0; box-shadow: var(--shadow-sm); text-align: center; }
+  .featured-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink-muted); margin-bottom: 1.5rem; }
+  .featured-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem 2.5rem; }
+  .featured-logo { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--ink); letter-spacing: -0.02em; opacity: 0.7; transition: opacity 0.2s ease; }
+  .featured-logo:hover { opacity: 1; color: var(--accent); }
+
+  /* Checklist */
+  .checklist { display: flex; flex-direction: column; gap: 0.7rem; margin: 2rem 0; }
+  .check-item { display: flex; gap: 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.2rem 1.4rem; cursor: pointer; user-select: none; transition: border-color 0.15s ease, background 0.15s ease; }
+  .check-item:hover { border-color: var(--accent-line); }
+  .check-item.checked { background: var(--success-soft); border-color: var(--success); }
+  .check-box { flex-shrink: 0; width: 24px; height: 24px; border: 2px solid var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: transparent; background: var(--bg-soft); transition: all 0.15s ease; margin-top: 0.15rem; }
+  .check-item.checked .check-box { background: var(--success); border-color: var(--success); color: #FFF; }
+  .check-content { flex: 1; min-width: 0; }
+  .check-title { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 1rem; color: var(--ink); margin-bottom: 0.2rem; line-height: 1.4; }
+  .check-desc { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.4; }
+
+  .recap { background: var(--ink); color: rgba(247, 241, 232, 0.9); padding: 4rem 0; margin-top: 4rem; position: relative; overflow: hidden; }
+  .recap::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(91, 20, 255, 0.25) 0%, transparent 60%); border-radius: 50%; pointer-events: none; }
+  .recap > .container { position: relative; z-index: 1; }
+  .recap h3 { font-size: clamp(1.5rem, 3vw, 2rem); color: #FFF; margin-bottom: 1.5rem; }
+  .recap-list { list-style: none; counter-reset: item; display: flex; flex-direction: column; gap: 1rem; max-width: 760px; }
+  .recap-list li { counter-increment: item; padding-left: 3rem; position: relative; line-height: 1.55; color: rgba(247, 241, 232, 0.85); }
+  .recap-list li::before { content: counter(item, decimal-leading-zero); position: absolute; left: 0; top: 0.05em; font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 0.95rem; color: var(--accent-line); letter-spacing: -0.02em; }
+  .recap-list li strong { color: #FFF; }
+
+  .next-cta { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem; margin: 4rem auto; max-width: 760px; text-align: center; box-shadow: var(--shadow-md); }
+  .next-cta h3 { margin-bottom: 1rem; }
+  .next-cta p { margin-bottom: 1.5rem; font-size: 1.05rem; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; padding: 1.1rem 2.2rem; font-family: 'Manrope', sans-serif; font-size: 1rem; font-weight: 800; border-radius: 999px; border: none; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); text-align: center; line-height: 1; text-transform: uppercase; letter-spacing: 0.05em; }
+  .btn-primary { background: var(--accent); color: #FFF; box-shadow: 0 6px 20px rgba(91, 20, 255, 0.3); }
+  .btn-primary:hover { background: var(--accent-dark); color: #FFF; transform: translateY(-1px); box-shadow: 0 10px 28px rgba(91, 20, 255, 0.4); }
+
+  footer.site-footer { background: var(--ink); color: rgba(247, 241, 232, 0.5); padding: 2.5rem 0; text-align: center; font-size: 0.88rem; border-top: 1px solid rgba(247, 241, 232, 0.08); }
+  footer.site-footer a { color: rgba(247, 241, 232, 0.7); }
+
+  @media (max-width: 860px) {
+    section.module { padding: 4rem 0; }
+    .toc-section { padding: 3rem 0; }
+    .module-header { margin-bottom: 1.8rem; }
+    .module-lead { font-size: 1.05rem; margin: 1rem 0 1.8rem; }
+    .flow-step { padding: 1.4rem; gap: 1rem; }
+    .flow-circle { width: 48px; height: 48px; font-size: 1.3rem; }
+    .next-cta { padding: 1.8rem 1.4rem; }
+    .recap-list li { padding-left: 2.4rem; }
+    section.module::before { width: 320px !important; height: 320px !important; }
+    .pitch-block { font-size: 0.78rem; padding: 1.2rem 1.4rem; }
+  }
+  @media (max-width: 480px) {
+    .hero { padding: 3rem 0 2.5rem; }
+    .hero h1 { font-size: 2rem; }
+    .flow-step { flex-direction: column; gap: 0.8rem; }
+    .flow-circle { align-self: flex-start; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress-bar"></div>
+
+<header class="top-nav">
+  <div class="nav-inner">
+    <a href="https://ia.producteurasucces.com/" class="brand-mark">Cité par les <em>IA</em></a>
+    <div class="nav-meta">
+      <span>Module 06 / 06</span>
+      <span>Producteur à Succès</span>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-tag">Module 06 — Earned media</span>
+    <h1>Décrocher <em>3 à 5 citations médias</em> en 30 jours.</h1>
+    <p class="hero-lead">Les citations dans des médias établis pèsent énormément pour les IA — elles surpondèrent les domaines à autorité. Qwoted, HARO, Featured, Source of Sources, plus la presse spé musique française. <strong>Un mois suffit pour décrocher tes 3 à 5 premières citations.</strong></p>
+
+    <div class="hero-stats">
+      <div class="stat-card"><div class="stat-num">3-5</div><div class="stat-label">Citations médias à décrocher en 30 jours</div></div>
+      <div class="stat-card"><div class="stat-num">5+</div><div class="stat-label">Plateformes earned media à activer</div></div>
+      <div class="stat-card"><div class="stat-num">30 min</div><div class="stat-label">Routine quotidienne de monitoring + pitch</div></div>
+      <div class="stat-card"><div class="stat-num">46+</div><div class="stat-label">Journalistes FR musique mappés (livrable inclus)</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="toc-section">
+  <div class="container-narrow">
+    <div class="section-label">Plan du module</div>
+    <div class="toc-grid">
+      <a href="#why-press" class="toc-item"><span class="toc-num">01</span><span class="toc-title">Pourquoi les citations médias pèsent énormément</span></a>
+      <a href="#platforms" class="toc-item"><span class="toc-num">02</span><span class="toc-title">Tour des 5 plateformes earned media</span></a>
+      <a href="#qwoted" class="toc-item"><span class="toc-num">03</span><span class="toc-title">Profil expert Qwoted optimisé</span></a>
+      <a href="#pitch" class="toc-item"><span class="toc-num">04</span><span class="toc-title">La méthode de pitch qui convertit</span></a>
+      <a href="#routine" class="toc-item"><span class="toc-num">05</span><span class="toc-title">Routine quotidienne 30 min</span></a>
+      <a href="#fr-press" class="toc-item"><span class="toc-num">06</span><span class="toc-title">Pitcher la presse FR en direct</span></a>
+      <a href="#featured-page" class="toc-item"><span class="toc-num">07</span><span class="toc-title">Ta page Press, mode "As featured in"</span></a>
+      <a href="#deliverable" class="toc-item"><span class="toc-num">08</span><span class="toc-title">Livrable, profil + 5 pitches + base + page</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- 01 Why press -->
+<section class="module" id="why-press">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 01 / 08</span>
+      <h2>Pourquoi les <em>citations médias</em> pèsent énormément</h2>
+    </div>
+    <p class="module-lead">Une citation dans Tsugi, Trax, Music Business France ou IFPI vaut <strong>100 fois</strong> une mention sur ton propre site. Les LLMs surpondèrent massivement les domaines à autorité éditoriale — c'est la règle d'or du GEO premium.</p>
+
+    <div class="prose">
+      <p>Les IA ont été entraînées avec un ranking implicite des sources. Une info trouvée sur un blog perso a un poids X. La même info trouvée sur un domaine d'autorité (Wikipedia, Le Monde, IFPI, Music Business Worldwide) a un poids 5X à 50X selon les modèles. C'est ce qui s'appelle <strong>l'autorité de domaine appliquée au sourçage IA</strong>.</p>
+
+      <p>Concrètement, voici ce que tu obtiens avec 3-5 citations médias bien placées :</p>
+      <ul>
+        <li><strong>Multiplication des citations IA par 3-5×</strong> sur les requêtes liées à ton expertise</li>
+        <li><strong>Ton entité gagne en crédibilité</strong> dans le knowledge graph (signal d'autorité externe convergent)</li>
+        <li><strong>Effet boule de neige presse</strong> — d'autres journalistes te repèrent et te recontactent</li>
+        <li><strong>Page Press solide sur ton site</strong> — élément de social proof premium pour les humains aussi</li>
+      </ul>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ La règle d'or earned vs owned vs paid</div>
+      <p>Ton site (owned media) = tu contrôles, mais autorité limitée. Pubs (paid media) = visibilité, zéro autorité GEO. <strong>Earned media (citations presse) = jackpot</strong> — tu obtiens à la fois la visibilité ET l'autorité de domaine. C'est le canal avec le meilleur ratio effort/autorité IA de toute la formation.</p>
+    </div>
+
+    <div class="callout warning">
+      <div class="callout-tag">⚠ Pré-requis</div>
+      <p>Avant de pitcher la presse, tu dois avoir : <strong>(1) ton site GEO-ready</strong> (Module 2), <strong>(2) ton entité construite</strong> (Module 3), <strong>(3) au moins 2-3 articles piliers publiés</strong> (Module 4). Sans ça, les journalistes vont chercher tes infos, ne trouveront rien de propre, et passeront leur tour.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 Platforms -->
+<section class="module" id="platforms">
+  <div class="container">
+    <div class="module-header">
+      <span class="module-num">— 02 / 08</span>
+      <h2>Tour des <em>5 plateformes</em> earned media</h2>
+    </div>
+    <p class="module-lead">Ces plateformes sont des marketplaces où des journalistes postent leurs demandes de sources/experts. Tu réponds, tu te fais citer. <strong>Le modèle a explosé depuis 2022.</strong></p>
+
+    <div class="platforms-grid">
+      <div class="platform-card featured">
+        <div class="platform-name">Qwoted</div>
+        <div class="platform-tag">Recommandé · Meilleur ROI</div>
+        <div class="platform-spec"><span class="platform-spec-label">Type</span><span class="platform-spec-value">Marketplace experts ↔ journalistes US/UK. Profil détaillé avec credentials.</span></div>
+        <div class="platform-spec"><span class="platform-spec-label">Volume</span><span class="platform-spec-value">10-50 nouvelles requêtes par jour, dont 2-5 pertinentes pour le music business.</span></div>
+        <div class="platform-spec"><span class="platform-spec-label">Tarif</span><span class="platform-spec-value">Free tier limité (3 pitches/mois), payant à partir de $99/mois pour usage sérieux.</span></div>
+        <div class="platform-spec"><span class="platform-spec-label">Forte sur</span><span class="platform-spec-value">Médias business, tech, marketing, entrepreneurship — souvent applicable au music biz.</span></div>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-name">Featured.com</div>
+        <div class="platform-tag">Marketplace experts</div>
+        <div class="platform-spec"><span class="platform-spec-label">Type</span><span class="platform-spec-value">Plateforme où des journalistes/blogueurs cherchent des citations sur des sujets précis.</span></div>
+        <div class="platform-spec"><span class="platform-spec-label">Volume</span><span class="platform-spec-value">5-20 nouvelles requêtes/jour. Plus orienté contenu publié sur des médias online.</span></div>
+        <div class="platform-spec"><span class="platform-spec-label">Tarif</span><span class="platform-spec-value">Freemium. Plan gratuit fonctionnel pour démarrer.</span></div>
+        <div class="platform-spec"><span class="platform-spec-label">Forte sur</span><span class="platform-spec-value">Articles SEO type listicles, "experts say" articles, citations courtes.</span></div>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-name">Source of Sources</div>
+        <div class="platform-tag">Successeur de HARO (gratuit)</div>
+        <div class="platform-spec"><span class="platform-spec-label">Type</span><span class="platform-spec-value">Newsletter quotidienne par mail avec les requêtes journalistes du jour.</span></div>
+        <div class="platform-spec"><span class="platform-spec-label">Volume</span><span class="platform-spec-value">1 mail/jour avec 30-50 requêtes triées par catégorie. Très fort en US/UK media.</span></div>
+        <div class="platform-spec"><span class="platform-spec-label">Tarif</span><span class="platform-spec-value">Gratuit (lancé après la fermeture de HARO en 2024).</span></div>
+        <div class="platform-spec"><span class="platform-spec-label">Forte sur</span><span class="platform-spec-value">Médias mainstream US, format texte simple, réponse par email direct au journaliste.</span></div>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-name">JournoRequest sur X</div>
+        <div class="platform-tag">Hashtag à monitorer</div>
+        <div class="platform-spec"><span class="platform-spec-label">Type</span><span class="platform-spec-value">Hashtags <code>#JournoRequest</code> et <code>#PRRequest</code> sur X (Twitter).</span></div>
+        <div class="platform-spec"><span class="platform-spec-label">Volume</span><span class="platform-spec-value">100+ tweets par jour. Beaucoup de bruit, mais des perles.</span></div>
+        <div class="platform-spec"><span class="platform-spec-label">Tarif</span><span class="platform-spec-value">Gratuit. Compte X recommandé.</span></div>
+        <div class="platform-spec"><span class="platform-spec-label">Forte sur</span><span class="platform-spec-value">Réactivité immédiate — les journalistes qui tweetent ça veulent une réponse dans l'heure.</span></div>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-name">Help a B2B Writer</div>
+        <div class="platform-tag">Niche B2B / business</div>
+        <div class="platform-spec"><span class="platform-spec-label">Type</span><span class="platform-spec-value">Plateforme spécialisée pour les contenus B2B et pro.</span></div>
+        <div class="platform-spec"><span class="platform-spec-label">Volume</span><span class="platform-spec-value">5-15 requêtes/jour, très ciblées contenu pro et expertise verticale.</span></div>
+        <div class="platform-spec"><span class="platform-spec-label">Tarif</span><span class="platform-spec-value">Gratuit pour les sources (payant côté writer).</span></div>
+        <div class="platform-spec"><span class="platform-spec-label">Forte sur</span><span class="platform-spec-value">Pour pro du music business côté entrepreneur/SaaS/services. Moins pour artistes purs.</span></div>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-name">+ Bonus</div>
+        <div class="platform-tag">À surveiller</div>
+        <div class="platform-spec"><span class="platform-spec-label">Type</span><span class="platform-spec-value">Terkel, ResponseSource (UK), Prowly, Muck Rack, Cision (premium).</span></div>
+        <div class="platform-spec"><span class="platform-spec-label">Stratégie</span><span class="platform-spec-value">Tester 1 nouvelle plateforme par trimestre une fois Qwoted + SoS maîtrisés.</span></div>
+      </div>
+    </div>
+
+    <div class="container-narrow" style="padding: 0;">
+      <div class="callout">
+        <div class="callout-tag">★ Mon stack recommandé</div>
+        <p>Pour démarrer : <strong>Source of Sources (gratuit) + Featured (free tier) + JournoRequest sur X (gratuit)</strong>. Compte 0€/mois et 30 min/jour de monitoring. Quand tu décroches tes 3 premières citations et que tu veux scaler : ajoute <strong>Qwoted en payant ($99/mois)</strong>. Le ROI se calcule vite : 1 citation = potentiellement 5-10× plus de citations IA pendant 3 ans.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 Qwoted profile -->
+<section class="module" id="qwoted">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 03 / 08</span>
+      <h2>Profil expert Qwoted <em>optimisé</em></h2>
+    </div>
+    <p class="module-lead">Sur Qwoted, ton profil détermine 80% de ton taux de réponse positif. Un profil flou = pitches ignorés. Un profil ciselé = journalistes qui te recontactent <strong>de manière proactive</strong>.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-circle">1</div>
+        <div>
+          <span class="step-tag">Phase 01 — Headline</span>
+          <h4>Une seule expertise précise, pas un fourre-tout</h4>
+          <p>Mauvais : <em>"Music industry expert and entrepreneur"</em>. Bon : <em>"Indie label founder & sync placement specialist (8 years, 30+ deals signed)"</em>. <strong>Précision + années + chiffre</strong>. Les journalistes scannent les headlines en 2 secondes pour trier les experts pertinents.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-circle">2</div>
+        <div>
+          <span class="step-tag">Phase 02 — Bio</span>
+          <h4>3 paragraphes structurés, pas un mur de texte</h4>
+          <p>Para 1 : qui tu es + ta fonction principale (3-4 lignes). Para 2 : tes credentials chiffrés (X années, X projets, X clients, X médias dans lesquels tu as été cité). Para 3 : sur quels sujets précis tu peux apporter de la valeur (liste de 5-7 sous-sujets).</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-circle">3</div>
+        <div>
+          <span class="step-tag">Phase 03 — Tags expertise</span>
+          <h4>20-30 tags ultra-précis</h4>
+          <p>Pas <em>"music"</em>. Mais <em>"music sync placement", "indie label management", "music publishing rights France", "Spotify for Artists optimization", "music industry fundraising"</em>. Plus tu es précis, plus tu matches avec des requêtes pertinentes.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-circle">4</div>
+        <div>
+          <span class="step-tag">Phase 04 — Past coverage</span>
+          <h4>Liens vers tes citations existantes</h4>
+          <p>Si tu as déjà été cité quelque part (podcast, article, interview), liste-le. Les journalistes accordent 5× plus de crédit à un expert <strong>déjà cité ailleurs</strong>. Effet boule de neige : plus tu as de coverage, plus tu en obtiens.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Le truc qui fait la différence</div>
+      <p>Ajoute systématiquement dans ta bio : <em>"I'm comfortable being quoted by name and brand."</em>. Beaucoup d'experts hésitent à être nommés ou demandent l'anonymat. Les journalistes adorent les sources qui assument leur identité — ça simplifie leur travail et donne plus de crédibilité à leur article.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 Pitch method -->
+<section class="module" id="pitch">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 04 / 08</span>
+      <h2>La méthode de pitch <em>qui convertit</em></h2>
+    </div>
+    <p class="module-lead">Un pitch qui marche tient en 4 blocs précis, dans cet ordre. Chaque bloc a une fonction. Pas de variation. C'est le format que les journalistes ont appris à lire en 30 secondes pour décider si tu fais le cut.</p>
+
+    <div class="pitch-block">
+      <div class="pitch-section">
+        <div class="pitch-label">Bloc 01 — Greeting personnalisé (1 ligne)</div>
+        <div class="pitch-text">Hi <em>[Sarah]</em>, saw your request about the rise of sync placement in indie music — happy to help.</div>
+      </div>
+      <div class="pitch-section">
+        <div class="pitch-label">Bloc 02 — Intro avec credentials (2 lignes max)</div>
+        <div class="pitch-text">I'm Tarik Hamiche, founder of Producteur à Succès (music business education) and Muzisecur (royalty management SaaS). I've personally negotiated 30+ sync deals over 8 years for French indie artists, with placements in Coca-Cola Europe, Renault, and Netflix France.</div>
+      </div>
+      <div class="pitch-section">
+        <div class="pitch-label">Bloc 03 — Réponse directe à la query (7-12 phrases)</div>
+        <div class="pitch-text">On the rise of sync placement: <em>three concrete trends I'm seeing on the French market in 2026</em> — (1) the average upfront fee for indie sync deals went from €500 in 2019 to €2,800 in 2025, driven by the explosion of streaming-funded ad campaigns. (2) French sync agencies (Universal Production Music, Cézame, Koka) now handle 70% of indie placements, but direct-to-supervisor pitches still get the best deals. (3) The biggest shift: brands now pay 30-50% more for tracks that already have organic streaming traction (1M+ streams), so timing matters as much as quality.</div>
+      </div>
+      <div class="pitch-section">
+        <div class="pitch-label">Bloc 04 — Summary + contact (1-2 lignes)</div>
+        <div class="pitch-text">Happy to provide more specific examples or break down a particular deal structure if useful. Reachable here or at <em>tarik@producteurasucces.com</em>.</div>
+      </div>
+    </div>
+
+    <div class="callout warning">
+      <div class="callout-tag">⚠ Les erreurs qui font passer ton pitch à la trappe</div>
+      <p>Salutation générique ("Hi there"), intro qui parle de toi sans contexte précis, réponse trop courte (&lt; 5 phrases — pas assez pour citer), réponse trop longue (&gt; 15 phrases — pas le temps de lire), absence de chiffres précis, pas de contact direct en bas. Si tu commets <strong>2 ou plus de ces erreurs</strong>, ton pitch est filtré sans être lu jusqu'au bout.</p>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Le secret du taux de conversion</div>
+      <p>Les journalistes citent les sources qui leur font <strong>gagner du temps</strong>. Si ta réponse est déjà rédigée comme un paragraphe d'article (sourcée, structurée, avec quotes prêtes à l'usage), tu réduis leur travail à 0. Ils copient-collent. C'est exactement ce qu'on cherche. Format type : <em>"X says: 'quote ready to publish about specific data point'"</em>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 Routine -->
+<section class="module" id="routine">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 05 / 08</span>
+      <h2>Routine quotidienne <em>30 min</em> de monitoring</h2>
+    </div>
+    <p class="module-lead">L'earned media demande de la consistance, pas du sprint. 30 minutes par jour, 5 jours sur 7, pendant 4-8 semaines. Voilà la routine qui produit 3-5 citations en 30 jours.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-circle">1</div>
+        <div>
+          <span class="step-tag">9h00 — Source of Sources (10 min)</span>
+          <h4>Ouvre le mail de la veille</h4>
+          <p>SoS envoie un mail quotidien avec 30-50 requêtes triées par catégorie. Tu scannes en 5 minutes. Tu identifies 1-3 requêtes pertinentes pour ton expertise. Tu marques les emails directs des journalistes pour pitch ultérieur.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-circle">2</div>
+        <div>
+          <span class="step-tag">9h15 — Qwoted (10 min)</span>
+          <h4>Login + filtre par tags</h4>
+          <p>Filtre les requêtes par tes tags d'expertise. Lis les 3-5 plus pertinentes du jour. Tu choisis celles où tu peux apporter <strong>une vraie réponse de fond</strong> (chiffre, exemple, anecdote). Tu pitches sur le moment.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-circle">3</div>
+        <div>
+          <span class="step-tag">9h25 — JournoRequest sur X (5 min)</span>
+          <h4>Recherche les hashtags</h4>
+          <p>Tape <code>#JournoRequest</code> et <code>#PRRequest</code>. Filtre par "Latest" pour avoir les tweets des 24 dernières heures. Tu réponds direct en réponse au tweet pour les requêtes qui matchent.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-circle">4</div>
+        <div>
+          <span class="step-tag">9h30 — Pitches du jour (5 min)</span>
+          <h4>Envoie les pitches identifiés</h4>
+          <p>Tu utilises ton template de pitch en 4 blocs (vu en section 4). Tu adaptes en 3-5 minutes par pitch. <strong>Volume cible : 2-3 pitches envoyés par jour</strong>. Sur 20 jours, ça fait 40-60 pitches. Taux de conversion attendu : 5-15%, soit 3-9 citations en 30 jours.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-tag">★ Le tracking qui change tout</div>
+      <p>Crée un Google Sheet "Earned media tracker" avec colonnes : <strong>Date pitch · Plateforme · Journaliste · Sujet · Statut (envoyé/lu/repondu/cité) · Lien article · Date publication</strong>. Mets à jour quotidiennement. Au bout de 4-6 semaines, tu vois clairement ton taux de conversion par plateforme et tu sais où concentrer ton effort.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 06 FR Press -->
+<section class="module" id="fr-press">
+  <div class="container">
+    <div class="module-header">
+      <span class="module-num">— 06 / 08</span>
+      <h2>Pitcher la <em>presse FR</em> en direct</h2>
+    </div>
+    <p class="module-lead">Les plateformes US/UK sont fortes mais ne couvrent pas la presse française spécialisée. Pour Tsugi, Trax, Pure Charts et compagnie, tu pitches en direct par mail. <strong>Voilà la liste short-list + l'angle pour chacun.</strong></p>
+
+    <div class="press-grid">
+      <div class="press-card">
+        <div class="press-name">Tsugi</div>
+        <div class="press-type">Print + web · Magazine FR référence</div>
+        <div class="press-data"><strong>Audience :</strong> mélomanes pointus, pros, artistes. Très influent sur le marché FR.</div>
+        <div class="press-angle">Angle qui marche : analyses business, deep-dives sur des artistes, retours d'expérience producteurs.</div>
+      </div>
+      <div class="press-card">
+        <div class="press-name">Trax</div>
+        <div class="press-type">Print + web · Mag musique électronique</div>
+        <div class="press-data"><strong>Audience :</strong> producteurs/DJs/labels électro et apparentés. Si tu es dans ce périmètre, incontournable.</div>
+        <div class="press-angle">Angle qui marche : production technique, business du sync, scène internationale.</div>
+      </div>
+      <div class="press-card">
+        <div class="press-name">Pure Charts</div>
+        <div class="press-type">Web · Charts + actu industrie</div>
+        <div class="press-data"><strong>Audience :</strong> grand public passionné de musique + pros. Très fort en SEO.</div>
+        <div class="press-angle">Angle qui marche : analyses chiffrées des charts, succès indé, débats sur l'industrie française.</div>
+      </div>
+      <div class="press-card">
+        <div class="press-name">Booska-P</div>
+        <div class="press-type">Web · Rap/hip-hop FR</div>
+        <div class="press-data"><strong>Audience :</strong> communauté rap française très engagée, jeune, prescriptrice.</div>
+        <div class="press-angle">Angle qui marche : déconstruction du rap business, success stories indé, beats et production.</div>
+      </div>
+      <div class="press-card">
+        <div class="press-name">Music Business France</div>
+        <div class="press-type">Newsletter · 100% B2B music</div>
+        <div class="press-data"><strong>Audience :</strong> 100% pros du music biz FR. Le must si tu vises le B2B.</div>
+        <div class="press-angle">Angle qui marche : analyses de deals, mouvements industrie, tribunes d'opinion.</div>
+      </div>
+      <div class="press-card">
+        <div class="press-name">Move-on-Up · La Grosse Radio</div>
+        <div class="press-type">Web · Webzines spécialisés</div>
+        <div class="press-data"><strong>Audience :</strong> niches passionnées par genre. Excellent pour deep-dives ciblés.</div>
+        <div class="press-angle">Angle qui marche : interviews longues, focus sur des projets indé, retour d'expérience.</div>
+      </div>
+    </div>
+
+    <div class="container-narrow" style="padding: 0;">
+      <div class="callout success">
+        <div class="callout-tag">✓ Livrable : ta base de 46+ journalistes FR mappés</div>
+        <p>Le module inclut une base de données de <strong>46 journalistes français spécialisés musique</strong>, mise à jour 2026, avec : nom, média, beat couvert (rap, électro, business...), format préféré (interview, tribune, citation), email direct vérifié, dernière publication. Tu repars avec la base prête à pitcher. Plus efficace que de partir de zéro.</p>
+      </div>
+    </div>
+
+    <div class="container-narrow" style="padding: 0;">
+      <div class="callout">
+        <div class="callout-tag">★ Modèle de pitch mail FR</div>
+        <p>Le module fournit aussi un <strong>modèle de pitch mail FR</strong> adapté à la presse française (plus formel que l'anglais, mais factuel et précis). Tu l'adaptes en 5 minutes par journaliste. Format type : <em>Objet précis + intro qui contextualise + proposition d'angle + crédentials + dispo pour interview</em>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 Featured page -->
+<section class="module" id="featured-page">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 07 / 08</span>
+      <h2>Ta page Press, mode <em>"As featured in"</em></h2>
+    </div>
+    <p class="module-lead">Une fois tes 3-5 premières citations décrochées, tu crées une page Press dédiée sur ton site. Cette page <strong>multiplie l'effet d'autorité</strong> auprès des IA ET des humains qui débarquent.</p>
+
+    <div class="prose">
+      <p>La page Press a 3 fonctions complémentaires :</p>
+      <ul>
+        <li><strong>Signal d'autorité visuel</strong> pour les visiteurs humains — ils voient les logos des médias qui parlent de toi, leur confiance s'établit en 3 secondes</li>
+        <li><strong>Signal d'autorité IA</strong> — les IA crawlent cette page, voient les liens sortants vers Tsugi, Trax, MBF, et confirment ton statut d'expert cité</li>
+        <li><strong>Effet boule de neige presse</strong> — d'autres journalistes qui font leur recherche te voient déjà cité ailleurs, tu deviens "safe to cite"</li>
+      </ul>
+    </div>
+
+    <div class="featured-mockup">
+      <div class="featured-label">As featured in</div>
+      <div class="featured-logos">
+        <div class="featured-logo">Tsugi</div>
+        <div class="featured-logo">Trax</div>
+        <div class="featured-logo">Pure Charts</div>
+        <div class="featured-logo">MBF</div>
+        <div class="featured-logo">Booska-P</div>
+        <div class="featured-logo">Featured.com</div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Structure recommandée pour ta page Press :</p>
+      <ul>
+        <li><strong>Bandeau "As featured in"</strong> en haut, avec les logos des médias (cliquables vers les articles)</li>
+        <li><strong>Section "Citations récentes"</strong> avec extraits exacts (entre guillemets) + lien vers l'article complet + date</li>
+        <li><strong>Section "Médias"</strong> avec un encart par média majeur (logo, citation, contexte, lien)</li>
+        <li><strong>Section "Pour les journalistes"</strong> en bas avec ton bio courte, ta photo HD téléchargeable, tes coordonnées</li>
+        <li><strong>JSON-LD MediaObject</strong> pour chaque citation, marquant explicitement aux IA que ta page est sourcée</li>
+      </ul>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Le détail qui change tout</div>
+      <p>Ajoute une section <strong>"Press kit téléchargeable"</strong> avec : bio courte (50 mots), bio longue (200 mots), 3 photos HD pro, tes credentials chiffrés, tes coordonnées. Format ZIP. Quand un journaliste découvre ton site et veut t'écrire un article, il télécharge le press kit en 30 secondes — il ne t'écrit même pas, il a tout. Tu apparais dans son article sans effort.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 08 Deliverable -->
+<section class="module" id="deliverable">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 08 / 08</span>
+      <h2>Livrable — <em>profil + 5 pitches + base + page</em></h2>
+    </div>
+    <p class="module-lead">À la fin de la semaine, tu dois avoir activé l'écosystème earned media : profils créés, pitches envoyés, page Press en ligne, base journalistes FR exploitable.</p>
+
+    <div class="checklist">
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">Profil Qwoted créé et complet (headline, bio, 20+ tags, past coverage)</div><div class="check-desc">Headline ciselé avec credentials chiffrés. Bio en 3 paragraphes structurés. Tags ultra-précis. Profil "active" (pas en draft).</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">Inscription Source of Sources (mail quotidien)</div><div class="check-desc">Tu reçois la newsletter quotidienne. Tu as configuré un filtre Gmail pour la prioriser dans ta boîte.</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">Compte Featured.com activé</div><div class="check-desc">Profil expert créé sur Featured. Notifications activées sur tes catégories.</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">5 pitches envoyés pendant la semaine</div><div class="check-desc">Au moins 5 réponses à des requêtes journalistes (Qwoted, SoS, Featured ou JournoRequest). Format respecté (4 blocs : greeting, intro, réponse 7-12 phrases, contact).</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">Base journalistes FR à jour (46+ contacts)</div><div class="check-desc">Tableau Sheets/Notion avec : nom, média, beat, format, email vérifié, dernière publi. Au moins 5 contacts ajoutés/vérifiés cette semaine.</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">Modèle pitch mail FR adapté à ton positionnement</div><div class="check-desc">Tu as personnalisé le template fourni avec ta bio, tes credentials, tes 3 angles d'expertise. Prêt à utiliser pour pitch direct presse FR.</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">Tracking Sheet "Earned media" en place</div><div class="check-desc">Colonnes : Date · Plateforme · Journaliste · Sujet · Statut · Lien · Date pub. Mis à jour à chaque pitch.</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">Page Press créée sur ton site</div><div class="check-desc">URL /press ou /media. Bandeau "As featured in" (même vide pour démarrer), section pour citations à venir, section "Pour journalistes" avec coordonnées.</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">Press kit téléchargeable (ZIP)</div><div class="check-desc">Bio courte + bio longue + 3 photos HD + credentials chiffrés + coordonnées. Hébergé sur ta page Press.</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">Routine quotidienne 30 min programmée</div><div class="check-desc">Créneau bloqué dans ton calendrier (ex: 9h-9h30 ou 17h-17h30). 5 jours/semaine pendant les 30 prochains jours.</div></div></div>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Comment lire ton score</div>
+      <p><strong>10/10</strong> : tu as activé tout l'écosystème — tu peux maintenant exécuter la routine 30 min/jour pendant 30 jours pour décrocher tes 3-5 premières citations. <strong>7-9/10</strong> : tu as démarré, identifie ce qui manque (souvent : page Press pas encore créée). <strong>Moins de 7/10</strong> : reviens sur les sections, surtout le profil Qwoted et la routine.</p>
+    </div>
+  </div>
+</section>
+
+<section class="recap">
+  <div class="container-narrow">
+    <div class="section-label" style="color: var(--accent-line);">Synthèse</div>
+    <h3>Ce que tu dois retenir de ce module</h3>
+    <ol class="recap-list">
+      <li>Une <strong>citation dans un média établi</strong> vaut 5-50× plus de poids GEO qu'une mention sur ton propre site. Les LLMs surpondèrent l'autorité de domaine.</li>
+      <li>Cinq plateformes earned media majeures : <strong>Qwoted, Featured.com, Source of Sources, JournoRequest sur X, Help a B2B Writer</strong>. Stack démarrage gratuit possible.</li>
+      <li><strong>Profil Qwoted ciselé</strong> : headline précis avec chiffres, bio 3 paragraphes structurés, 20-30 tags ultra-précis, past coverage en lien.</li>
+      <li>La méthode de pitch en <strong>4 blocs</strong> : greeting personnalisé · intro avec credentials · réponse directe 7-12 phrases · summary + contact. Pas de variation.</li>
+      <li>Routine quotidienne <strong>30 min</strong> : SoS (10) + Qwoted (10) + JournoRequest (5) + envoi pitches (5). 5 jours/semaine pendant 30 jours.</li>
+      <li>Pour la <strong>presse FR</strong>, tu pitches en direct par mail : Tsugi, Trax, Pure Charts, Booska-P, MBF, Move-on-Up. Base de 46+ journalistes mappés livrée dans le module.</li>
+      <li>Page Press <strong>"As featured in"</strong> sur ton site dès tes 3-5 premières citations : signal d'autorité humain ET IA, effet boule de neige presse.</li>
+      <li>Livrable : <strong>profil Qwoted + 5 pitches envoyés + base journalistes + page Press + press kit + tracking</strong>. Routine 30 min/jour bloquée pour les 30 jours qui suivent.</li>
+    </ol>
+  </div>
+</section>
+
+<div class="next-cta">
+  <h3>Tu as terminé <em>les 6 modules</em> de la formation</h3>
+  <p>Tu as désormais en main tous les piliers : compréhension des IA, site GEO-ready, entité de marque, contenu citable, signaux Reddit, citations médias. Le système est en place.</p>
+  <a href="https://ia.producteurasucces.com/" class="btn btn-primary">Retour à la formation</a>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    © 2026 Tarik Hamiche — Producteur à Succès • <a href="https://drive.google.com/file/d/1j34jogzEWH8ggeVDIT8qRimJGh30SV38/view?usp=sharing" target="_blank" rel="noopener">Mentions légales &amp; Confidentialité</a> • <a href="https://drive.google.com/file/d/1POBlG9RlTZgRYuJWRe_bHUIqdLE2vpVn/view?usp=sharing" target="_blank" rel="noopener">CGV</a> • <a href="mailto:tarik@producteurasucces.com">Contact</a>
+  </div>
+</footer>
+
+<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="1c4155b7-339c-4746-99b4-8d1a09e952ad";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+
+<script>
+  (function(){
+    const bar = document.getElementById('progress-bar');
+    if (!bar) return;
+    function update(){
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+  (function(){
+    document.querySelectorAll('.check-item').forEach(function(item){
+      item.addEventListener('click', function(){ item.classList.toggle('checked'); });
+    });
+  })();
+  (function(){
+    if (!('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('section.module, .toc-section, .recap, .next-cta').forEach(function(el){
+      el.classList.add('fade-up');
+      observer.observe(el);
+    });
+  })();
+</script>
+
+</body>
+</html>

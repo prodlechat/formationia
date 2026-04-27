@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Module 05 — Reddit, le canal sous-coté du GEO. Stratégie deux-vitesses, account warming, formats qui marchent, comment placer ta marque sans te faire bannir." />
+<title>Module 05 — Reddit, machine à signaux d'autorité GEO | Cité par les IA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #F7F1E8; --bg-soft: #FCF8F2; --bg-card: #FFFFFF;
+    --ink: #1F1A15; --ink-soft: #5C4F42; --ink-muted: #8A7A6A;
+    --accent: #5B14FF; --accent-dark: #4910CC; --accent-soft: #EDE9FE; --accent-line: #A78BFA;
+    --border: #E8DDC9; --border-soft: #F0E6D4;
+    --warning: #C2410C; --warning-soft: #FFEDD5;
+    --success: #15803D; --success-soft: #DCFCE7;
+    --shadow-sm: 0 1px 2px rgba(31, 26, 21, 0.04);
+    --shadow-md: 0 4px 16px rgba(31, 26, 21, 0.06);
+    --shadow-lg: 0 16px 48px rgba(31, 26, 21, 0.08);
+    --radius-sm: 8px; --radius-md: 14px; --radius-lg: 24px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-text-size-adjust: 100%; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.65; font-size: 17px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+  h1, h2, h3, h4 { font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 800; line-height: 1.1; letter-spacing: -0.035em; color: var(--ink); }
+  h1 { font-size: clamp(2.4rem, 5.5vw, 4rem); line-height: 1.05; }
+  h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); }
+  h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 700; }
+  h4 { font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
+  p { margin-bottom: 1.1rem; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 700; }
+  em { font-style: normal; color: var(--accent); font-weight: 800; }
+  a { color: var(--accent); text-decoration: none; transition: color .15s ease; }
+  a:hover { color: var(--accent-dark); }
+  code { font-family: 'JetBrains Mono', monospace; background: var(--accent-soft); color: var(--accent-dark); padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.85em; }
+
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+  .container-narrow { max-width: 760px; margin: 0 auto; padding: 0 1.5rem; }
+
+  .progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent-line)); z-index: 9999; transition: width 0.1s ease; }
+
+  header.top-nav { position: sticky; top: 0; background: rgba(247, 241, 232, 0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-soft); z-index: 100; }
+  .nav-inner { max-width: 1080px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .brand-mark { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 1rem; letter-spacing: -0.02em; color: var(--ink); }
+  .brand-mark em { color: var(--accent); font-style: normal; }
+  .nav-meta { display: flex; gap: 1rem; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-muted); }
+  .nav-meta span:not(:last-child)::after { content: '·'; margin-left: 1rem; color: var(--border); }
+  @media (max-width: 600px) { .nav-meta { display: none; } }
+
+  .hero { padding: 5rem 0 4rem; position: relative; overflow: hidden; text-align: center; }
+  .hero::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 700px; height: 700px; background: radial-gradient(circle, rgba(167, 139, 250, 0.22) 0%, transparent 65%); border-radius: 50%; pointer-events: none; }
+  .hero::after { content: ''; position: absolute; bottom: -150px; right: -150px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(91, 20, 255, 0.14) 0%, transparent 65%); border-radius: 50%; pointer-events: none; }
+  .hero-inner { max-width: 880px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1; }
+  .hero-tag { display: inline-block; background: var(--bg-card); border: 1px solid var(--border); padding: 0.5rem 1.1rem; border-radius: 999px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 1.8rem; box-shadow: var(--shadow-sm); }
+  .hero h1 { margin-bottom: 1.5rem; }
+  .hero-lead { font-size: clamp(1.1rem, 1.7vw, 1.3rem); color: var(--ink-soft); max-width: 720px; margin: 0 auto 3rem; line-height: 1.55; }
+
+  .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; max-width: 880px; margin: 3rem auto 0; }
+  .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem 1rem; text-align: center; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .stat-num { font-family: 'Manrope', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; color: var(--accent); line-height: 1; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
+  .stat-label { font-size: 0.82rem; color: var(--ink-soft); line-height: 1.35; }
+  @media (max-width: 720px) { .hero-stats { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 420px) { .hero-stats { grid-template-columns: 1fr; } }
+
+  .section-label { display: inline-block; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 1.5rem; }
+
+  .toc-section { padding: 4rem 0; background: var(--bg-soft); border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); text-align: center; }
+  .toc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; max-width: 800px; margin: 1rem auto 0; }
+  .toc-item { display: flex; align-items: center; gap: 1rem; padding: 1.1rem 1.3rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); text-align: left; color: var(--ink); transition: all 0.15s ease; }
+  .toc-item:hover { border-color: var(--accent); transform: translateX(2px); box-shadow: var(--shadow-sm); color: var(--ink); }
+  .toc-num { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--accent); flex-shrink: 0; width: 36px; }
+  .toc-title { font-weight: 600; font-size: 0.95rem; line-height: 1.3; }
+  @media (max-width: 600px) { .toc-grid { grid-template-columns: 1fr; } }
+
+  section.module { padding: 6rem 0; position: relative; overflow: hidden; }
+  section.module:nth-child(even) { background: var(--bg-soft); border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
+  section.module::before { content: ''; position: absolute; top: 10%; right: -180px; width: 480px; height: 480px; background: radial-gradient(circle, rgba(167, 139, 250, 0.16) 0%, transparent 65%); border-radius: 50%; pointer-events: none; z-index: 0; }
+  section.module > .container, section.module > .container-narrow { position: relative; z-index: 1; }
+  .module-header { margin-bottom: 2.5rem; }
+  .module-num { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--accent); letter-spacing: 0.05em; margin-bottom: 0.6rem; display: block; }
+  .module-lead { font-size: 1.15rem; color: var(--ink-soft); margin: 1.5rem 0 2.5rem; line-height: 1.55; max-width: 720px; }
+
+  .prose p { font-size: 1.05rem; line-height: 1.7; color: var(--ink-soft); margin-bottom: 1.3rem; }
+  .prose p strong { color: var(--ink); }
+  .prose ul { margin: 1rem 0 1.5rem; padding-left: 1.5rem; color: var(--ink-soft); line-height: 1.7; }
+  .prose ul li { margin-bottom: 0.6rem; }
+  .prose ul li strong { color: var(--ink); }
+
+  .callout { background: var(--bg-card); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius-md); padding: 1.6rem 1.8rem; margin: 2rem 0; box-shadow: var(--shadow-sm); }
+  .callout.warning { border-left-color: var(--warning); background: linear-gradient(135deg, var(--warning-soft) 0%, var(--bg-card) 60%); }
+  .callout.success { border-left-color: var(--success); background: linear-gradient(135deg, var(--success-soft) 0%, var(--bg-card) 60%); }
+  .callout-tag { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 0.6rem; }
+  .callout.warning .callout-tag { color: var(--warning); }
+  .callout.success .callout-tag { color: var(--success); }
+  .callout p { margin: 0; color: var(--ink); line-height: 1.55; }
+
+  .flow { margin: 2.5rem 0; display: flex; flex-direction: column; gap: 1.5rem; }
+  .flow-step { display: flex; gap: 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.8rem; box-shadow: var(--shadow-sm); transition: border-color 0.2s ease; }
+  .flow-step:hover { border-color: var(--accent-line); }
+  .flow-circle { flex-shrink: 0; width: 60px; height: 60px; border-radius: 50%; background: var(--accent); color: #FFF; display: flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 1.6rem; box-shadow: 0 6px 20px rgba(91, 20, 255, 0.3); }
+  .flow-step > div:last-child { flex: 1; min-width: 0; }
+  .step-tag { display: inline-block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-muted); margin-bottom: 0.4rem; }
+  .flow-step h4 { margin-bottom: 0.6rem; }
+  .flow-step p { margin: 0 0 0.8rem; line-height: 1.55; }
+  .flow-step p:last-child { margin-bottom: 0; }
+
+  /* Subreddits grid */
+  .subreddits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 2rem 0; }
+  .subreddit-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.4rem 1.5rem; box-shadow: var(--shadow-sm); transition: border-color 0.15s ease; }
+  .subreddit-card:hover { border-color: var(--accent-line); }
+  .subreddit-card.fr { border-left: 4px solid var(--success); }
+  .subreddit-card.en { border-left: 4px solid var(--accent); }
+  .subreddit-name { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.05rem; color: var(--ink); margin-bottom: 0.3rem; }
+  .subreddit-tag { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.7rem; }
+  .subreddit-card.fr .subreddit-tag { color: var(--success); }
+  .subreddit-card.en .subreddit-tag { color: var(--accent); }
+  .subreddit-data { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.5; margin: 0; }
+  .subreddit-data strong { color: var(--ink); }
+  @media (max-width: 720px) { .subreddits-grid { grid-template-columns: 1fr; } }
+
+  /* Format cards (Reddit post formats) */
+  .formats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin: 2rem 0; }
+  .format-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.8rem; box-shadow: var(--shadow-sm); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .format-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .format-icon { width: 52px; height: 52px; border-radius: 12px; background: var(--accent); color: #FFF; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1rem; }
+  .format-name { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.6rem; }
+  .format-card h4 { margin-bottom: 0.8rem; }
+  .format-card > p { font-size: 0.95rem; line-height: 1.55; margin-bottom: 1rem; }
+  .format-why { background: var(--accent-soft); border-radius: var(--radius-sm); padding: 1rem; font-size: 0.88rem; line-height: 1.5; color: var(--ink); }
+  .format-why strong { display: block; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.4rem; }
+  @media (max-width: 740px) { .formats-grid { grid-template-columns: 1fr; } }
+
+  /* Comparison good vs bad */
+  .compare-good-bad { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin: 2rem 0; }
+  .compare-side { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.6rem; box-shadow: var(--shadow-sm); }
+  .compare-side.bad { border-left: 4px solid var(--warning); }
+  .compare-side.good { border-left: 4px solid var(--success); }
+  .compare-side-tag { font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.8rem; }
+  .compare-side.bad .compare-side-tag { color: var(--warning); }
+  .compare-side.good .compare-side-tag { color: var(--success); }
+  .compare-side h4 { margin-bottom: 0.6rem; }
+  .compare-side p { font-size: 0.9rem; line-height: 1.5; margin: 0; color: var(--ink-soft); }
+  .compare-side p strong { color: var(--ink); }
+  @media (max-width: 720px) { .compare-good-bad { grid-template-columns: 1fr; } }
+
+  /* Rules grid - what to never do */
+  .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.8rem; margin: 2rem 0; }
+  .rule-card { background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--warning); border-radius: var(--radius-sm); padding: 1rem 1.2rem; }
+  .rule-no { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 0.78rem; color: var(--warning); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+  .rule-text { font-size: 0.9rem; color: var(--ink); line-height: 1.45; }
+  .rule-text strong { color: var(--ink); }
+
+  /* Code block (raw post example) */
+  .code-block { background: #1a1612; color: #e5e7eb; padding: 1.4rem 1.6rem; border-radius: var(--radius-md); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.7; overflow-x: auto; margin: 1.5rem 0; border: 1px solid var(--border); white-space: pre-wrap; }
+  .code-comment { color: rgba(255, 255, 255, 0.45); font-style: italic; }
+  .code-h1 { color: #fde68a; font-weight: 700; }
+  @media (max-width: 600px) { .code-block { font-size: 0.75rem; padding: 1.1rem 1.2rem; } }
+
+  /* Checklist */
+  .checklist { display: flex; flex-direction: column; gap: 0.7rem; margin: 2rem 0; }
+  .check-item { display: flex; gap: 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.2rem 1.4rem; cursor: pointer; user-select: none; transition: border-color 0.15s ease, background 0.15s ease; }
+  .check-item:hover { border-color: var(--accent-line); }
+  .check-item.checked { background: var(--success-soft); border-color: var(--success); }
+  .check-box { flex-shrink: 0; width: 24px; height: 24px; border: 2px solid var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: transparent; background: var(--bg-soft); transition: all 0.15s ease; margin-top: 0.15rem; }
+  .check-item.checked .check-box { background: var(--success); border-color: var(--success); color: #FFF; }
+  .check-content { flex: 1; min-width: 0; }
+  .check-title { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 1rem; color: var(--ink); margin-bottom: 0.2rem; line-height: 1.4; }
+  .check-desc { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.4; }
+
+  .recap { background: var(--ink); color: rgba(247, 241, 232, 0.9); padding: 4rem 0; margin-top: 4rem; position: relative; overflow: hidden; }
+  .recap::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(91, 20, 255, 0.25) 0%, transparent 60%); border-radius: 50%; pointer-events: none; }
+  .recap > .container { position: relative; z-index: 1; }
+  .recap h3 { font-size: clamp(1.5rem, 3vw, 2rem); color: #FFF; margin-bottom: 1.5rem; }
+  .recap-list { list-style: none; counter-reset: item; display: flex; flex-direction: column; gap: 1rem; max-width: 760px; }
+  .recap-list li { counter-increment: item; padding-left: 3rem; position: relative; line-height: 1.55; color: rgba(247, 241, 232, 0.85); }
+  .recap-list li::before { content: counter(item, decimal-leading-zero); position: absolute; left: 0; top: 0.05em; font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 0.95rem; color: var(--accent-line); letter-spacing: -0.02em; }
+  .recap-list li strong { color: #FFF; }
+
+  .next-cta { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem; margin: 4rem auto; max-width: 760px; text-align: center; box-shadow: var(--shadow-md); }
+  .next-cta h3 { margin-bottom: 1rem; }
+  .next-cta p { margin-bottom: 1.5rem; font-size: 1.05rem; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; padding: 1.1rem 2.2rem; font-family: 'Manrope', sans-serif; font-size: 1rem; font-weight: 800; border-radius: 999px; border: none; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); text-align: center; line-height: 1; text-transform: uppercase; letter-spacing: 0.05em; }
+  .btn-primary { background: var(--accent); color: #FFF; box-shadow: 0 6px 20px rgba(91, 20, 255, 0.3); }
+  .btn-primary:hover { background: var(--accent-dark); color: #FFF; transform: translateY(-1px); box-shadow: 0 10px 28px rgba(91, 20, 255, 0.4); }
+
+  footer.site-footer { background: var(--ink); color: rgba(247, 241, 232, 0.5); padding: 2.5rem 0; text-align: center; font-size: 0.88rem; border-top: 1px solid rgba(247, 241, 232, 0.08); }
+  footer.site-footer a { color: rgba(247, 241, 232, 0.7); }
+
+  @media (max-width: 860px) {
+    section.module { padding: 4rem 0; }
+    .toc-section { padding: 3rem 0; }
+    .module-header { margin-bottom: 1.8rem; }
+    .module-lead { font-size: 1.05rem; margin: 1rem 0 1.8rem; }
+    .flow-step { padding: 1.4rem; gap: 1rem; }
+    .flow-circle { width: 48px; height: 48px; font-size: 1.3rem; }
+    .next-cta { padding: 1.8rem 1.4rem; }
+    .recap-list li { padding-left: 2.4rem; }
+    section.module::before { width: 320px !important; height: 320px !important; }
+  }
+  @media (max-width: 480px) {
+    .hero { padding: 3rem 0 2.5rem; }
+    .hero h1 { font-size: 2rem; }
+    .flow-step { flex-direction: column; gap: 0.8rem; }
+    .flow-circle { align-self: flex-start; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress-bar"></div>
+
+<header class="top-nav">
+  <div class="nav-inner">
+    <a href="https://ia.producteurasucces.com/" class="brand-mark">Cité par les <em>IA</em></a>
+    <div class="nav-meta">
+      <span>Module 05 / 06</span>
+      <span>Producteur à Succès</span>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-tag">Module 05 — Le canal sous-coté</span>
+    <h1>Reddit, machine à <em>signaux d'autorité</em> pour les IA.</h1>
+    <p class="hero-lead">Reddit est massivement crawlé par OpenAI, Google et Anthropic. Bien utilisé, c'est <strong>le canal avec le meilleur ratio temps/citations IA</strong> de toute la formation. Stratégie deux-vitesses, account warming, formats qui marchent — et comment glisser ta marque sans te faire bannir.</p>
+
+    <div class="hero-stats">
+      <div class="stat-card"><div class="stat-num">60M$/an</div><div class="stat-label">Le deal Reddit-Google qui fait que tes posts nourrissent les IA</div></div>
+      <div class="stat-card"><div class="stat-num">3 posts</div><div class="stat-label">À publier pendant la semaine (1 FR, 2 EN)</div></div>
+      <div class="stat-card"><div class="stat-num">5+</div><div class="stat-label">Subreddits clés à viser pour le music business</div></div>
+      <div class="stat-card"><div class="stat-num">90 jours</div><div class="stat-label">Plan de présence Reddit livré dans le module</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="toc-section">
+  <div class="container-narrow">
+    <div class="section-label">Plan du module</div>
+    <div class="toc-grid">
+      <a href="#why-reddit" class="toc-item"><span class="toc-num">01</span><span class="toc-title">Pourquoi Reddit est massivement crawlé par les IA</span></a>
+      <a href="#strategy" class="toc-item"><span class="toc-num">02</span><span class="toc-title">La stratégie deux-vitesses (FR + EN)</span></a>
+      <a href="#subreddits" class="toc-item"><span class="toc-num">03</span><span class="toc-title">Les subreddits qui comptent vraiment</span></a>
+      <a href="#warming" class="toc-item"><span class="toc-num">04</span><span class="toc-title">Account warming, préparer ton compte</span></a>
+      <a href="#rules" class="toc-item"><span class="toc-num">05</span><span class="toc-title">Les règles invisibles à ne jamais briser</span></a>
+      <a href="#formats" class="toc-item"><span class="toc-num">06</span><span class="toc-title">Les 4 formats de posts qui marchent</span></a>
+      <a href="#brand" class="toc-item"><span class="toc-num">07</span><span class="toc-title">Glisser ta marque sans te faire bannir</span></a>
+      <a href="#deliverable" class="toc-item"><span class="toc-num">08</span><span class="toc-title">Livrable, 3 posts + plan 90 jours</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- 01 - Why Reddit -->
+<section class="module" id="why-reddit">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 01 / 08</span>
+      <h2>Pourquoi Reddit est <em>massivement crawlé</em> par les IA</h2>
+    </div>
+    <p class="module-lead">En février 2024, Reddit a signé un deal de <strong>60M$/an avec Google</strong> pour que ses contenus alimentent l'entraînement des LLMs. OpenAI a fait le même type d'accord. Anthropic scrape massivement. <strong>Ton post Reddit nourrit littéralement les IA qui te citeront demain.</strong></p>
+
+    <div class="prose">
+      <p>Reddit a un avantage que peu d'autres plateformes ont aux yeux des IA : <strong>chaque thread est une question, chaque commentaire est une réponse</strong>. Ce format Q/R natif est exactement ce que les LLMs cherchent à indexer. Ajoute à ça que Reddit pondère ses contenus via les upvotes (un signal de qualité collective), et tu obtiens une source idéale pour les IA.</p>
+
+      <p>Concrètement, voici ce qui se passe quand tu poses une question à Perplexity ou ChatGPT en mode search sur un sujet précis :</p>
+      <ul>
+        <li><strong>1 à 2 sources sur 5 viennent de Reddit</strong> — c'est désormais la norme sur les requêtes pratiques</li>
+        <li>Les commentaires les plus upvotés sont sur-pondérés vs les autres sources</li>
+        <li>Les threads anciens (2-5 ans) restent cités, contrairement aux contenus de réseaux sociaux qui s'évaporent</li>
+      </ul>
+    </div>
+
+    <div class="callout warning">
+      <div class="callout-tag">⚠ Le piège du "Reddit c'est pour les nerds"</div>
+      <p>Beaucoup d'artistes français ignorent Reddit parce qu'ils pensent que "c'est anglo-saxon" ou "c'est trop tech". <strong>C'est précisément ce qui rend la plateforme rentable.</strong> Quasi aucun pro français du music business n'y est actif sérieusement. Tu arrives sur un terrain quasi vide, alors que les IA y puisent en permanence.</p>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Le ROI Reddit en chiffres</div>
+      <p>Un post Reddit qui fait <strong>200 upvotes + 30 commentaires</strong> peut être indexé en quelques jours par toutes les IA majeures. À partir de là, il sert de source citée sur des dizaines de requêtes pendant <strong>3 à 5 ans</strong>. Aucun autre canal social n'offre cette durée de vie. Instagram, TikTok, X — tout s'évapore en 72h. Reddit reste.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 - Strategy 2-speed -->
+<section class="module" id="strategy">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 02 / 08</span>
+      <h2>La stratégie <em>deux-vitesses</em> FR + EN</h2>
+    </div>
+    <p class="module-lead">Tu vises deux objectifs distincts qui demandent deux approches différentes. <strong>Subreddits FR pour la conversion business, subreddits EN pour les signaux GEO.</strong> Ne pas confondre.</p>
+
+    <div class="compare-good-bad">
+      <div class="compare-side good">
+        <div class="compare-side-tag">FR — Conversion</div>
+        <h4>Subreddits francophones</h4>
+        <p>Communautés <strong>plus petites mais plus engagées</strong>. Tu touches une audience qui peut acheter ton produit, t'écouter, devenir cliente. Volume plus faible côté IA mais ROI direct sur ton business. Posts plus émotionnels, plus storytelling.</p>
+      </div>
+      <div class="compare-side good">
+        <div class="compare-side-tag">EN — Signaux GEO</div>
+        <h4>Subreddits anglophones</h4>
+        <p>Communautés <strong>massives, indexées en priorité par les IA US</strong> (OpenAI, Anthropic, Perplexity). Tu touches moins de prospects directs mais tu nourris les IA qui te citeront sur les requêtes globales. Posts plus techniques, plus deep-dive.</p>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>La règle de mix : <strong>1 post FR pour 2 posts EN</strong>. Le ratio est inversé par rapport à ce que la plupart des gens font (qui se cantonnent au FR). C'est précisément ce qui donne l'avantage GEO. Les IA citent majoritairement des sources EN, donc c'est en EN qu'il faut planter ses graines.</p>
+
+      <p>Cohérence absolue entre les deux : <strong>même histoire, même expertise, même persona</strong>. Tu ne joues pas un rôle différent en FR et en EN. C'est la même personne qui écrit dans deux langues. Les IA peuvent croiser tes posts, et la cohérence d'identité multiplie l'autorité.</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-tag">★ La règle d'or</div>
+      <p>Si un post mérite d'être publié en FR, il mérite probablement d'être adapté en EN aussi. À chaque post FR, demande-toi : <em>"Est-ce que je peux le réécrire pour r/WeAreTheMusicMakers ?"</em>. Si oui, fais-le. C'est 30 minutes de plus pour <strong>doubler la portée GEO</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 - Subreddits -->
+<section class="module" id="subreddits">
+  <div class="container">
+    <div class="module-header">
+      <span class="module-num">— 03 / 08</span>
+      <h2>Les subreddits <em>qui comptent vraiment</em></h2>
+    </div>
+    <p class="module-lead">Pas 50 subreddits où tu disperses ton énergie. Une dizaine bien choisis, où tu deviens un visage récurrent. Voilà la liste short-list pour le music business.</p>
+
+    <div class="subreddits-grid">
+      <div class="subreddit-card en">
+        <div class="subreddit-name">r/WeAreTheMusicMakers</div>
+        <div class="subreddit-tag">EN · 2.4M membres · Top priorité GEO</div>
+        <p class="subreddit-data"><strong>Audience :</strong> producteurs, beatmakers, artistes indé. <strong>Format favori :</strong> deep-dive guides, breakdowns techniques, vulnerability posts. <strong>Ton :</strong> praticien sans jargon.</p>
+      </div>
+      <div class="subreddit-card en">
+        <div class="subreddit-name">r/MusicIndustry</div>
+        <div class="subreddit-tag">EN · 250K membres · Business-focused</div>
+        <p class="subreddit-data"><strong>Audience :</strong> pros et semi-pros du music business. <strong>Format favori :</strong> case studies chiffrés, AMAs, analyses de deals. <strong>Ton :</strong> expert qui parle de chiffres réels.</p>
+      </div>
+      <div class="subreddit-card en">
+        <div class="subreddit-name">r/musicproduction</div>
+        <div class="subreddit-tag">EN · 800K membres · Très technique</div>
+        <p class="subreddit-data"><strong>Audience :</strong> producers en quête de techniques. <strong>Format favori :</strong> tutoriels précis, retours d'expérience studio, comparatifs DAW/plugins.</p>
+      </div>
+      <div class="subreddit-card en">
+        <div class="subreddit-name">r/independentmusic</div>
+        <div class="subreddit-tag">EN · 80K membres · DIY mindset</div>
+        <p class="subreddit-data"><strong>Audience :</strong> artistes 100% indé qui font tout eux-mêmes. <strong>Format favori :</strong> stratégies DIY, retours sur sortie de single, bootstrap stories.</p>
+      </div>
+      <div class="subreddit-card fr">
+        <div class="subreddit-name">r/MusiqueProduction</div>
+        <div class="subreddit-tag">FR · 30K membres · Ton plus jeune</div>
+        <p class="subreddit-data"><strong>Audience :</strong> beatmakers FR débutants à intermédiaires. <strong>Format favori :</strong> retours d'expérience, conseils de carrière, tutoriels en français.</p>
+      </div>
+      <div class="subreddit-card fr">
+        <div class="subreddit-name">r/musiquefr</div>
+        <div class="subreddit-tag">FR · 80K membres · Plus généraliste</div>
+        <p class="subreddit-data"><strong>Audience :</strong> mélomanes + artistes FR. <strong>Format favori :</strong> news industrie, polémiques, débats sur la scène française. Moins business mais bonne autorité éditoriale.</p>
+      </div>
+      <div class="subreddit-card fr">
+        <div class="subreddit-name">r/BeatMakerFR</div>
+        <div class="subreddit-tag">FR · 12K membres · Niche très active</div>
+        <p class="subreddit-data"><strong>Audience :</strong> beatmakers et producteurs FR du rap. <strong>Format favori :</strong> conseils business, sync placement, négociation contrats.</p>
+      </div>
+      <div class="subreddit-card en">
+        <div class="subreddit-name">r/edmproduction · r/trapproduction · r/hiphopheads</div>
+        <div class="subreddit-tag">EN · Niches genre-spécifiques</div>
+        <p class="subreddit-data"><strong>À choisir selon ton genre.</strong> Audiences très précises. <strong>Format favori :</strong> très techniques, deep-dive sur des productions spécifiques, breakdowns d'artistes connus.</p>
+      </div>
+    </div>
+
+    <div class="container-narrow" style="padding: 0;">
+      <div class="callout">
+        <div class="callout-tag">★ La règle des 5</div>
+        <p>Choisis <strong>5 subreddits maximum</strong> pour démarrer (3 EN + 2 FR), pas plus. Tu vas devenir un membre actif récurrent dans ces 5, lire les posts quotidiens, commenter régulièrement. La présence stratégique sur 5 subreddits bat la dispersion sur 30. <strong>Communauté = relation, pas broadcast.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 - Account warming -->
+<section class="module" id="warming">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 04 / 08</span>
+      <h2>Account warming, <em>préparer ton compte</em></h2>
+    </div>
+    <p class="module-lead">Reddit déteste les comptes qui débarquent et publient direct. Avant ton premier vrai post, ton compte doit avoir un historique cohérent, du karma, de l'ancienneté. C'est <strong>la phase invisible mais cruciale</strong>.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-circle">1</div>
+        <div>
+          <span class="step-tag">Phase 01 — Création + identité</span>
+          <h4>Crée ton compte avec ton vrai pseudo</h4>
+          <p>Username : ton nom ou ton pseudo d'artiste connu (pas un random comme "user_298471"). Photo de profil identique à tes autres plateformes (cohérence d'entité — tu as fait ça en Module 3). Bio courte qui dit qui tu es. Pays renseigné. <strong>Tu existes en tant qu'humain identifiable</strong>.</p>
+          <p><strong>Temps :</strong> 10 minutes.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-circle">2</div>
+        <div>
+          <span class="step-tag">Phase 02 — Karma + ancienneté</span>
+          <h4>Génère du karma pendant 2-4 semaines</h4>
+          <p>Avant tout post, passe 2 à 4 semaines à <strong>commenter dans tes 5 subreddits cibles</strong>. Pas n'importe quoi : commentaires utiles, longs (5+ lignes), avec ton expertise. Vise <strong>200-500 karma</strong> avant ton premier post. Si tu postes à 0 karma, le post sera moins indexé et tu peux te faire flag par les modos.</p>
+          <p><strong>Temps :</strong> 15-30 minutes par jour pendant 2-4 semaines.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-circle">3</div>
+        <div>
+          <span class="step-tag">Phase 03 — Lecture des règles</span>
+          <h4>Lis les règles de chaque subreddit (vraiment)</h4>
+          <p>Chaque subreddit a sa wiki + ses règles propres. Certains interdisent toute mention d'URL externe. D'autres exigent un flair spécifique. D'autres bannissent tout post qui ressemble à une auto-promo. <strong>Lis les règles AVANT de publier</strong>. Et regarde les top 10 posts du mois pour comprendre le style attendu.</p>
+          <p><strong>Temps :</strong> 30-45 minutes au total pour les 5 subreddits.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warning">
+      <div class="callout-tag">⚠ L'erreur fatale</div>
+      <p>Créer un compte <strong>aujourd'hui</strong> et poster ton article pilier <strong>demain</strong>. Reddit va flag ton post comme suspect (compte trop jeune + karma 0 + post promotionnel). Tu peux te faire bannir <strong>shadow ban</strong> (tu publies, mais personne ne voit tes posts) sans même le savoir. <strong>Patience pendant 2-4 semaines = la différence entre ban et succès.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 - Rules -->
+<section class="module" id="rules">
+  <div class="container">
+    <div class="module-header">
+      <span class="module-num">— 05 / 08</span>
+      <h2>Les règles invisibles à <em>ne jamais briser</em></h2>
+    </div>
+    <p class="module-lead">Reddit a une culture spécifique. Beaucoup de pratiques courantes sur LinkedIn ou Twitter sont des <strong>red flags absolus</strong> ici. Connaître ces règles non écrites = la différence entre acceptation et rejet.</p>
+
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-no">No 01 · Markdown</div>
+        <div class="rule-text">Zéro <strong>**bold**</strong> ou <strong>*italic*</strong> dans tes posts. Reddit affiche le markdown brut, et c'est lu comme du contenu IA / spam. <strong>Texte pur, paragraphes courts.</strong></div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-no">No 02 · Em dashes</div>
+        <div class="rule-text">Pas de tiret cadratin (—). C'est devenu en 2024 le marqueur n°1 du contenu généré par IA. Utilise des virgules, deux-points, ou tirets simples (-) à la place.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-no">No 03 · Émojis</div>
+        <div class="rule-text">Zéro émoji dans le corps du post. C'est lu comme amateur. Les seuls acceptables sont parfois 🎵 ou 🎤 dans le titre, et encore.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-no">No 04 · "Hi everyone"</div>
+        <div class="rule-text">Pas de salutation type "Hi guys", "Hello fellow producers", "Hey everyone". <strong>Tu rentres direct dans le sujet</strong>, comme une vraie conversation entre praticiens.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-no">No 05 · "I hope this helps"</div>
+        <div class="rule-text">Pas de conclusion édulcorée type "Hope this helps", "Cheers", "Let me know what you think". <strong>Tu finis sur une vraie question</strong> pour engager les commentaires.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-no">No 06 · Self-promo direct</div>
+        <div class="rule-text">Aucun lien direct vers ton produit, ton site, ta formation. Tu peux mentionner ton expérience, mais sans CTA. <strong>Ban quasi-systématique sinon.</strong></div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-no">No 07 · Cross-posting brut</div>
+        <div class="rule-text">Ne copie/colle pas le même post sur 5 subreddits le même jour. Reddit détecte et flag. Adapte chaque version au subreddit + espace les publications de 24-48h minimum.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-no">No 08 · "Just my opinion"</div>
+        <div class="rule-text">Pas de disclaimer style "this is just my opinion" ou "just my 2 cents". Sur Reddit, tu <strong>assumes ton expertise</strong> ou tu te tais. La fausse modestie est mal vue.</div>
+      </div>
+    </div>
+
+    <div class="container-narrow" style="padding: 0;">
+      <div class="callout success">
+        <div class="callout-tag">✓ Le ton qui marche</div>
+        <p>Praticien direct qui partage du vécu. Phrases courtes. Anecdotes datées. Chiffres précis. Opinions tranchées. Format texte pur sans embellissement. <strong>"En 2017 j'ai signé un deal de 8000€ pour un sync placement Coca, voilà comment j'ai trouvé le contact, négocié le brief, livré le master."</strong> — c'est le ton attendu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 - Formats -->
+<section class="module" id="formats">
+  <div class="container">
+    <div class="module-header">
+      <span class="module-num">— 06 / 08</span>
+      <h2>Les <em>4 formats</em> de posts qui marchent</h2>
+    </div>
+    <p class="module-lead">Quatre archétypes de posts Reddit qui produisent systématiquement upvotes + commentaires + indexation IA. Maîtriser ces 4 formats = toute ta production de posts pendant les 90 prochains jours.</p>
+
+    <div class="formats-grid">
+      <div class="format-card">
+        <div class="format-icon">♡</div>
+        <div class="format-name">Format 01 — Vulnerability</div>
+        <h4>Vulnerability post (échec raconté)</h4>
+        <p>Tu racontes un échec ou une erreur coûteuse, avec chiffres, leçons. Reddit adore l'authenticité brute. C'est aussi le format qui produit le plus d'engagement émotionnel et de commentaires.</p>
+        <div class="format-why">
+          <strong>Exemple titre</strong>
+          "I lost €14,000 in 2017 because I didn't read the fine print of my publishing deal — here's what happened"
+        </div>
+      </div>
+
+      <div class="format-card">
+        <div class="format-icon">⊞</div>
+        <div class="format-name">Format 02 — Deep-dive</div>
+        <h4>Deep-dive guide (article complet)</h4>
+        <p>Tu publies l'équivalent d'un article pilier (1500-3000 mots) directement dans le post Reddit. Format extrêmement citable par les IA. Tu deviens la source de référence sur la requête traitée.</p>
+        <div class="format-why">
+          <strong>Exemple titre</strong>
+          "How sync placement actually works in 2026 (a complete guide with real numbers from 50+ deals)"
+        </div>
+      </div>
+
+      <div class="format-card">
+        <div class="format-icon">?</div>
+        <div class="format-name">Format 03 — AMA</div>
+        <h4>Ask Me Anything (présentation expertise)</h4>
+        <p>Tu présentes ton parcours et invites la communauté à te poser des questions. Format excellent pour établir ton expertise sur un subreddit. Demande la validation des modos avant.</p>
+        <div class="format-why">
+          <strong>Exemple titre</strong>
+          "I've placed 30+ tracks in films/TV shows over 8 years as an indie French producer — AMA"
+        </div>
+      </div>
+
+      <div class="format-card">
+        <div class="format-icon">▸</div>
+        <div class="format-name">Format 04 — Breakdown</div>
+        <h4>Breakdown de cas concret</h4>
+        <p>Tu décortiques un cas spécifique : un deal, un succès viral, une stratégie qui a marché ou raté. Format ultra technique mais très valorisé par les communautés sérieuses.</p>
+        <div class="format-why">
+          <strong>Exemple titre</strong>
+          "Breakdown: how I went from 500 to 50,000 monthly Spotify listeners in 6 months (with the actual playlist data)"
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow" style="padding: 0;">
+      <pre class="code-block"><span class="code-comment">[Exemple structure d'un Vulnerability Post — format texte brut Reddit]</span>
+
+<span class="code-h1">I lost €14,000 in 2017 because I didn't read the fine print of my publishing deal</span>
+
+8 years ago I signed my first publishing deal with a French sub-publisher.
+I was 24, I had two friends in the industry telling me "sign it, you'll figure
+out the rest later". I didn't read the cession clause.
+
+Fast forward 18 months: my track gets placed in a regional ad campaign for
+€18,000. I see €4,000 hit my account.
+
+The contract had a "75/25 in favor of the publisher on sync revenues" clause
+buried on page 7. Standard clause, but I had no idea.
+
+What I do now, every single contract:
+- I read every page (yes, even the boilerplate)
+- I get a music lawyer to review (300-500€ per contract, worth every cent)
+- I never sign in less than 7 days from receiving the contract
+
+Anyone else here learned the hard way? What's your worst contract story?</pre>
+    </div>
+  </div>
+</section>
+
+<!-- 07 - Brand -->
+<section class="module" id="brand">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 07 / 08</span>
+      <h2>Glisser ta marque <em>sans te faire bannir</em></h2>
+    </div>
+    <p class="module-lead">L'objectif final est business. Mais Reddit bannit tout post promo direct. La solution : <strong>être citable indirectement</strong>. Voilà comment.</p>
+
+    <div class="prose">
+      <p>Reddit a un seuil de tolérance précis sur la self-promo : <strong>1 post promo pour 9 posts de pure valeur</strong>. C'est la règle officielle Reddiquette, appliquée différemment par chaque subreddit. La plupart sont en réalité plus stricts : <strong>0 lien promo direct dans le corps du post</strong> est la safe zone.</p>
+
+      <p>Comment alors te faire connaître ? Trois mécaniques qui marchent sans te faire flag :</p>
+      <ul>
+        <li><strong>Mention contextuelle de ton expertise</strong> — "I run an indie label called X, we've signed 12 artists since 2019" — sans lien, sans CTA</li>
+        <li><strong>Profil Reddit complet</strong> — ton bio, tes posts précédents, tes commentaires montrent qui tu es. Les gens curieux clickent ton username, pas ton CTA</li>
+        <li><strong>Réponses dans les commentaires</strong> — quand quelqu'un demande "where can I learn more", tu réponds, tu peux mentionner ton site/formation. Ça vient en réponse à une demande, pas en push</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <div class="callout-tag">★ La règle citation-friendly</div>
+      <p>Pour que ton post soit cité par les IA, ton nom et ta marque doivent apparaître <strong>dans le contenu du post lui-même</strong> (pas juste dans ta signature ou ton profil). Mécanique : intègre ton expérience comme contexte. <em>"En tant que fondateur de [marque], j'ai vu passer X situations..."</em>. C'est factuel, pas promo. Les IA captent <strong>"X est fondateur de [marque]"</strong> comme signal d'entité.</p>
+    </div>
+
+    <div class="callout warning">
+      <div class="callout-tag">⚠ Ce qui te fait bannir instantanément</div>
+      <p>Lien direct vers ton site/formation/produit dans le corps du post → ban. Mention du tarif, des promo, des bonus → ban. Tag urgence type "limited time" → ban. URL raccourcie (bit.ly etc.) → ban. <strong>Toute structure qui ressemble à une page de vente</strong> → ban. Reddit modos sont entraînés à les détecter en 5 secondes.</p>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Le truc subtil qui marche</div>
+      <p>Quand tu réponds aux commentaires de ton propre post, tu peux mettre un lien vers ton site/article si <strong>(1) c'est en réponse à une demande explicite ("where can I read more"), (2) c'est apporté en complément d'une réponse de fond, (3) le lien va vers du contenu gratuit (article, podcast), pas vers une page de vente</strong>. C'est le seul endroit où la self-promo est tolérée par la majorité des communautés.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 08 - Deliverable -->
+<section class="module" id="deliverable">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 08 / 08</span>
+      <h2>Livrable — <em>3 posts + plan 90 jours</em></h2>
+    </div>
+    <p class="module-lead">À la fin de la semaine, tu dois avoir 3 posts publiés (1 FR, 2 EN) qui respectent toutes les règles, plus un plan de présence sur 90 jours pour scaler.</p>
+
+    <div class="checklist">
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">Compte Reddit créé avec ton identité cohérente</div><div class="check-desc">Username, photo, bio identiques à tes autres plateformes (cohérence Module 3). Pays renseigné.</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">200+ karma accumulé sur 2-4 semaines minimum</div><div class="check-desc">Via commentaires utiles dans tes 5 subreddits cibles. Pas de raccourci possible.</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">5 subreddits cibles identifiés et règles lues</div><div class="check-desc">3 EN + 2 FR. Wiki de chacun lue. Top posts du mois étudiés pour comprendre le ton.</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">1 post FR publié dans un subreddit francophone</div><div class="check-desc">Format vulnerability, deep-dive, AMA ou breakdown. Sans markdown, sans em-dash, sans lien promo.</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">2 posts EN publiés dans des subreddits anglophones</div><div class="check-desc">Espacés de 24-48h minimum. Adaptés au ton de chaque subreddit, pas copy-paste brut.</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">Mention de ton entité (nom + marque) dans chaque post</div><div class="check-desc">Format "En tant que fondateur de X..." — sans lien, sans CTA. Pour que les IA captent ton entité.</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">Réponses actives aux commentaires sous chaque post</div><div class="check-desc">Engagement attentif les 24-48h après publication = boost algorithmique Reddit. Vise 5+ commentaires de réponse par post.</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">Plan de présence 90 jours rédigé</div><div class="check-desc">Calendrier : combien de posts par mois, dans quels subreddits, sur quels thèmes. 1-2 posts/semaine minimum recommandé.</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">Swipe file de 10 posts qui ont marché archivé</div><div class="check-desc">Tu as identifié 10 top posts dans tes subreddits cibles, archivé leur structure et le pourquoi de leur succès. Réutilisable.</div></div></div>
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content"><div class="check-title">Tracking : tes posts indexés dans Perplexity sous 2-4 semaines</div><div class="check-desc">Tape ta question H1 + "site:reddit.com" dans Perplexity. Au moins 1 de tes 3 posts doit apparaître dans les sources sous 4 semaines.</div></div></div>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Comment lire ton score</div>
+      <p><strong>10/10</strong> : tu as une présence Reddit solide, tu peux passer au Module 6 (presse). Continue les posts pendant les 90 jours suivants. <strong>7-9/10</strong> : tu as démarré, identifie ce qui manque (souvent : pas assez de karma, ou pas assez d'attente avant publication). <strong>Moins de 7/10</strong> : ne te précipite pas sur le Module 6. Reddit demande de la patience. Reviens sur les phases warming et règles.</p>
+    </div>
+  </div>
+</section>
+
+<section class="recap">
+  <div class="container-narrow">
+    <div class="section-label" style="color: var(--accent-line);">Synthèse</div>
+    <h3>Ce que tu dois retenir de ce module</h3>
+    <ol class="recap-list">
+      <li>Reddit est <strong>massivement crawlé par les IA</strong> (deal Google 60M$/an + scraping OpenAI/Anthropic). 1 à 2 sources sur 5 dans Perplexity viennent de Reddit.</li>
+      <li>Stratégie <strong>deux-vitesses</strong> : subreddits FR pour conversion business, subreddits EN pour signaux GEO globaux. Ratio 1 FR pour 2 EN.</li>
+      <li><strong>5 subreddits maximum</strong> à viser : r/WeAreTheMusicMakers, r/MusicIndustry, r/musicproduction, r/independentmusic, + 1-2 FR. Pas de dispersion.</li>
+      <li><strong>Account warming obligatoire</strong> : 2-4 semaines de commentaires utiles pour atteindre 200+ karma avant ton premier post. Sinon shadow ban.</li>
+      <li>Les <strong>règles invisibles</strong> à respecter absolument : zéro markdown, zéro em-dash, zéro émoji, zéro "Hi everyone", zéro self-promo direct, zéro disclaimer.</li>
+      <li>Quatre <strong>formats qui marchent</strong> : vulnerability post, deep-dive guide, AMA, breakdown de cas concret. C'est tout. Maîtrise ces 4 et tu es paré.</li>
+      <li><strong>Glisser ta marque sans bannissement</strong> : mention contextuelle de ton expertise dans le contenu, profil Reddit complet, réponses aux commentaires. Pas de lien direct.</li>
+      <li>Livrable : <strong>3 posts publiés (1 FR + 2 EN), plan 90 jours, swipe file de 10 top posts</strong>. Test Perplexity dans 2-4 semaines pour valider l'indexation.</li>
+    </ol>
+  </div>
+</section>
+
+<div class="next-cta">
+  <h3>Prêt pour le <em>Module 06</em> ?</h3>
+  <p>Qwoted, HARO, Featured et presse spé pour earned media — décrocher 3 à 5 citations dans des médias en 30 jours.</p>
+  <a href="https://ia.producteurasucces.com/" class="btn btn-primary">Retour à la formation</a>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    © 2026 Tarik Hamiche — Producteur à Succès • <a href="https://drive.google.com/file/d/1j34jogzEWH8ggeVDIT8qRimJGh30SV38/view?usp=sharing" target="_blank" rel="noopener">Mentions légales &amp; Confidentialité</a> • <a href="https://drive.google.com/file/d/1POBlG9RlTZgRYuJWRe_bHUIqdLE2vpVn/view?usp=sharing" target="_blank" rel="noopener">CGV</a> • <a href="mailto:tarik@producteurasucces.com">Contact</a>
+  </div>
+</footer>
+
+<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="1c4155b7-339c-4746-99b4-8d1a09e952ad";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+
+<script>
+  (function(){
+    const bar = document.getElementById('progress-bar');
+    if (!bar) return;
+    function update(){
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+  (function(){
+    document.querySelectorAll('.check-item').forEach(function(item){
+      item.addEventListener('click', function(){ item.classList.toggle('checked'); });
+    });
+  })();
+  (function(){
+    if (!('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('section.module, .toc-section, .recap, .next-cta').forEach(function(el){
+      el.classList.add('fade-up');
+      observer.observe(el);
+    });
+  })();
+</script>
+
+</body>
+</html>
