@@ -2356,31 +2356,48 @@
       document.body.style.overflow = '';
     }
 
-    // Open modal on any primary button or price option click — EXCEPT inside the modal itself
+    // Differentiated CTA behavior:
+    // - CTAs OUTSIDE the price card (hero, final CTA, sticky bar) → smooth scroll to pricing
+    // - CTAs INSIDE the price card (3 payment options + final "Je rejoins maintenant") → open waitlist modal
     document.querySelectorAll('.btn-primary, .price-option').forEach(function(el){
-      // Skip elements inside the modal (form submit button, close buttons, etc.)
+      // Skip elements inside the waitlist modal (form submit button, close buttons, etc.)
       if (el.closest('#waitlist-modal')) return;
 
+      // CTAs inside the price card → open waitlist modal (real intent to commit)
+      if (el.closest('.price-card')) {
+        el.addEventListener('click', function(e){
+          e.preventDefault();
+          // Visual feedback: highlight selected price option
+          if (el.classList.contains('price-option')) {
+            document.querySelectorAll('.price-option').forEach(function(o){
+              o.classList.remove('highlight');
+              o.setAttribute('aria-checked', 'false');
+            });
+            el.classList.add('highlight');
+            el.setAttribute('aria-checked', 'true');
+          }
+          openModal();
+        });
+        if (el.classList.contains('price-option')) {
+          el.addEventListener('keydown', function(e){
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              el.click();
+            }
+          });
+        }
+        return;
+      }
+
+      // CTAs outside the price card → smooth scroll to pricing section
+      // Forces visitors to see content + price BEFORE registering
       el.addEventListener('click', function(e){
         e.preventDefault();
-        if (el.classList.contains('price-option')) {
-          document.querySelectorAll('.price-option').forEach(function(o){
-            o.classList.remove('highlight');
-            o.setAttribute('aria-checked', 'false');
-          });
-          el.classList.add('highlight');
-          el.setAttribute('aria-checked', 'true');
+        const tarif = document.getElementById('tarif');
+        if (tarif) {
+          tarif.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-        openModal();
       });
-      if (el.classList.contains('price-option')) {
-        el.addEventListener('keydown', function(e){
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            el.click();
-          }
-        });
-      }
     });
 
     // Close modal on overlay or close buttons
