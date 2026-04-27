@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Module 01 — Comment les IA choisissent leurs sources. Chunking, RAG, E-E-A-T, GEO. La méthode complète pour devenir une source citée par ChatGPT, Perplexity, Gemini et Google AI Overview." />
+<title>Module 01 — Comment les IA choisissent leurs sources | Cité par les IA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:           #F7F1E8;
+    --bg-soft:      #FCF8F2;
+    --bg-card:      #FFFFFF;
+    --ink:          #1F1A15;
+    --ink-soft:     #5C4F42;
+    --ink-muted:    #8A7A6A;
+    --accent:       #5B14FF;
+    --accent-dark:  #4910CC;
+    --accent-soft:  #EDE9FE;
+    --accent-line:  #A78BFA;
+    --border:       #E8DDC9;
+    --border-soft:  #F0E6D4;
+    --warning:      #C2410C;
+    --warning-soft: #FFEDD5;
+    --success:      #15803D;
+    --success-soft: #DCFCE7;
+    --shadow-sm:    0 1px 2px rgba(31, 26, 21, 0.04);
+    --shadow-md:    0 4px 16px rgba(31, 26, 21, 0.06);
+    --shadow-lg:    0 16px 48px rgba(31, 26, 21, 0.08);
+    --radius-sm:    8px;
+    --radius-md:    14px;
+    --radius-lg:    24px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+  }
+  h1 { font-size: clamp(2.4rem, 5.5vw, 4rem); line-height: 1.05; }
+  h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); }
+  h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 700; }
+  h4 { font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
+  p { margin-bottom: 1.1rem; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 700; }
+  em { font-style: normal; color: var(--accent); font-weight: 800; }
+  a { color: var(--accent); text-decoration: none; transition: color .15s ease; }
+  a:hover { color: var(--accent-dark); }
+
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+  .container-narrow { max-width: 760px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* —————— Progress bar (top scroll) —————— */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-line));
+    z-index: 9999;
+    transition: width 0.1s ease;
+  }
+
+  /* —————— Top header —————— */
+  header.top-nav {
+    position: sticky;
+    top: 0;
+    background: rgba(247, 241, 232, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-soft);
+    z-index: 100;
+  }
+  .nav-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .brand-mark {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .brand-mark em {
+    color: var(--accent);
+    font-style: normal;
+  }
+  .nav-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+  }
+  .nav-meta span:not(:last-child)::after {
+    content: '·';
+    margin-left: 1rem;
+    color: var(--border);
+  }
+  @media (max-width: 600px) {
+    .nav-meta { display: none; }
+  }
+
+  /* —————— Hero —————— */
+  .hero {
+    padding: 5rem 0 4rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.22) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    right: -150px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(91, 20, 255, 0.14) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 1.8rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .hero h1 { margin-bottom: 1.5rem; }
+  .hero-lead {
+    font-size: clamp(1.1rem, 1.7vw, 1.3rem);
+    color: var(--ink-soft);
+    max-width: 720px;
+    margin: 0 auto 3rem;
+    line-height: 1.55;
+  }
+
+  /* —————— Hero stats —————— */
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    max-width: 880px;
+    margin: 3rem auto 0;
+  }
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .stat-num {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    line-height: 1.35;
+  }
+  @media (max-width: 720px) {
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 420px) {
+    .hero-stats { grid-template-columns: 1fr; }
+  }
+
+  /* —————— Section labels —————— */
+  .section-label {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  /* —————— TOC —————— */
+  .toc-section {
+    padding: 4rem 0;
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+    text-align: center;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    max-width: 800px;
+    margin: 1rem auto 0;
+  }
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.3rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    text-align: left;
+    color: var(--ink);
+    transition: all 0.15s ease;
+  }
+  .toc-item:hover {
+    border-color: var(--accent);
+    transform: translateX(2px);
+    box-shadow: var(--shadow-sm);
+    color: var(--ink);
+  }
+  .toc-num {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    width: 36px;
+  }
+  .toc-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+  @media (max-width: 600px) {
+    .toc-grid { grid-template-columns: 1fr; }
+  }
+
+  /* —————— Module sections —————— */
+  section.module {
+    padding: 6rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  section.module:nth-child(even) {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  section.module::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: -180px;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.16) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  section.module > .container,
+  section.module > .container-narrow {
+    position: relative;
+    z-index: 1;
+  }
+  .module-header {
+    margin-bottom: 2.5rem;
+  }
+  .module-num {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .module-lead {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    margin: 1.5rem 0 2.5rem;
+    line-height: 1.55;
+    max-width: 720px;
+  }
+
+  /* —————— Prose —————— */
+  .prose p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 1.3rem;
+  }
+  .prose p strong { color: var(--ink); }
+
+  /* —————— Callouts —————— */
+  .callout {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-md);
+    padding: 1.6rem 1.8rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-sm);
+  }
+  .callout.warning {
+    border-left-color: var(--warning);
+    background: linear-gradient(135deg, var(--warning-soft) 0%, var(--bg-card) 60%);
+  }
+  .callout.success {
+    border-left-color: var(--success);
+    background: linear-gradient(135deg, var(--success-soft) 0%, var(--bg-card) 60%);
+  }
+  .callout-tag {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .callout.warning .callout-tag { color: var(--warning); }
+  .callout.success .callout-tag { color: var(--success); }
+  .callout p {
+    margin: 0;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+
+  /* —————— Chunking visualization —————— */
+  .chunking-viz {
+    margin: 2.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .chunking-step {
+    display: flex;
+    gap: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .chunking-step-num {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+  }
+  .chunking-step h4 { margin-bottom: 0.5rem; }
+  .chunking-step > div:last-child { flex: 1; min-width: 0; }
+  .fake-article {
+    background: var(--bg-soft);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1.2rem;
+    margin-top: 1rem;
+  }
+  .fake-article-title {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+  }
+  .fake-article p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .chunk-block {
+    padding: 0.1rem 0.25rem;
+    border-radius: 3px;
+    transition: background 0.15s ease;
+  }
+  .chunk-1 { background: rgba(91, 20, 255, 0.10); }
+  .chunk-2 { background: rgba(167, 139, 250, 0.18); }
+  .chunk-3 { background: rgba(91, 20, 255, 0.10); }
+  .chunk-4 { background: rgba(167, 139, 250, 0.18); }
+  .chunk-5 { background: rgba(91, 20, 255, 0.10); }
+
+  .chunks-out {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+  .chunk-card {
+    padding: 0.9rem 0.8rem;
+    border-radius: var(--radius-sm);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: var(--accent-dark);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    text-align: center;
+  }
+
+  .vector-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .vector {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--ink);
+    color: var(--accent-line);
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  /* —————— RAG flow —————— */
+  .rag-flow {
+    margin: 2.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .rag-step {
+    display: flex;
+    gap: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s ease;
+  }
+  .rag-step:hover { border-color: var(--accent-line); }
+  .rag-step-circle {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    box-shadow: 0 6px 20px rgba(91, 20, 255, 0.3);
+  }
+  .rag-step > div:last-child { flex: 1; min-width: 0; }
+  .step-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+    margin-bottom: 0.4rem;
+  }
+  .rag-step h4 { margin-bottom: 0.6rem; }
+  .rag-step p { margin: 0; line-height: 1.55; }
+
+  /* —————— EEAT grid —————— */
+  .eeat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    margin: 2rem 0;
+  }
+  .eeat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .eeat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .eeat-letter {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+  .eeat-name {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .eeat-card h4 { margin-bottom: 0.8rem; }
+  .eeat-card > p { font-size: 0.95rem; line-height: 1.55; margin-bottom: 1.2rem; }
+  .eeat-music {
+    background: var(--accent-soft);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .eeat-music strong {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  @media (max-width: 740px) { .eeat-grid { grid-template-columns: 1fr; } }
+
+  /* —————— Evolution (SEO/AEO/GEO) —————— */
+  .evolution {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin: 2rem 0;
+  }
+  .evo-col {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+  }
+  .evo-col.featured {
+    border: 2px solid var(--accent);
+    background: linear-gradient(180deg, var(--accent-soft) 0%, var(--bg-card) 50%);
+    transform: scale(1.02);
+    box-shadow: var(--shadow-md);
+  }
+  .evo-acronym {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 2.4rem;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-bottom: 0.4rem;
+  }
+  .evo-full {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .evo-col h4 { margin-bottom: 0.6rem; }
+  .evo-col p { font-size: 0.92rem; line-height: 1.55; text-align: left; }
+  .evo-target {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border);
+    text-align: left;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .evo-target strong {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+    font-weight: 800;
+  }
+  @media (max-width: 800px) {
+    .evolution { grid-template-columns: 1fr; }
+    .evo-col.featured { transform: none; }
+  }
+
+  /* —————— Motors —————— */
+  .motors {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    margin: 2rem 0;
+  }
+  .motor-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.6rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .motor-name {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.3rem;
+  }
+  .motor-by {
+    font-size: 0.78rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .motor-spec {
+    display: flex;
+    gap: 0.8rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border-soft);
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+  .motor-spec:last-child { border-bottom: none; }
+  .motor-spec-label {
+    flex-shrink: 0;
+    width: 70px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    padding-top: 0.2rem;
+  }
+  .motor-spec-value {
+    flex: 1;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 800px) { .motors { grid-template-columns: 1fr; } }
+
+  /* —————— Factors —————— */
+  .factors {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin: 2rem 0;
+  }
+  .factor {
+    display: flex;
+    gap: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s ease;
+  }
+  .factor:hover { border-color: var(--accent-line); }
+  .factor-num {
+    flex-shrink: 0;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    color: var(--accent);
+    line-height: 1;
+    width: 50px;
+    letter-spacing: -0.03em;
+  }
+  .factor > div:last-child { flex: 1; min-width: 0; }
+  .factor h4 { margin-bottom: 0.6rem; }
+  .factor p { font-size: 0.95rem; line-height: 1.55; margin-bottom: 1rem; }
+  .factor-detail {
+    background: var(--accent-soft);
+    border-radius: var(--radius-sm);
+    padding: 0.9rem 1rem;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .factor-detail strong {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+  }
+
+  /* —————— Audit prompts —————— */
+  .audit-intro {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-sm);
+  }
+  .audit-intro h3 { margin-bottom: 0.8rem; }
+  .audit-intro p { margin: 0; line-height: 1.6; }
+
+  .audit-prompts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin: 2rem 0;
+  }
+  .prompt-row {
+    display: flex;
+    gap: 1.2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.4rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .prompt-num {
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--accent);
+    width: 36px;
+    padding-top: 0.15rem;
+  }
+  .prompt-row > div:last-child { flex: 1; min-width: 0; }
+  .prompt-text {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+  }
+  .prompt-target {
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+  }
+  .prompt-target span { color: var(--ink-soft); font-weight: 500; }
+  .audit-grid-result {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+  }
+  .audit-check {
+    padding: 0.5rem 0.6rem;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.78rem;
+    text-align: center;
+    color: var(--ink-soft);
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s ease;
+  }
+  .audit-check:hover {
+    border-color: var(--accent-line);
+  }
+  .audit-check.checked {
+    background: var(--success);
+    color: #FFF;
+    border-color: var(--success);
+    font-weight: 600;
+  }
+  @media (max-width: 600px) {
+    .audit-grid-result { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* —————— Recap —————— */
+  .recap {
+    background: var(--ink);
+    color: rgba(247, 241, 232, 0.9);
+    padding: 4rem 0;
+    margin-top: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .recap::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(91, 20, 255, 0.25) 0%, transparent 60%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .recap > .container { position: relative; z-index: 1; }
+  .recap h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: #FFF;
+    margin-bottom: 1.5rem;
+  }
+  .recap-list {
+    list-style: none;
+    counter-reset: item;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 760px;
+  }
+  .recap-list li {
+    counter-increment: item;
+    padding-left: 3rem;
+    position: relative;
+    line-height: 1.55;
+    color: rgba(247, 241, 232, 0.85);
+  }
+  .recap-list li::before {
+    content: counter(item, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0.05em;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--accent-line);
+    letter-spacing: -0.02em;
+  }
+  .recap-list li strong { color: #FFF; }
+
+  /* —————— Inline CTA banner —————— */
+  .next-cta {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    margin: 4rem auto;
+    max-width: 760px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+  }
+  .next-cta h3 { margin-bottom: 1rem; }
+  .next-cta p { margin-bottom: 1.5rem; font-size: 1.05rem; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1.1rem 2.2rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #FFF;
+    box-shadow: 0 6px 20px rgba(91, 20, 255, 0.3);
+  }
+  .btn-primary:hover {
+    background: var(--accent-dark);
+    color: #FFF;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px rgba(91, 20, 255, 0.4);
+  }
+
+  /* —————— Footer —————— */
+  footer.site-footer {
+    background: var(--ink);
+    color: rgba(247, 241, 232, 0.5);
+    padding: 2.5rem 0;
+    text-align: center;
+    font-size: 0.88rem;
+    border-top: 1px solid rgba(247, 241, 232, 0.08);
+  }
+  footer.site-footer a { color: rgba(247, 241, 232, 0.7); }
+
+  /* —————— Mobile —————— */
+  @media (max-width: 860px) {
+    section.module { padding: 4rem 0; }
+    .toc-section { padding: 3rem 0; }
+    .module-header { margin-bottom: 1.8rem; }
+    .module-lead { font-size: 1.05rem; margin: 1rem 0 1.8rem; }
+    .chunking-step, .rag-step, .factor { padding: 1.4rem; gap: 1rem; }
+    .rag-step-circle { width: 48px; height: 48px; font-size: 1.3rem; }
+    .factor-num { font-size: 1.6rem; width: 40px; }
+    .next-cta { padding: 1.8rem 1.4rem; }
+    .recap-list li { padding-left: 2.4rem; }
+    section.module::before { width: 320px !important; height: 320px !important; }
+  }
+  @media (max-width: 480px) {
+    .hero { padding: 3rem 0 2.5rem; }
+    .hero h1 { font-size: 2rem; }
+    .chunking-step, .rag-step, .factor {
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .rag-step-circle, .chunking-step-num {
+      align-self: flex-start;
+    }
+  }
+
+  /* —————— Fade in animation —————— */
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress-bar"></div>
+
+<header class="top-nav">
+  <div class="nav-inner">
+    <a href="https://ia.producteurasucces.com/" class="brand-mark">Cité par les <em>IA</em></a>
+    <div class="nav-meta">
+      <span>Module 01 / 06</span>
+      <span>Producteur à Succès</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== HERO ============================== -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-tag">Module 01 — Fondamentaux</span>
+    <h1>Comment les IA <em>choisissent</em> leurs sources.</h1>
+    <p class="hero-lead">Démystifier le fonctionnement réel des LLMs en mode recherche. Comprendre le chunking, le RAG, l'E-E-A-T, et savoir pourquoi Perplexity cite tel artiste plutôt qu'un autre. Sans jargon. Sans filtre.</p>
+
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">80%</div>
+        <div class="stat-label">Recherches sans clic prévues d'ici 2027</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3-5</div>
+        <div class="stat-label">Sources citées en moyenne par requête IA</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">200-500</div>
+        <div class="stat-label">Mots par chunk — l'unité de base du GEO</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">1</div>
+        <div class="stat-label">Place qui compte vraiment dans une réponse IA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== TABLE OF CONTENTS ============================== -->
+<section class="toc-section">
+  <div class="container-narrow">
+    <div class="section-label">Plan du module</div>
+    <div class="toc-grid">
+      <a href="#shift" class="toc-item"><span class="toc-num">01</span><span class="toc-title">Le shift en cours, du SEO au GEO</span></a>
+      <a href="#chunking" class="toc-item"><span class="toc-num">02</span><span class="toc-title">Le chunking, expliqué sans jargon</span></a>
+      <a href="#rag" class="toc-item"><span class="toc-num">03</span><span class="toc-title">Le RAG en 3 étapes</span></a>
+      <a href="#eeat" class="toc-item"><span class="toc-num">04</span><span class="toc-title">E-E-A-T appliqué au music business</span></a>
+      <a href="#evolution" class="toc-item"><span class="toc-num">05</span><span class="toc-title">SEO vs AEO vs GEO</span></a>
+      <a href="#motors" class="toc-item"><span class="toc-num">06</span><span class="toc-title">Perplexity, ChatGPT, AI Overview, Gemini</span></a>
+      <a href="#factors" class="toc-item"><span class="toc-num">07</span><span class="toc-title">Pourquoi les IA citent X plutôt que Y</span></a>
+      <a href="#audit" class="toc-item"><span class="toc-num">08</span><span class="toc-title">Livrable — ton audit GEO en 10 prompts</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 01 — SHIFT ============================== -->
+<section class="module" id="shift">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 01 / 08</span>
+      <h2>Le shift en cours, du SEO au <em>GEO</em></h2>
+    </div>
+    <p class="module-lead">Avant, tu devais être bien classé pour être trouvé. Demain, tu dois être <strong>cité</strong> pour exister. Ce n'est pas la même bataille.</p>
+
+    <div class="prose">
+      <p>Pendant 25 ans, la règle du jeu était stable. Quelqu'un cherchait une info, Google sortait 10 liens bleus, l'utilisateur cliquait. Tu pouvais arriver en page 2, l'utilisateur scrollait. Tu pouvais avoir un titre ennuyeux, l'utilisateur lisait quand même. Tu existais dans la liste, donc tu existais.</p>
+      <p>Cette règle est en train de mourir. <strong>En 2025, environ 60% des recherches Google se terminent sans clic.</strong> Pas parce que les utilisateurs abandonnent, mais parce qu'ils obtiennent leur réponse directement dans la page, via les AI Overviews, les featured snippets, ou ils ne passent même plus par Google et vont directement sur Perplexity, ChatGPT, Claude ou Gemini.</p>
+      <p>Le résultat est sans appel. <strong>Une réponse IA contient 3 à 5 sources citées, pas 10 liens.</strong> Si tu n'es pas dans ces 3 à 5, tu n'existes plus. Pas "tu as moins de trafic". Tu n'existes plus, point. C'est binaire.</p>
+    </div>
+
+    <div class="callout warning">
+      <div class="callout-tag">⚠ Le constat brutal</div>
+      <p>Avoir un disque d'or, 50 000 streams, ou 10 ans de carrière ne garantit absolument pas que les IA te citent. Le succès commercial et la visibilité IA sont deux univers parallèles qui ne se croisent que si tu construis activement le pont entre les deux.</p>
+    </div>
+
+    <div class="prose">
+      <p>C'est ça, le GEO. <strong>Generative Engine Optimization</strong>. La discipline qui consiste à se faire citer par les moteurs génératifs au lieu d'être référencé dans des listes de liens. Et la bonne nouvelle, c'est que c'est encore l'aube. <strong>La concurrence GEO sur le music business francophone est aujourd'hui quasi inexistante.</strong> Ceux qui s'y mettent maintenant verrouillent leur place pour les 5 prochaines années.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 02 — CHUNKING ============================== -->
+<section class="module" id="chunking">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 02 / 08</span>
+      <h2>Le <em>chunking</em>, expliqué sans jargon</h2>
+    </div>
+    <p class="module-lead">Les IA ne lisent jamais ton article en entier. Elles le découpent en petits morceaux, et ce sont ces morceaux qui sont en compétition pour être cités. Pas l'article. <strong>Les morceaux.</strong></p>
+
+    <div class="prose">
+      <p>Imagine que ton site Producteur à Succès a un article de 3000 mots intitulé "Comment vivre de sa musique en 2026". Quand un LLM indexe le web, il ne stocke pas ton article comme un bloc unique. Il le découpe en petits morceaux de <strong>200 à 500 mots chacun</strong>. Ces morceaux s'appellent des <strong>chunks</strong>.</p>
+      <p>Chaque chunk est ensuite transformé en vecteur mathématique (un "embedding") qui capture son sens. Tous ces chunks sont stockés dans une base de données vectorielle géante, aux côtés de millions d'autres chunks venant de millions d'autres sites.</p>
+    </div>
+
+    <div class="chunking-viz">
+      <div class="chunking-step">
+        <div class="chunking-step-num">1</div>
+        <div>
+          <h4>Ton article original — vu par toi</h4>
+          <p>Un texte continu de 3000 mots avec une intro, des H2, des paragraphes, une conclusion. Tu l'as écrit comme un tout cohérent.</p>
+          <div class="fake-article">
+            <div class="fake-article-title">Comment vivre de sa musique en 2026</div>
+            <p><span class="chunk-block chunk-1">Vivre de sa musique en 2026 demande une approche radicalement différente de celle qui fonctionnait il y a 10 ans.</span> <span class="chunk-block chunk-2">Le streaming représente aujourd'hui 84% des revenus, mais pour un indé il faut 250 000 écoutes mensuelles pour un SMIC.</span> <span class="chunk-block chunk-3">La SACEM permet de toucher des droits sur la diffusion publique. La déclaration prend 4 à 6 semaines.</span> <span class="chunk-block chunk-4">Le sync placement est en 2026 le levier de revenus le plus rentable pour les producteurs indé français.</span> <span class="chunk-block chunk-5">Construire une fanbase passe par 3 piliers : newsletter, live streaming, et 2 réseaux maximum.</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="chunking-step">
+        <div class="chunking-step-num">2</div>
+        <div>
+          <h4>Ton article — vu par l'IA</h4>
+          <p>Cinq chunks autonomes, chacun avec sa propre identité sémantique. Chaque chunk est en compétition <strong>individuellement</strong>.</p>
+          <div class="chunks-out">
+            <div class="chunk-card">CHUNK 01<br>Diversification revenus 2026</div>
+            <div class="chunk-card">CHUNK 02<br>Streaming, seuils de revenus</div>
+            <div class="chunk-card">CHUNK 03<br>SACEM, processus inscription</div>
+            <div class="chunk-card">CHUNK 04<br>Sync placement, levier</div>
+            <div class="chunk-card">CHUNK 05<br>Fanbase, 3 piliers</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chunking-step">
+        <div class="chunking-step-num">3</div>
+        <div>
+          <h4>Chaque chunk devient un vecteur</h4>
+          <p>Une suite de nombres qui capture le sens du chunk dans un espace mathématique. C'est ce vecteur qui sera comparé à la question de l'utilisateur.</p>
+          <div class="vector-row">
+            <span class="vector">[0.23, -0.45, 0.78, …]</span>
+            <span class="vector">[0.56, 0.12, -0.34, …]</span>
+            <span class="vector">[-0.18, 0.89, 0.41, …]</span>
+            <span class="vector">[0.67, -0.23, 0.55, …]</span>
+            <span class="vector">[0.31, 0.44, -0.62, …]</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-tag">★ Conséquence stratégique</div>
+      <p>Ce n'est pas ton article qui est en compétition pour être cité, c'est <strong>chaque morceau de ton article, indépendamment des autres</strong>. Si ton intro est faible, ton intro ne sortira jamais, même si ton paragraphe 7 est génial. Chaque chunk doit pouvoir tenir debout tout seul, contenir une idée claire, et répondre à une question précise.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 03 — RAG ============================== -->
+<section class="module" id="rag">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 03 / 08</span>
+      <h2>Le <em>RAG</em> en 3 étapes</h2>
+    </div>
+    <p class="module-lead">Retrieval Augmented Generation. C'est le mécanisme exact qui se déclenche quand quelqu'un pose une question à Perplexity, ChatGPT en mode search, Google AI Overview ou Gemini.</p>
+
+    <div class="rag-flow">
+      <div class="rag-step">
+        <div class="rag-step-circle">R</div>
+        <div>
+          <span class="step-tag">Étape 01 — Retrieval</span>
+          <h4>L'IA va chercher les meilleurs chunks</h4>
+          <p>Un fan tape "Quelle formation pour vivre de sa musique en 2026 ?". L'IA transforme cette question en vecteur, puis elle plonge dans la base vectorielle géante et remonte les <strong>5 à 20 chunks dont le vecteur ressemble le plus à la question</strong>. Pas les 5 meilleurs articles. Les 5 meilleurs <strong>chunks</strong>, qui peuvent venir de 5 sites différents.</p>
+        </div>
+      </div>
+
+      <div class="rag-step">
+        <div class="rag-step-circle">A</div>
+        <div>
+          <span class="step-tag">Étape 02 — Augmentation</span>
+          <h4>L'IA s'augmente avec ces chunks</h4>
+          <p>Elle injecte les chunks récupérés dans son prompt interne, avec la question de l'utilisateur. En substance, elle se dit : <em>"voilà la question, voilà 12 morceaux de texte trouvés sur le web, réponds en t'appuyant dessus."</em> C'est cette étape qui fait que les LLMs en mode search ne hallucinent quasiment plus, ils s'appuient sur du factuel.</p>
+        </div>
+      </div>
+
+      <div class="rag-step">
+        <div class="rag-step-circle">G</div>
+        <div>
+          <span class="step-tag">Étape 03 — Generation</span>
+          <h4>L'IA rédige et cite</h4>
+          <p>L'IA produit une réponse synthétique en s'appuyant sur les chunks récupérés. Elle cite les sources qu'elle a effectivement utilisées, généralement <strong>3 à 5 sources sur les 12 récupérées</strong>. Le reste est invisible pour l'utilisateur. C'est dans ce filtre final que se joue la bataille du GEO.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ L'analogie qui éclaire tout</div>
+      <p>Imagine que les IA sont des journalistes pressés. Avant de publier leur article, ils ouvrent 50 livres en même temps, lisent 3 paragraphes par livre, et recopient les 4 paragraphes qui répondent le mieux à leur sujet. Ton boulot, ce n'est pas d'écrire le meilleur livre. C'est d'avoir <strong>le meilleur paragraphe sur la question précise qu'ils traitent ce jour-là</strong>.</p>
+    </div>
+
+    <div class="prose">
+      <p><strong>Trois implications concrètes</strong> qui guident toute la suite du bootcamp.</p>
+      <p><strong>1. Les IA ne lisent jamais ton site en entier.</strong> Elles piochent. Donc chaque H2, chaque paragraphe, chaque liste doit être autonome. Un paragraphe qui dépend du contexte des 5 paragraphes précédents pour avoir du sens ne sera jamais cité.</p>
+      <p><strong>2. La question est tout.</strong> Si tu n'as pas formulé la question exacte que pose l'utilisateur dans ton article, en H2 ou en début de paragraphe, ton chunk a peu de chances d'être récupéré. C'est pour ça que les structures Q/R et FAQ marchent si fort en GEO.</p>
+      <p><strong>3. Tu n'as pas besoin de battre tes concurrents sur l'article entier.</strong> Tu as besoin de battre un seul de leurs chunks sur une seule question précise. C'est beaucoup plus accessible que de chercher à dominer une thématique entière.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 04 — E-E-A-T ============================== -->
+<section class="module" id="eeat">
+  <div class="container">
+    <div class="module-header">
+      <span class="module-num">— 04 / 08</span>
+      <h2>E-E-A-T appliqué au <em>music business</em></h2>
+    </div>
+    <p class="module-lead">Quatre signaux que les IA évaluent pour décider si ton chunk mérite d'être cité, ou s'il finit dans la corbeille des 12 récupérés. Adaptés à <strong>ton terrain</strong>.</p>
+
+    <div class="eeat-grid">
+      <div class="eeat-card">
+        <div class="eeat-letter">E</div>
+        <div class="eeat-name">Experience — Vécu réel</div>
+        <h4>Tu as fait, pas seulement étudié</h4>
+        <p>Les IA détectent les contenus rédigés par quelqu'un qui parle d'expérience directe versus quelqu'un qui paraphrase. Verbes au passé, anecdotes datées, chiffres précis, erreurs racontées.</p>
+        <div class="eeat-music">
+          <strong>Application music business</strong>
+          Raconte tes premières signatures, le jour où ton morceau est passé sur NRJ, les contrats que tu as ratés. Pas "il faut négocier ses royalties", mais <em>"en 2017 j'ai perdu 14 000€ parce que j'avais signé une clause de cession sans la relire."</em>
+        </div>
+      </div>
+
+      <div class="eeat-card">
+        <div class="eeat-letter">E</div>
+        <div class="eeat-name">Expertise — Savoir technique</div>
+        <h4>Tu maîtrises le détail qui compte</h4>
+        <p>Les IA pondèrent positivement les contenus qui contiennent des termes techniques précis, des références à des organismes officiels, des chiffres récents, des distinctions de niveau pro.</p>
+        <div class="eeat-music">
+          <strong>Application music business</strong>
+          Cite la SACEM, l'ADAMI, la SPEDIDAM, le SCPP, le SPPF, le CNM par leur nom complet et leurs spécificités. Distingue droit d'auteur et droit voisin. Donne les taux et délais réels. C'est ce qui te sépare du contenu IA généré.
+        </div>
+      </div>
+
+      <div class="eeat-card">
+        <div class="eeat-letter">A</div>
+        <div class="eeat-name">Authoritativeness — Reconnaissance externe</div>
+        <h4>D'autres parlent de toi</h4>
+        <p>L'autorité ne s'auto-déclare pas. Les IA cherchent la <strong>convergence de signaux externes</strong> : citations dans la presse, mentions Reddit, présence Wikipedia, fiches Wikidata, profils sur des sites tiers réputés.</p>
+        <div class="eeat-music">
+          <strong>Application music business</strong>
+          Tsugi, Trax, Music Business France, Pure Charts, Booska-P, Move-on-Up, La Grosse Radio. Et surtout, fiches Wikidata et brouillons Wikipedia. C'est exactement ce qu'on construit dans les modules 3 et 6.
+        </div>
+      </div>
+
+      <div class="eeat-card">
+        <div class="eeat-letter">T</div>
+        <div class="eeat-name">Trustworthiness — Fiabilité</div>
+        <h4>Tu es traçable, transparent, cohérent</h4>
+        <p>Mentions légales, identité claire, cohérence entre toutes les plateformes, sources citées, dates de mise à jour. Les IA dégradent fortement les contenus opaques ou auto-promotionnels sans preuves.</p>
+        <div class="eeat-music">
+          <strong>Application music business</strong>
+          Bio identique sur Spotify for Artists, Instagram, LinkedIn, YouTube, ton site, ta fiche SACEM publique. Photos cohérentes. Liens croisés. Mentions légales sur le site label. Numéro SIRET visible.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 05 — EVOLUTION SEO/AEO/GEO ============================== -->
+<section class="module" id="evolution">
+  <div class="container">
+    <div class="module-header">
+      <span class="module-num">— 05 / 08</span>
+      <h2>SEO, AEO, <em>GEO</em></h2>
+    </div>
+    <p class="module-lead">Trois disciplines qui s'<strong>empilent</strong> et ne se remplacent pas. Comprendre la nuance évite de jeter le bébé avec l'eau du bain.</p>
+
+    <div class="evolution">
+      <div class="evo-col">
+        <div class="evo-acronym">SEO</div>
+        <div class="evo-full">Search Engine Optimization · 1998</div>
+        <h4>Apparaître dans une liste de liens</h4>
+        <p>Optimisation pour ranker dans les 10 résultats Google classiques. Mots-clés, backlinks, vitesse de page, balises meta, contenu long-form.</p>
+        <div class="evo-target">
+          <strong>Cible</strong>
+          Robots Google, Bing, DuckDuckGo qui affichent une SERP de 10 liens.
+        </div>
+      </div>
+
+      <div class="evo-col">
+        <div class="evo-acronym">AEO</div>
+        <div class="evo-full">Answer Engine Optimization · 2018</div>
+        <h4>Devenir la réponse directe</h4>
+        <p>Optimisation pour les featured snippets, position 0, People Also Ask, et plus tard les AI Overviews. Format question-réponse, structure FAQ, données structurées.</p>
+        <div class="evo-target">
+          <strong>Cible</strong>
+          Moteurs qui affichent une réponse extraite, sans clic obligatoire.
+        </div>
+      </div>
+
+      <div class="evo-col featured">
+        <div class="evo-acronym">GEO</div>
+        <div class="evo-full">Generative Engine Optimization · 2024</div>
+        <h4>Être cité par les IA génératives</h4>
+        <p>Optimisation pour être sélectionné comme source par ChatGPT, Perplexity, Claude, Gemini. Entité reconnue, autorité distribuée, contenu chunkable, signaux E-E-A-T.</p>
+        <div class="evo-target">
+          <strong>Cible</strong>
+          LLMs qui synthétisent une réponse en citant 3 à 5 sources.
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow" style="padding: 0;">
+      <div class="callout">
+        <div class="callout-tag">★ La règle d'or</div>
+        <p>Le GEO ne remplace pas le SEO, il s'empile par-dessus. Un bon GEO suppose un bon AEO, qui suppose un bon SEO de base. Mais l'inverse n'est plus vrai. Tu peux ranker n°1 sur Google et être <strong>complètement absent</strong> des réponses de Perplexity. C'est ce qui se passe pour 90% des sites aujourd'hui.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 06 — MOTORS ============================== -->
+<section class="module" id="motors">
+  <div class="container">
+    <div class="module-header">
+      <span class="module-num">— 06 / 08</span>
+      <h2>Les 4 moteurs qui comptent <em>aujourd'hui</em></h2>
+    </div>
+    <p class="module-lead">Chacun a son comportement, ses sources préférées, ses biais. Ne pas les confondre. <strong>Ne pas optimiser pour un seul.</strong></p>
+
+    <div class="motors">
+      <div class="motor-card">
+        <div class="motor-name">Perplexity</div>
+        <div class="motor-by">Indépendant — Lancé 2022</div>
+        <div class="motor-spec"><span class="motor-spec-label">Nature</span><span class="motor-spec-value">Moteur de recherche IA pur, conçu pour la recherche et le sourçage transparent.</span></div>
+        <div class="motor-spec"><span class="motor-spec-label">Sources</span><span class="motor-spec-value">Web temps réel + index propriétaire. Affiche les sources en haut de la réponse, très visibles.</span></div>
+        <div class="motor-spec"><span class="motor-spec-label">Aime</span><span class="motor-spec-value">Sites avec autorité claire, contenu structuré, dates récentes, Reddit, Wikipedia.</span></div>
+        <div class="motor-spec"><span class="motor-spec-label">À noter</span><span class="motor-spec-value">L'audit GEO commence ici. C'est le moteur le plus transparent sur ses choix de citations.</span></div>
+      </div>
+
+      <div class="motor-card">
+        <div class="motor-name">ChatGPT</div>
+        <div class="motor-by">OpenAI — Search activé 2024</div>
+        <div class="motor-spec"><span class="motor-spec-label">Nature</span><span class="motor-spec-value">LLM généraliste avec mode search activable. La majorité des utilisateurs ne l'active pas.</span></div>
+        <div class="motor-spec"><span class="motor-spec-label">Sources</span><span class="motor-spec-value">En mode search, similaire à Bing. Sans search, base de connaissances figée à sa date de cutoff.</span></div>
+        <div class="motor-spec"><span class="motor-spec-label">Aime</span><span class="motor-spec-value">Wikipedia, sites institutionnels, médias établis, Reddit (deal explicite).</span></div>
+        <div class="motor-spec"><span class="motor-spec-label">À noter</span><span class="motor-spec-value">Compte tenu du volume d'utilisateurs, c'est le moteur où la bataille est la plus rude.</span></div>
+      </div>
+
+      <div class="motor-card">
+        <div class="motor-name">Google AI Overview</div>
+        <div class="motor-by">Google — Généralisé 2024</div>
+        <div class="motor-spec"><span class="motor-spec-label">Nature</span><span class="motor-spec-value">Bloc de réponse généré, affiché au-dessus des résultats classiques sur Google.</span></div>
+        <div class="motor-spec"><span class="motor-spec-label">Sources</span><span class="motor-spec-value">Index Google. Surpondère les sites qui rankent déjà bien en SEO classique.</span></div>
+        <div class="motor-spec"><span class="motor-spec-label">Aime</span><span class="motor-spec-value">Sites avec haute autorité Google, structure FAQ, schema.org, contenu Q/R explicite.</span></div>
+        <div class="motor-spec"><span class="motor-spec-label">À noter</span><span class="motor-spec-value">Le seul des quatre où le SEO classique reste un pré-requis solide pour être cité.</span></div>
+      </div>
+
+      <div class="motor-card">
+        <div class="motor-name">Gemini</div>
+        <div class="motor-by">Google — Lancé 2023</div>
+        <div class="motor-spec"><span class="motor-spec-label">Nature</span><span class="motor-spec-value">Assistant IA Google, intégré dans Workspace, Android, Chrome.</span></div>
+        <div class="motor-spec"><span class="motor-spec-label">Sources</span><span class="motor-spec-value">Index Google + données Workspace de l'utilisateur. Sourçage moins explicite que Perplexity.</span></div>
+        <div class="motor-spec"><span class="motor-spec-label">Aime</span><span class="motor-spec-value">Données structurées riches, YouTube (forte intégration), entités Knowledge Graph.</span></div>
+        <div class="motor-spec"><span class="motor-spec-label">À noter</span><span class="motor-spec-value">Sa force, c'est l'intégration YouTube. Pour toi avec 50K abonnés, c'est un canal sous-estimé.</span></div>
+      </div>
+    </div>
+
+    <div class="container-narrow" style="padding: 0;">
+      <div class="callout warning">
+        <div class="callout-tag">⚠ Erreur classique</div>
+        <p>Optimiser pour un seul moteur. Les comportements diffèrent assez pour qu'un site cité par Perplexity soit invisible sur AI Overview, et inversement. <strong>Le GEO solide vise les 4 simultanément</strong>, en s'appuyant sur les fondamentaux communs : entité reconnue, contenu chunkable, signaux d'autorité distribués.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 07 — FACTORS ============================== -->
+<section class="module" id="factors">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 07 / 08</span>
+      <h2>Pourquoi les IA <em>citent X</em> plutôt que Y</h2>
+    </div>
+    <p class="module-lead">Cinq facteurs qui font basculer la décision finale. Quand tu comprends ces facteurs, tu sais exactement <strong>où agir en priorité</strong>.</p>
+
+    <div class="factors">
+      <div class="factor">
+        <div class="factor-num">01</div>
+        <div>
+          <h4>L'entité est reconnue</h4>
+          <p>Les IA fonctionnent par <strong>entités</strong>, pas par chaînes de caractères. "Tarik Hamiche" doit être identifié comme une personne unique, avec un parcours, une fonction, des œuvres, et pas confondu avec un homonyme. Ça passe par Wikidata, Wikipedia, schema.org Person, et la cohérence cross-plateformes.</p>
+          <div class="factor-detail">
+            <strong>Indicateur live</strong>
+            Tape ton nom dans Perplexity. Si la réponse hésite, mélange les profils, ou ne sort rien, ton entité n'existe pas pour l'IA.
+          </div>
+        </div>
+      </div>
+
+      <div class="factor">
+        <div class="factor-num">02</div>
+        <div>
+          <h4>Le chunk répond pile à la question</h4>
+          <p>Un chunk générique sur "le music business en France" ne sortira jamais. Un chunk qui répond précisément à "Combien coûte une inscription SACEM en 2026 et combien de temps prend la déclaration" sortira chaque fois que la question est posée. <strong>La précision écrase la généralité.</strong></p>
+          <div class="factor-detail">
+            <strong>Action immédiate</strong>
+            Réécris tes 3 articles les plus stratégiques en mode question-réponse explicite : une question précise par H2, une réponse directe en début de paragraphe.
+          </div>
+        </div>
+      </div>
+
+      <div class="factor">
+        <div class="factor-num">03</div>
+        <div>
+          <h4>Plusieurs sources convergent</h4>
+          <p>Une IA accorde peu de poids à une info trouvée sur un seul site. Elle accorde un poids très fort à une info confirmée par 4 sources différentes. C'est la règle de la <strong>convergence de sources</strong>. Si toi seul dis que tu es producteur certifié or, c'est faible. Si la SACEM, Wikipedia, Tsugi, ton site, et un post Reddit le disent, c'est validé.</p>
+          <div class="factor-detail">
+            <strong>Stratégie clé</strong>
+            C'est précisément l'objet des modules 5 (Reddit) et 6 (Qwoted, presse) du bootcamp. Distribuer les signaux pour les faire converger.
+          </div>
+        </div>
+      </div>
+
+      <div class="factor">
+        <div class="factor-num">04</div>
+        <div>
+          <h4>La fraîcheur du contenu</h4>
+          <p>Les IA pénalisent fortement les contenus datés sur les sujets qui évoluent. Un article de 2021 sur le streaming sera ignoré au profit d'un article de 2025, même si le tien est mieux écrit. La date de publication, la date de mise à jour, et la mention de chiffres récents pèsent énormément.</p>
+          <div class="factor-detail">
+            <strong>Routine recommandée</strong>
+            Mettre à jour tes 10 articles piliers tous les 6 mois avec les chiffres récents. Marquer la date de mise à jour dans le HTML et dans le texte visible.
+          </div>
+        </div>
+      </div>
+
+      <div class="factor">
+        <div class="factor-num">05</div>
+        <div>
+          <h4>La structure est lisible par la machine</h4>
+          <p>Schema.org, JSON-LD Person/MusicGroup/Course, balises sémantiques, Open Graph, FAQ structurées. Tout ce qui dit explicitement à la machine "voilà qui je suis, voilà ce que je propose, voilà la réponse". Sans ça, l'IA doit deviner. <strong>Et elle se trompe.</strong></p>
+          <div class="factor-detail">
+            <strong>Module dédié</strong>
+            Construction du JSON-LD complet en module 3, avec templates Person, Course, Book, Organization, MusicGroup prêts à coller.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 08 — AUDIT ============================== -->
+<section class="module" id="audit">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 08 / 08</span>
+      <h2>Livrable — ton <em>audit GEO</em> de départ</h2>
+    </div>
+    <p class="module-lead">Tu ne peux pas améliorer ce que tu ne mesures pas. Avant toute action, voilà comment savoir précisément où tu en es.</p>
+
+    <div class="audit-intro">
+      <h3>Le protocole, en 30 minutes chrono</h3>
+      <p>Ouvre les 4 moteurs en 4 onglets : Perplexity, ChatGPT en mode search, Google AI Overview, Gemini. Lance les 10 prompts ci-dessous, dans cet ordre. <strong>Clique sur les cases</strong> pour cocher au fur et à mesure. À la fin, tu as ta carte d'invisibilité, qui devient ta to-do priorité.</p>
+    </div>
+
+    <div class="audit-prompts">
+      <div class="prompt-row">
+        <div class="prompt-num">P01</div>
+        <div>
+          <div class="prompt-text">"Qui est Tarik Hamiche ?"</div>
+          <div class="prompt-target">Cible — <span>existence d'entité personnelle reconnue</span></div>
+          <div class="audit-grid-result">
+            <div class="audit-check">⬚ Perplexity</div>
+            <div class="audit-check">⬚ ChatGPT</div>
+            <div class="audit-check">⬚ AI Overview</div>
+            <div class="audit-check">⬚ Gemini</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-row">
+        <div class="prompt-num">P02</div>
+        <div>
+          <div class="prompt-text">"Quelle formation pour vivre de sa musique en France en 2026 ?"</div>
+          <div class="prompt-target">Cible — <span>citation de Producteur à Succès sur ta requête métier reine</span></div>
+          <div class="audit-grid-result">
+            <div class="audit-check">⬚ Perplexity</div>
+            <div class="audit-check">⬚ ChatGPT</div>
+            <div class="audit-check">⬚ AI Overview</div>
+            <div class="audit-check">⬚ Gemini</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-row">
+        <div class="prompt-num">P03</div>
+        <div>
+          <div class="prompt-text">"Quel SaaS pour gérer un label indépendant en France ?"</div>
+          <div class="prompt-target">Cible — <span>citation de Muzisecur sur ta requête produit</span></div>
+          <div class="audit-grid-result">
+            <div class="audit-check">⬚ Perplexity</div>
+            <div class="audit-check">⬚ ChatGPT</div>
+            <div class="audit-check">⬚ AI Overview</div>
+            <div class="audit-check">⬚ Gemini</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-row">
+        <div class="prompt-num">P04</div>
+        <div>
+          <div class="prompt-text">"Quels mentors music business suivre en France ?"</div>
+          <div class="prompt-target">Cible — <span>positionnement personal branding</span></div>
+          <div class="audit-grid-result">
+            <div class="audit-check">⬚ Perplexity</div>
+            <div class="audit-check">⬚ ChatGPT</div>
+            <div class="audit-check">⬚ AI Overview</div>
+            <div class="audit-check">⬚ Gemini</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-row">
+        <div class="prompt-num">P05</div>
+        <div>
+          <div class="prompt-text">"Comment monter son label de musique en 2026 ?"</div>
+          <div class="prompt-target">Cible — <span>autorité éditoriale sur ta thématique pilier</span></div>
+          <div class="audit-grid-result">
+            <div class="audit-check">⬚ Perplexity</div>
+            <div class="audit-check">⬚ ChatGPT</div>
+            <div class="audit-check">⬚ AI Overview</div>
+            <div class="audit-check">⬚ Gemini</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-row">
+        <div class="prompt-num">P06</div>
+        <div>
+          <div class="prompt-text">"Quels livres lire pour devenir producteur de musique indépendant ?"</div>
+          <div class="prompt-target">Cible — <span>citation de tes 2 livres comme références</span></div>
+          <div class="audit-grid-result">
+            <div class="audit-check">⬚ Perplexity</div>
+            <div class="audit-check">⬚ ChatGPT</div>
+            <div class="audit-check">⬚ AI Overview</div>
+            <div class="audit-check">⬚ Gemini</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-row">
+        <div class="prompt-num">P07</div>
+        <div>
+          <div class="prompt-text">"Quels podcasts ou chaînes YouTube suivre sur le music business francophone ?"</div>
+          <div class="prompt-target">Cible — <span>citation de ta chaîne YouTube Producteur à Succès</span></div>
+          <div class="audit-grid-result">
+            <div class="audit-check">⬚ Perplexity</div>
+            <div class="audit-check">⬚ ChatGPT</div>
+            <div class="audit-check">⬚ AI Overview</div>
+            <div class="audit-check">⬚ Gemini</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-row">
+        <div class="prompt-num">P08</div>
+        <div>
+          <div class="prompt-text">"Comment placer sa musique à l'international quand on est beatmaker français ?"</div>
+          <div class="prompt-target">Cible — <span>autorité spécifique BPM Expo / international</span></div>
+          <div class="audit-grid-result">
+            <div class="audit-check">⬚ Perplexity</div>
+            <div class="audit-check">⬚ ChatGPT</div>
+            <div class="audit-check">⬚ AI Overview</div>
+            <div class="audit-check">⬚ Gemini</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-row">
+        <div class="prompt-num">P09</div>
+        <div>
+          <div class="prompt-text">"Quelle plateforme pour gérer les royalties et reversements d'un label ?"</div>
+          <div class="prompt-target">Cible — <span>requête concurrentielle SaaS, comparaison face aux outils existants</span></div>
+          <div class="audit-grid-result">
+            <div class="audit-check">⬚ Perplexity</div>
+            <div class="audit-check">⬚ ChatGPT</div>
+            <div class="audit-check">⬚ AI Overview</div>
+            <div class="audit-check">⬚ Gemini</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-row">
+        <div class="prompt-num">P10</div>
+        <div>
+          <div class="prompt-text">"Cite-moi 5 producteurs indépendants français certifiés disque d'or"</div>
+          <div class="prompt-target">Cible — <span>preuve d'autorité indiscutable, ton angle le plus défendable</span></div>
+          <div class="audit-grid-result">
+            <div class="audit-check">⬚ Perplexity</div>
+            <div class="audit-check">⬚ ChatGPT</div>
+            <div class="audit-check">⬚ AI Overview</div>
+            <div class="audit-check">⬚ Gemini</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Comment lire ton score</div>
+      <p><strong>0 à 10 citations sur 40 cases</strong> : tu es au point de départ classique — la marge de progression est massive. <strong>11 à 20 citations</strong> : tu as quelques signaux qui passent, on cherche pourquoi et on amplifie. <strong>21 à 30 citations</strong> : tu es déjà au-dessus de la médiane française, on optimise les angles morts. <strong>Plus de 30</strong> : tu fais partie des 5%, on passe en mode défense de territoire.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== RECAP ============================== -->
+<section class="recap">
+  <div class="container-narrow">
+    <div class="section-label" style="color: var(--accent-line);">Synthèse</div>
+    <h3>Ce que tu dois retenir de ce module</h3>
+    <ol class="recap-list">
+      <li>Les IA ne lisent pas tes articles, elles lisent des <strong>chunks de 200 à 500 mots</strong>, et chaque chunk est en compétition individuellement.</li>
+      <li>Le <strong>RAG</strong> est le mécanisme en 3 étapes (Retrieval, Augmentation, Generation) qui se déclenche à chaque question posée à un moteur génératif.</li>
+      <li>Quatre signaux pèsent dans la décision de citation : <strong>Experience, Expertise, Authoritativeness, Trustworthiness</strong>, et tous les quatre demandent des preuves externes.</li>
+      <li>Le GEO ne remplace pas le SEO, il s'<strong>empile dessus</strong>. Le SEO reste utile pour Google AI Overview en particulier.</li>
+      <li>Les 4 moteurs majeurs (Perplexity, ChatGPT, AI Overview, Gemini) ont des comportements différents : optimiser pour un seul est une <strong>erreur stratégique</strong>.</li>
+      <li>Les 5 facteurs qui font basculer une citation sont : entité reconnue, précision de réponse, convergence de sources, fraîcheur, structure machine-readable.</li>
+      <li>Avant toute action de production, <strong>fais ton audit GEO de départ</strong> avec les 10 prompts. Sans mesure, pas de progrès vérifiable.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================== NEXT CTA ============================== -->
+<div class="next-cta">
+  <h3>Prêt pour le <em>Module 02</em> ?</h3>
+  <p>Construire ton site GEO-ready avec Antigravity et Claude — sans coder une ligne.</p>
+  <a href="https://ia.producteurasucces.com/" class="btn btn-primary">Retour à la formation</a>
+</div>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="site-footer">
+  <div class="container">
+    © 2026 Tarik Hamiche — Producteur à Succès • <a href="https://drive.google.com/file/d/1j34jogzEWH8ggeVDIT8qRimJGh30SV38/view?usp=sharing" target="_blank" rel="noopener">Mentions légales &amp; Confidentialité</a> • <a href="https://drive.google.com/file/d/1POBlG9RlTZgRYuJWRe_bHUIqdLE2vpVn/view?usp=sharing" target="_blank" rel="noopener">CGV</a> • <a href="mailto:tarik@producteurasucces.com">Contact</a>
+  </div>
+</footer>
+
+<!-- ============================== CRISP CHAT ============================== -->
+<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="1c4155b7-339c-4746-99b4-8d1a09e952ad";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+
+<!-- ============================== JS — Progress bar + Audit checkboxes + Fade-in ============================== -->
+<script>
+  // Progress bar
+  (function(){
+    const bar = document.getElementById('progress-bar');
+    if (!bar) return;
+    function update(){
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      bar.style.width = progress + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+
+  // Audit checkboxes — click to toggle
+  (function(){
+    document.querySelectorAll('.audit-check').forEach(function(cell){
+      cell.addEventListener('click', function(){
+        cell.classList.toggle('checked');
+        if (cell.classList.contains('checked')) {
+          cell.innerHTML = cell.innerHTML.replace('⬚', '✓');
+        } else {
+          cell.innerHTML = cell.innerHTML.replace('✓', '⬚');
+        }
+      });
+    });
+  })();
+
+  // Fade-in on scroll
+  (function(){
+    if (!('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('section.module, .toc-section, .recap, .next-cta').forEach(function(el){
+      el.classList.add('fade-up');
+      observer.observe(el);
+    });
+  })();
+</script>
+
+</body>
+</html>
