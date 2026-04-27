@@ -206,58 +206,21 @@
     margin: 3rem auto;
     border-radius: var(--radius-lg);
     overflow: hidden;
-    background: linear-gradient(135deg, #1F1A15 0%, #2D241B 100%);
+    background: #1F1A15;
     box-shadow: var(--shadow-lg);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
   .hero-video:hover {
     transform: translateY(-2px);
     box-shadow: 0 24px 60px rgba(31, 26, 21, 0.18);
   }
-  .hero-video::before {
-    content: '';
+  .hero-video iframe {
     position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 30% 30%, rgba(91, 20, 255, 0.18) 0%, transparent 50%),
-      radial-gradient(circle at 70% 70%, rgba(167, 139, 250, 0.12) 0%, transparent 50%);
-  }
-  .hero-video-play {
-    position: relative;
-    z-index: 2;
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: #FFF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 12px 36px rgba(91, 20, 255, 0.5);
-    transition: transform 0.2s ease;
-  }
-  .hero-video:hover .hero-video-play {
-    transform: scale(1.08);
-  }
-  .hero-video-play svg {
-    width: 32px;
-    height: 32px;
-    margin-left: 4px;
-  }
-  .hero-video-label {
-    position: absolute;
-    bottom: 1.2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    color: rgba(255, 255, 255, 0.55);
-    font-size: 0.82rem;
-    font-style: italic;
-    white-space: nowrap;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
   }
 
   .hero-sub {
@@ -1515,13 +1478,8 @@
     <div class="hero-content">
       <h1>En 30 jours, deviens <em>l'artiste que les IA recommandent le plus</em>.</h1>
 
-      <div class="hero-video" role="button" aria-label="Vidéo de présentation par Tarik Hamiche">
-        <div class="hero-video-play">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
-        </div>
-        <div class="hero-video-label">Vidéo de présentation à insérer</div>
+      <div class="hero-video">
+        <iframe src="https://player.vimeo.com/video/1186874470?h=256b51dbfe&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Vidéo de présentation — Cité par les IA"></iframe>
       </div>
 
       <p class="hero-sub">
