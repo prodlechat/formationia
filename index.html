@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Formation Cité par les IA — En 30 jours, deviens la réponse que ChatGPT, Perplexity, Gemini et Google AI Overview citent quand quelqu'un cherche un artiste, producteur, beatmaker ou label dans ton style." />
+<title>Cité par les IA — La formation de Tarik Hamiche</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:           #F7F1E8;
+    --bg-soft:      #FCF8F2;
+    --bg-card:      #FFFFFF;
+    --ink:          #1F1A15;
+    --ink-soft:     #5C4F42;
+    --ink-muted:    #8A7A6A;
+    --accent:       #5B14FF;
+    --accent-dark:  #4910CC;
+    --accent-soft:  #EDE9FE;
+    --accent-line:  #A78BFA;
+    --border:       #E8DDC9;
+    --border-soft:  #F0E6D4;
+    --success:      #15803D;
+    --shadow-sm:    0 1px 2px rgba(31, 26, 21, 0.04);
+    --shadow-md:    0 4px 16px rgba(31, 26, 21, 0.06);
+    --shadow-lg:    0 16px 48px rgba(31, 26, 21, 0.08);
+    --radius-sm:    8px;
+    --radius-md:    14px;
+    --radius-lg:    24px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    text-transform: none;
+  }
+
+  h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); font-weight: 800; }
+  h2 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; }
+  h3 { font-size: clamp(1.3rem, 2.2vw, 1.6rem); font-weight: 700; line-height: 1.2; }
+  h4 { font-size: 1.15rem; font-weight: 700; }
+
+  p { margin-bottom: 1.1rem; color: var(--ink-soft); }
+  p.lead { font-size: 1.2rem; line-height: 1.55; color: var(--ink); }
+  strong { color: var(--ink); font-weight: 700; }
+  em { font-style: normal; color: var(--accent); font-weight: 800; }
+
+  a { color: var(--accent); text-decoration: none; transition: color .15s ease; }
+  a:hover { color: var(--accent-dark); }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .container-narrow {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  section { padding: 6rem 0; }
+  section.tight { padding: 4rem 0; }
+
+  /* —————— Eyebrow / overline —————— */
+  .eyebrow {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+
+  /* —————— Buttons —————— */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1.1rem 2.2rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #FFF;
+    box-shadow: 0 6px 20px rgba(91, 20, 255, 0.3);
+  }
+  .btn-primary:hover {
+    background: var(--accent-dark);
+    color: #FFF;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px rgba(91, 20, 255, 0.4);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+  }
+  .btn-secondary:hover {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .btn-large { padding: 1.3rem 2.6rem; font-size: 1.1rem; }
+  .btn-arrow::after { content: '→'; font-size: 1.2em; transition: transform 0.2s ease; }
+  .btn-arrow:hover::after { transform: translateX(4px); }
+
+  /* —————— Hero —————— */
+  .hero {
+    padding: 4rem 0 6rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.22) 0%, transparent 65%);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero-content {
+    max-width: 880px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .hero-tag .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+  .hero h1 {
+    margin-bottom: 0;
+  }
+  .hero h1 em {
+    color: var(--accent);
+    font-style: normal;
+    font-weight: 800;
+  }
+
+  .hero-video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    max-width: 760px;
+    margin: 3rem auto;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: linear-gradient(135deg, #1F1A15 0%, #2D241B 100%);
+    box-shadow: var(--shadow-lg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .hero-video:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 60px rgba(31, 26, 21, 0.18);
+  }
+  .hero-video::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(91, 20, 255, 0.18) 0%, transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(167, 139, 250, 0.12) 0%, transparent 50%);
+  }
+  .hero-video-play {
+    position: relative;
+    z-index: 2;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 36px rgba(91, 20, 255, 0.5);
+    transition: transform 0.2s ease;
+  }
+  .hero-video:hover .hero-video-play {
+    transform: scale(1.08);
+  }
+  .hero-video-play svg {
+    width: 32px;
+    height: 32px;
+    margin-left: 4px;
+  }
+  .hero-video-label {
+    position: absolute;
+    bottom: 1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.82rem;
+    font-style: italic;
+    white-space: nowrap;
+  }
+
+  .hero-sub {
+    font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+    color: var(--ink-soft);
+    margin: 0 auto 2.5rem;
+    line-height: 1.55;
+    max-width: 700px;
+    font-weight: 500;
+  }
+  .hero-sub strong { color: var(--ink); font-weight: 700; }
+
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem 2rem;
+    font-size: 0.92rem;
+    color: var(--ink-muted);
+    justify-content: center;
+  }
+  .hero-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 500;
+  }
+  .hero-meta-item::before {
+    content: '✓';
+    color: var(--accent);
+    font-weight: 800;
+  }
+
+  /* —————— Section title block —————— */
+  .section-head {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .section-head h2 {
+    margin-bottom: 1rem;
+  }
+  .section-head p {
+    font-size: 1.15rem;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* —————— Constat (problem) section —————— */
+  .constat {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .constat h2 em { font-style: italic; color: var(--accent); }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+  }
+  .stat {
+    text-align: center;
+    padding: 1rem;
+  }
+  .stat-num {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(2.6rem, 5vw, 3.6rem);
+    font-weight: 400;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.03em;
+  }
+  .stat-label {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .constat-quote {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.45;
+    text-align: center;
+    color: var(--ink);
+    max-width: 820px;
+    margin: 3rem auto 0;
+    padding: 1.8rem 2rem;
+    border-left: 3px solid var(--accent);
+    background: var(--bg);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  }
+
+  /* —————— Constat narrative blocks —————— */
+  .constat-list {
+    list-style: none;
+    margin: 1.4rem 0 1.6rem;
+    padding: 0;
+  }
+  .constat-list li {
+    padding: 0.55rem 0;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    font-size: 1.05rem;
+  }
+  .constat-list li strong { color: var(--ink); }
+
+  .constat-questions {
+    margin: 2.5rem auto 0;
+    padding: 1.8rem 2.2rem 1.6rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+  .constat-questions-intro {
+    margin: 0 0 1.2rem !important;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .constat-questions-list {
+    list-style: none;
+    margin: 0 0 1.4rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .constat-questions-list li {
+    font-family: 'Manrope', sans-serif;
+    font-style: italic;
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 1.08rem;
+    padding-left: 1.6rem;
+    position: relative;
+    line-height: 1.4;
+  }
+  .constat-questions-list li::before {
+    content: '↳';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--accent);
+    font-weight: 800;
+    font-style: normal;
+    font-size: 1.1em;
+  }
+  .constat-questions-final {
+    margin: 0 !important;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--border-soft);
+    font-size: 1.08rem;
+    color: var(--ink) !important;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+  .constat-questions-final strong {
+    color: var(--accent);
+    font-weight: 800;
+  }
+
+  /* —————— Audience —————— */
+  .audience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
+  .audience-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .audience-card h3 {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .audience-card .icon {
+    font-family: 'Manrope', sans-serif;
+    font-style: italic;
+    font-size: 1.2em;
+  }
+  .audience-card.yes h3 .icon { color: var(--success); }
+  .audience-card.no h3 .icon { color: var(--accent); }
+  .audience-card ul {
+    list-style: none;
+  }
+  .audience-card li {
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--border-soft);
+    color: var(--ink-soft);
+    line-height: 1.5;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  .audience-card li:last-child { border-bottom: none; }
+  .audience-card li {
+    padding-left: 2rem;
+  }
+  .audience-card.yes li::before {
+    content: '✅';
+    position: absolute;
+    left: 0;
+    font-size: 0.95em;
+    line-height: 1.5;
+  }
+  .audience-card.no li::before {
+    content: '❌';
+    position: absolute;
+    left: 0;
+    font-size: 0.85em;
+    line-height: 1.6;
+  }
+
+  /* —————— Outcomes —————— */
+  .outcomes {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .outcomes-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 3rem auto 0;
+  }
+  .outcome-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.8rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    align-items: flex-start;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .outcome-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .outcome-num {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
+  .outcome-text {
+    color: var(--ink);
+    line-height: 1.5;
+    padding-top: 0.6rem;
+    font-weight: 500;
+  }
+
+  /* —————— Pull quote (citation Nadella) —————— */
+  .quote-card {
+    margin: 4rem auto 0;
+    max-width: 780px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 3.5rem 2.8rem 2.5rem;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+  }
+  .quote-card::before {
+    content: '\201C';
+    position: absolute;
+    top: -50px;
+    left: 24px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 14rem;
+    color: var(--accent);
+    line-height: 1;
+    font-weight: 800;
+    opacity: 0.10;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .quote-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-line) 100%);
+  }
+  .quote-text {
+    position: relative;
+    z-index: 1;
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.15rem, 1.9vw, 1.4rem);
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0 0 2rem;
+    letter-spacing: -0.005em;
+  }
+  .quote-text .quote-mark-inline {
+    color: var(--accent);
+    font-weight: 800;
+    font-style: normal;
+  }
+  .quote-author {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--border-soft);
+  }
+  .quote-photo {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent-soft);
+    background: linear-gradient(135deg, #E8DDC9 0%, #D4C4A8 100%);
+    flex-shrink: 0;
+    display: block;
+  }
+  .quote-author-info {
+    text-align: left;
+  }
+  .quote-author-name {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .quote-author-role {
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+    margin-top: 0.2rem;
+    font-weight: 500;
+  }
+  @media (max-width: 600px) {
+    .quote-card { padding: 3rem 1.6rem 2rem; }
+    .quote-card::before { font-size: 9rem; top: -30px; left: 12px; }
+  }
+
+  /* —————— Programme / Modules —————— */
+  .program-intro {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .program-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.7rem 1.4rem;
+    background: var(--accent-soft);
+    border-radius: 999px;
+    font-size: 0.9rem;
+    color: var(--accent-dark);
+    font-weight: 500;
+    margin-top: 1.5rem;
+  }
+  .modules {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .module {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .module:hover {
+    border-color: var(--accent-line);
+    box-shadow: var(--shadow-md);
+  }
+  .module summary {
+    padding: 2rem 2.5rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    user-select: none;
+  }
+  .module summary::-webkit-details-marker { display: none; }
+  .module-num {
+    flex-shrink: 0;
+    font-family: 'Manrope', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+    width: 60px;
+    letter-spacing: -0.02em;
+  }
+  .module-head {
+    flex: 1;
+    min-width: 0;
+  }
+  .module-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+    margin-bottom: 0.4rem;
+  }
+  .module-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .module-toggle {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg-soft);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 300;
+    transition: transform 0.2s ease, background 0.2s ease;
+    line-height: 1;
+  }
+  .module[open] .module-toggle { transform: rotate(45deg); background: var(--accent); color: #FFF; }
+  .module-body {
+    padding: 0 2.5rem 2rem;
+    margin-left: 76px;
+    border-top: 1px solid var(--border-soft);
+    padding-top: 1.5rem;
+    margin-top: -0.5rem;
+  }
+  .module-body .label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-top: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+  .module-body .label:first-child { margin-top: 0; }
+  .module-body p { font-size: 0.97rem; line-height: 1.65; }
+
+  .module-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.3rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
+  }
+  .module-list li {
+    font-size: 0.97rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    padding-left: 1.7rem;
+    position: relative;
+  }
+  .module-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--accent);
+    font-weight: 800;
+    font-size: 1em;
+    line-height: 1.6;
+  }
+  .module-list li strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  /* —————— Bonus —————— */
+  .bonus-section {
+    background: var(--ink);
+    color: #FAF6F0;
+    position: relative;
+    overflow: hidden;
+  }
+  .bonus-section::before {
+    content: '';
+    position: absolute;
+    top: -150px;
+    left: -150px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.18) 0%, transparent 70%);
+  }
+  .bonus-section .section-head h2 { color: #FAF6F0; }
+  .bonus-section .section-head h2 em { color: var(--accent-line); font-style: italic; }
+  .bonus-section .section-head p { color: rgba(250, 246, 240, 0.7); }
+  .bonus-section .eyebrow { color: var(--accent-line); }
+
+  .bonus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  .bonus-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(167, 139, 250, 0.25);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
+  }
+  .bonus-card:hover {
+    border-color: var(--accent-line);
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .bonus-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-line);
+    margin-bottom: 1rem;
+  }
+  .bonus-card h3 {
+    font-family: 'Manrope', sans-serif;
+    color: #FAF6F0;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  .bonus-card p {
+    color: rgba(250, 246, 240, 0.75);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+  .bonus-value {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    background: rgba(167, 139, 250, 0.18);
+    color: var(--accent-line);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .bonus-vip {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.15) 0%, rgba(91, 20, 255, 0.10) 100%);
+    border: 1px solid var(--accent-line);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+    margin-top: 3rem;
+    position: relative;
+    z-index: 1;
+  }
+  .bonus-vip-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .bonus-vip-tag {
+    background: var(--accent);
+    color: #FFF;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+  }
+  .bonus-vip h3 {
+    font-family: 'Manrope', sans-serif;
+    color: #FAF6F0;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.2;
+    flex: 1;
+    min-width: 240px;
+  }
+  .bonus-vip p {
+    color: rgba(250, 246, 240, 0.85);
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+  }
+  .bonus-vip p strong {
+    color: var(--accent);
+    font-weight: 800;
+  }
+  .invites {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+  }
+  .invite {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(167, 139, 250, 0.18);
+    border-radius: var(--radius-sm);
+    padding: 1.2rem;
+  }
+  .invite-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.1rem;
+    color: #FAF6F0;
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+  }
+  .invite-role {
+    color: rgba(250, 246, 240, 0.6);
+    font-size: 0.88rem;
+    line-height: 1.4;
+  }
+
+  /* —————— Pricing —————— */
+  .pricing {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+  .urgency-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+    padding: 0.6rem 1.3rem;
+    border-radius: 999px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .urgency-banner::before {
+    content: '⏱';
+    font-size: 1em;
+  }
+  .price-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 3.5rem;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .price-card-tag {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #FFF;
+    padding: 0.5rem 1.4rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+  }
+  .price-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+  .price-sub {
+    color: var(--ink-soft);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  .price-amount {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .price-old {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.6rem;
+    color: var(--ink-muted);
+    text-decoration: line-through;
+    font-weight: 300;
+  }
+  .price-now {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 5rem);
+    font-weight: 400;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .price-currency { font-size: 0.6em; color: var(--accent); margin-left: -0.2em; }
+  .price-savings {
+    display: inline-block;
+    margin-bottom: 2rem;
+    color: var(--success);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .price-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.8rem;
+    margin: 2rem 0;
+  }
+  .price-option {
+    padding: 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    background: var(--bg-soft);
+  }
+  .price-option strong { display: block; font-size: 1.1rem; color: var(--ink); margin-bottom: 0.2rem; }
+  .price-option.highlight {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+  }
+  .price-option.highlight strong { color: var(--accent-dark); }
+
+  .price-includes {
+    text-align: left;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: var(--bg-soft);
+    border-radius: var(--radius-md);
+  }
+  .price-includes-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+    margin-bottom: 1rem;
+  }
+  .price-includes ul { list-style: none; }
+  .price-includes li {
+    padding: 0.5rem 0 0.5rem 2rem;
+    color: var(--ink);
+    position: relative;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .price-includes li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--success);
+    font-weight: 700;
+    font-size: 1.1em;
+  }
+  .price-value {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border);
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .price-value strong { color: var(--accent); }
+
+  .price-cta {
+    margin-top: 2rem;
+  }
+  .price-guarantee {
+    margin-top: 1.5rem;
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+  }
+
+  /* —————— About / Tarik —————— */
+  .about {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .about-photo {
+    aspect-ratio: 1;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, #E8DDC9 0%, #D4C4A8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-muted);
+    font-style: italic;
+    text-align: center;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+  }
+  .about-photo::after {
+    content: 'Photo de Tarik\A(à insérer)';
+    white-space: pre;
+    font-family: 'Inter', sans-serif;
+  }
+  .about h2 em { font-style: italic; color: var(--accent); }
+  .about p { font-size: 1.1rem; line-height: 1.7; }
+  .credentials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+  .cred {
+    padding: 0.5rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.88rem;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* —————— FAQ —————— */
+  .faq-list {
+    max-width: 760px;
+    margin: 3rem auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .faq-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+  .faq-item:hover { border-color: var(--accent-line); }
+  .faq-item summary {
+    padding: 1.5rem 1.8rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    flex-shrink: 0;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--accent);
+    transition: transform 0.2s ease;
+    line-height: 1;
+  }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-body {
+    padding: 0 1.8rem 1.8rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    font-size: 0.98rem;
+  }
+
+  /* —————— Final CTA —————— */
+  .final-cta {
+    background: var(--ink);
+    color: #FAF6F0;
+    text-align: center;
+    padding: 7rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(91, 20, 255, 0.28) 0%, transparent 60%);
+  }
+  .final-cta-content { position: relative; z-index: 1; }
+  .final-cta h2 {
+    color: #FAF6F0;
+    font-size: clamp(2rem, 4vw, 3rem);
+    max-width: 760px;
+    margin: 0 auto 1.5rem;
+  }
+  .final-cta h2 em { color: var(--accent-line); font-style: italic; }
+  .final-cta p {
+    color: rgba(250, 246, 240, 0.7);
+    font-size: 1.15rem;
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+  }
+  .final-cta .btn-primary {
+    background: var(--accent);
+  }
+  .final-cta .btn-primary:hover {
+    background: var(--accent-dark);
+  }
+  .final-meta {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: rgba(250, 246, 240, 0.5);
+  }
+
+  /* —————— Footer —————— */
+  footer {
+    background: var(--ink);
+    color: rgba(250, 246, 240, 0.5);
+    padding: 2.5rem 0;
+    text-align: center;
+    font-size: 0.88rem;
+    border-top: 1px solid rgba(250, 246, 240, 0.08);
+  }
+  footer a { color: rgba(250, 246, 240, 0.7); }
+
+  /* —————— Modern background blobs —————— */
+  .constat,
+  #programme,
+  .pricing,
+  .about,
+  #faq {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .constat::before,
+  .constat::after,
+  #programme::before,
+  #programme::after,
+  .pricing::before,
+  .pricing::after,
+  .about::before,
+  .about::after,
+  #faq::before,
+  .hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Hero: add a second blob in bottom-left for asymmetry */
+  .hero::after {
+    bottom: -160px;
+    left: -180px;
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle, rgba(91, 20, 255, 0.16) 0%, transparent 65%);
+  }
+
+  /* Constat — 2 blobs for depth */
+  .constat::before {
+    top: 6%;
+    right: -180px;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.22) 0%, transparent 65%);
+  }
+  .constat::after {
+    bottom: 8%;
+    left: -200px;
+    width: 540px;
+    height: 540px;
+    background: radial-gradient(circle, rgba(91, 20, 255, 0.13) 0%, transparent 65%);
+  }
+
+  /* Programme — 2 blobs spanning the long section */
+  #programme::before {
+    top: -120px;
+    left: -220px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.18) 0%, transparent 65%);
+  }
+  #programme::after {
+    bottom: -180px;
+    right: -200px;
+    width: 580px;
+    height: 580px;
+    background: radial-gradient(circle, rgba(91, 20, 255, 0.13) 0%, transparent 65%);
+  }
+
+  /* Pricing — 2 blobs to make conversion section feel premium */
+  .pricing::before {
+    top: 10%;
+    right: -180px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.20) 0%, transparent 65%);
+  }
+  .pricing::after {
+    bottom: 5%;
+    left: -200px;
+    width: 540px;
+    height: 540px;
+    background: radial-gradient(circle, rgba(91, 20, 255, 0.14) 0%, transparent 65%);
+  }
+
+  /* About — 2 blobs for warmth */
+  .about::before {
+    top: 18%;
+    right: -200px;
+    width: 540px;
+    height: 540px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.16) 0%, transparent 65%);
+  }
+  .about::after {
+    bottom: -150px;
+    left: -150px;
+    width: 460px;
+    height: 460px;
+    background: radial-gradient(circle, rgba(91, 20, 255, 0.10) 0%, transparent 65%);
+  }
+
+  /* FAQ — 1 subtle blob */
+  #faq::before {
+    top: 30%;
+    right: -200px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.14) 0%, transparent 65%);
+  }
+
+  /* Make sure all section content stays above the blobs */
+  .constat > .container-narrow,
+  #programme > .container,
+  .pricing > .container-narrow,
+  .about > .container,
+  #faq > .container-narrow {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* —————— Tablet & large phone (≤ 860px) —————— */
+  @media (max-width: 860px) {
+    section { padding: 4.5rem 0; }
+    .container, .container-narrow { padding: 0 1.4rem; }
+
+    /* Hero */
+    .hero { padding: 2.5rem 0 4rem; }
+    .hero-video { margin: 2rem auto; }
+    .hero-video-play { width: 70px; height: 70px; }
+    .hero-video-play svg { width: 26px; height: 26px; }
+    .hero-meta { font-size: 0.85rem; gap: 1rem 1.4rem; }
+
+    /* Section heads */
+    .section-head { margin-bottom: 2.8rem; }
+
+    /* Audience (archived but kept for restore) */
+    .audience-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+
+    /* About */
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
+    .about-photo { max-width: 280px; margin: 0 auto; }
+    .credentials { justify-content: center; }
+
+    /* Modules */
+    .module summary { padding: 1.5rem 1.2rem; gap: 1rem; }
+    .module-num { width: 44px; font-size: 1.8rem; }
+    .module-body { padding: 0 1.5rem 1.5rem; margin-left: 0; padding-top: 1rem; }
+    .module-title { font-size: 1.15rem; }
+
+    /* Pricing */
+    .pricing { padding: 5rem 0; }
+    .price-card { padding: 2.5rem 1.5rem; }
+    .price-options { grid-template-columns: 1fr; }
+    .price-includes { padding: 1.2rem; }
+
+    /* Bonus VIP - stack head */
+    .bonus-vip { padding: 2rem 1.5rem; }
+    .bonus-vip-head { flex-direction: column; align-items: flex-start; gap: 1rem; }
+
+    /* Stats */
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+
+    /* Constat questions block */
+    .constat-questions { padding: 1.4rem 1.4rem 1.2rem; }
+    .constat-questions-list li { font-size: 1rem; padding-left: 1.4rem; }
+
+    /* Reduce blob intensity */
+    .constat::before, .constat::after,
+    #programme::before, #programme::after,
+    .pricing::before, .pricing::after,
+    .about::before, .about::after,
+    #faq::before, .hero::after {
+      width: 380px !important;
+      height: 380px !important;
+    }
+  }
+
+  /* —————— Small phone (≤ 480px) —————— */
+  @media (max-width: 480px) {
+    section { padding: 3.5rem 0; }
+    .container, .container-narrow { padding: 0 1.1rem; }
+
+    /* Typography scaling */
+    body { font-size: 16px; }
+
+    /* Hero */
+    .hero { padding: 1.5rem 0 3rem; }
+    .hero h1 { font-size: 2.1rem; line-height: 1.1; }
+    .hero-sub { font-size: 1rem; }
+    .hero-video { margin: 1.5rem auto; border-radius: var(--radius-md); }
+    .hero-video-play { width: 56px; height: 56px; }
+    .hero-video-play svg { width: 22px; height: 22px; margin-left: 3px; }
+    .hero-video-label { font-size: 0.72rem; bottom: 0.7rem; }
+    .hero-meta { font-size: 0.8rem; gap: 0.7rem 1.2rem; }
+    .btn-large { padding: 1.1rem 1.6rem; font-size: 0.95rem; }
+
+    /* Section heads */
+    .section-head { margin-bottom: 2.2rem; }
+
+    /* Stats */
+    .stat-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+    .stat-num { font-size: 2.4rem; }
+
+    /* Constat blocks */
+    .constat-list li { font-size: 1rem; }
+    .constat-questions { padding: 1.3rem 1.2rem 1.1rem; }
+    .constat-questions-list li { font-size: 0.95rem; padding-left: 1.3rem; }
+    .constat-questions-final { font-size: 1rem; }
+
+    /* Modules */
+    .module summary { padding: 1.2rem 1rem; gap: 0.7rem; }
+    .module-num { width: 36px; font-size: 1.4rem; }
+    .module-eyebrow { font-size: 0.7rem; }
+    .module-title { font-size: 1.05rem; }
+    .module-toggle { width: 30px; height: 30px; font-size: 1.2rem; }
+    .module-body { padding: 0 1.1rem 1.3rem; padding-top: 1rem; }
+    .module-list li { font-size: 0.94rem; padding-left: 1.4rem; }
+
+    /* Bonus */
+    .bonus-section { padding: 4rem 0; }
+    .bonus-grid { gap: 1rem; }
+    .bonus-card { padding: 1.5rem; }
+    .bonus-vip { padding: 1.6rem 1.2rem; }
+    .bonus-vip h3 { font-size: 1.3rem; }
+    .bonus-vip-tag { font-size: 0.7rem; padding: 0.4rem 0.85rem; }
+
+    /* Pricing */
+    .pricing { padding: 4rem 0; }
+    .price-card { padding: 2.2rem 1.1rem 1.6rem; }
+    .price-now { font-size: 3.6rem; }
+    .price-old { font-size: 1.3rem; }
+    .price-includes li { font-size: 0.9rem; padding-left: 1.7rem; }
+
+    /* About */
+    .about p { font-size: 1rem; }
+
+    /* FAQ */
+    .faq-item summary { padding: 1.2rem 1.1rem; font-size: 1rem; gap: 0.8rem; }
+    .faq-body { padding: 0 1.1rem 1.3rem; font-size: 0.93rem; }
+
+    /* Final CTA */
+    .final-cta { padding: 4.5rem 0; }
+    .final-cta h2 { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+    .final-cta p { font-size: 1rem; }
+
+    /* Quote card */
+    .quote-card { padding: 2.5rem 1.2rem 1.6rem; }
+    .quote-text { font-size: 1.05rem; }
+    .quote-author { gap: 0.7rem; }
+    .quote-photo { width: 48px; height: 48px; }
+
+    /* Even smaller blobs */
+    .constat::before, .constat::after,
+    #programme::before, #programme::after,
+    .pricing::before, .pricing::after,
+    .about::before, .about::after,
+    #faq::before, .hero::after {
+      width: 280px !important;
+      height: 280px !important;
+    }
+  }
+
+  /* —————— Sticky bar (small) —————— */
+  .sticky-cta {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--ink);
+    color: #FAF6F0;
+    padding: 0.9rem 1.2rem;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    z-index: 100;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    font-size: 0.92rem;
+  }
+  .sticky-cta strong { color: #FAF6F0; }
+  .sticky-cta .btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  @media (max-width: 640px) {
+    .sticky-cta { display: flex; }
+    body { padding-bottom: 70px; }
+  }
+
+  /* —————— Subtle animations —————— */
+  @media (prefers-reduced-motion: no-preference) {
+    .module, .bonus-card, .outcome-item, .faq-item {
+      animation: fadeUp 0.5s ease backwards;
+    }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================== HERO ============================== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>En 30 jours, deviens <em>l'artiste que les IA recommandent le plus</em>.</h1>
+
+      <div class="hero-video" role="button" aria-label="Vidéo de présentation par Tarik Hamiche">
+        <div class="hero-video-play">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </div>
+        <div class="hero-video-label">Vidéo de présentation à insérer</div>
+      </div>
+
+      <p class="hero-sub">
+        30 jours, c'est tout ce qu'il te faut pour que les IA citent ton nom quand un fan cherche de la musique dans <strong>ton genre musical</strong>.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#tarif" class="btn btn-primary btn-large btn-arrow">Rejoindre la formation</a>
+      </div>
+
+      <div class="hero-meta">
+        <span class="hero-meta-item">Accès immédiat</span>
+        <span class="hero-meta-item">Accès à vie</span>
+        <span class="hero-meta-item">6 modules + 4 bonus</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CONSTAT ============================== -->
+<section class="constat">
+  <div class="container-narrow">
+    <div class="section-head">
+      <span class="eyebrow">Le constat</span>
+      <h2>La vraie bataille aujourd'hui, ce n'est plus les streams… c'est <em>d'être cité par les IA</em>.</h2>
+    </div>
+
+    <p class="lead">
+      Aujourd'hui, une nouvelle forme de visibilité est en train d'émerger. Les artistes qui prennent de l'avance ne cherchent plus seulement à être vus… ils cherchent à être <strong>recommandés</strong>.
+    </p>
+
+    <p>
+      En 2026, tes futurs fans ne passent plus leur temps à chercher. Ils demandent directement aux IA comme <strong>ChatGPT</strong>, <strong>Claude AI</strong> ou via les réponses générées de <strong>Google AI Overview</strong>.
+    </p>
+
+    <p>
+      Et ces réponses ne servent pas uniquement à découvrir de la musique. Elles influencent aussi <strong>qui collabore avec qui</strong>, <strong>quels artistes montent</strong>, et <strong>qui devient une référence dans un style</strong>.
+    </p>
+
+    <p>
+      Aujourd'hui, certains artistes commencent déjà à comprendre une chose&nbsp;:
+    </p>
+
+    <ul class="constat-list">
+      <li>👉 Être présent dans ces recommandations, c'est <strong>attirer des fans</strong>…</li>
+      <li>👉 Mais aussi <strong>être suggéré à d'autres artistes, producteurs et opportunités</strong>.</li>
+    </ul>
+
+    <p>
+      La vraie question n'est donc plus seulement&nbsp;: <em>"est-ce que tu es visible&nbsp;?"</em><br>
+      Mais plutôt&nbsp;:
+    </p>
+
+    <div class="constat-questions">
+      <p class="constat-questions-intro">Quand quelqu'un demande à une IA</p>
+      <ul class="constat-questions-list">
+        <li>"qui écouter dans ce style&nbsp;?"</li>
+        <li>"avec qui collaborer dans cette scène&nbsp;?"</li>
+        <li>"quel artiste émerge en ce moment&nbsp;?"</li>
+      </ul>
+      <p class="constat-questions-final">👉 <strong>Est-ce que ton nom fait partie des réponses&nbsp;?</strong></p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="stat-num">~13%</div>
+        <div class="stat-label">des recherches Google se terminent désormais sans clic — l'utilisateur a sa réponse dans l'AI Overview</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">60M$</div>
+        <div class="stat-label">le deal annuel Reddit ↔ Google pour entraîner les IA — Reddit est devenu une mine d'or de signaux GEO</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7 sur 10</div>
+        <div class="stat-label">fans utilisent déjà ChatGPT et Perplexity pour découvrir de nouveaux artistes — sans passer par les playlists</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">+1 300%</div>
+        <div class="stat-label">Le trafic issu de la recherche IA a explosé de +1 300% en un an</div>
+      </div>
+    </div>
+
+    <blockquote class="constat-quote">
+      Tu peux faire la meilleure musique du monde. Si les IA ne citent pas ton nom, <strong>personne ne l'écoutera</strong>.
+    </blockquote>
+  </div>
+</section>
+
+<!-- ============================== AUDIENCE (ARCHIVÉ — masqué via <template>, à replacer plus tard) ============================== -->
+<template id="archived-audience-section">
+<section>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">À qui ça parle</span>
+      <h2>Cette formation est faite pour toi si&hellip;</h2>
+    </div>
+
+    <div class="audience-grid">
+      <div class="audience-card yes">
+        <h3><span class="icon">✅</span> Pour toi</h3>
+        <ul>
+          <li>Tu es <strong>artiste indépendant</strong> et tu veux que les IA recommandent ta musique aux fans qui cherchent ton style</li>
+          <li>Tu es <strong>producteur ou beatmaker</strong> et tu veux que ChatGPT te cite quand un artiste cherche un beat dans ton univers</li>
+          <li>Tu es <strong>label indépendant</strong> et tu veux apparaître quand quelqu'un demande "quels labels signent du [genre]"</li>
+          <li>Tu es <strong>manager, agence promo ou éditeur</strong> et tu veux que ta marque devienne la réponse par défaut sur ton segment</li>
+          <li>Tu as déjà essayé le SEO classique et tu sens que <strong>quelque chose change</strong> — sans savoir quoi faire</li>
+        </ul>
+      </div>
+      <div class="audience-card no">
+        <h3><span class="icon">❌</span> Pas pour toi</h3>
+        <ul>
+          <li>Si tu cherches une <strong>recette miracle en 24h</strong> pour exploser sur les plateformes</li>
+          <li>Si tu penses que <strong>poster 3 reels par jour</strong> sur Instagram suffit à construire une autorité</li>
+          <li>Si tu n'as pas <strong>1h par jour</strong> à investir pendant 30 jours pour mettre la stratégie en place</li>
+          <li>Si tu refuses d'utiliser des outils techniques (Wikidata, balises HTML, JSON-LD) — même si on te tient la main</li>
+          <li>Si tu préfères <strong>déléguer à une agence</strong> sans comprendre comment ta marque est construite en ligne</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+</template>
+
+<!-- ============================== OUTCOMES (ARCHIVÉ — masqué via <template>, contient aussi la citation Satya Nadella, à replacer plus tard) ============================== -->
+<template id="archived-outcomes-section">
+<section class="outcomes">
+  <div class="container-narrow">
+    <div class="section-head">
+      <span class="eyebrow">À l'issue de la formation</span>
+      <h2>Ce que tu maîtriseras concrètement</h2>
+      <p>Pas des concepts vagues. Cinq compétences activables dès la fin de chaque module.</p>
+    </div>
+
+    <div class="outcomes-list">
+      <div class="outcome-item">
+        <div class="outcome-num">1</div>
+        <div class="outcome-text">Comprendre <strong>comment les IA choisissent leurs sources</strong> — chunking, RAG, signaux E-E-A-T, autorité de domaine appliquée au music business.</div>
+      </div>
+      <div class="outcome-item">
+        <div class="outcome-num">2</div>
+        <div class="outcome-text">Construire ton <strong>entité de marque reconnue par les IA</strong> — Wikidata, Wikipedia, JSON-LD, schema.org appliqué à un artiste, un label ou une marque musicale.</div>
+      </div>
+      <div class="outcome-item">
+        <div class="outcome-num">3</div>
+        <div class="outcome-text">Produire du <strong>contenu citable par les IA</strong> — format question/réponse, structure GEO, preuves, témoignages, longue traîne IA spécifique au music business.</div>
+      </div>
+      <div class="outcome-item">
+        <div class="outcome-num">4</div>
+        <div class="outcome-text">Multiplier tes <strong>signaux GEO sur les bonnes plateformes</strong> — Reddit en stratégie deux-vitesses, YouTube, LinkedIn, presse spécialisée musique.</div>
+      </div>
+      <div class="outcome-item">
+        <div class="outcome-num">5</div>
+        <div class="outcome-text">Mettre en place un <strong>système d'audit et de tracking permanent</strong> — vérifier ta présence sur Perplexity, ChatGPT, Claude, Gemini, mesurer, itérer.</div>
+      </div>
+    </div>
+
+    <figure class="quote-card">
+      <blockquote class="quote-text">
+        L'IA ne remplace pas les humains, mais les humains qui l'utiliseront <span class="quote-mark-inline">remplaceront ceux qui ne le feront pas</span>.
+      </blockquote>
+      <figcaption class="quote-author">
+        <img src="satya-nadella.jpg" alt="Satya Nadella" class="quote-photo" />
+        <div class="quote-author-info">
+          <div class="quote-author-name">Satya Nadella</div>
+          <div class="quote-author-role">CEO de Microsoft</div>
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+</template>
+
+<!-- ============================== PROGRAMME ============================== -->
+<section id="programme">
+  <div class="container">
+    <div class="program-intro">
+      <span class="eyebrow">Le programme</span>
+      <h2>6 modules structurés. Une méthode complète.</h2>
+      <p style="max-width: 640px; margin: 1rem auto 0;">Zéro théorie. Chaque module te livre un outil prêt à l'emploi, et tu l'installes dans la semaine. Ensuite ça tourne sans toi.</p>
+      <div class="program-meta">
+        <span>📚 6 modules</span>
+        <span>•</span>
+        <span>🎯 1 livrable par module</span>
+        <span>•</span>
+        <span>🔓 Accès à vie</span>
+      </div>
+    </div>
+
+    <div class="modules">
+
+      <details class="module">
+        <summary>
+          <div class="module-num">01</div>
+          <div class="module-head">
+            <div class="module-eyebrow">Module 01 — Les fondations</div>
+            <div class="module-title">Comprendre comment les IA choisissent leurs sources</div>
+          </div>
+          <div class="module-toggle">+</div>
+        </summary>
+        <div class="module-body">
+          <div class="label">Objectif</div>
+          <p>Démystifier le fonctionnement réel des LLMs en mode recherche. Sortir de la pensée magique pour comprendre <em>exactement</em> ce que ChatGPT, Perplexity, Gemini et Claude regardent quand ils décident qui citer.</p>
+
+          <div class="label">Contenu</div>
+          <ul class="module-list">
+            <li><strong>Comment les IA "lisent" le web et choisissent qui citer</strong> — chunking et RAG démystifiés, sans charabia. Tu vas comprendre exactement comment ChatGPT découpe ta bio, ton site et tes articles pour décider quoi sortir quand un fan pose une question.</li>
+            <li><strong>Les 4 signaux d'autorité que toutes les IA regardent</strong> — Expérience, Expertise, Autorité, Crédibilité (E-E-A-T) appliqués au music business. Comment les IA jugent qu'un artiste est "légitime" — et comment leur envoyer ces signaux même quand tu débutes.</li>
+            <li><strong>SEO, AEO, GEO : les 3 règles du jeu en 2026</strong> — pourquoi optimiser ton site comme en 2018 ne sert plus à rien, ce qui a remplacé Google, et où placer ton effort en priorité maintenant.</li>
+            <li><strong>Perplexity, ChatGPT, Google AI Overview, Gemini</strong> — comment chacun cite ses sources, laquelle va te repérer en premier quand tu commences, et où mettre ton énergie d'abord.</li>
+            <li><strong>Pourquoi les IA citent un autre artiste à ta place</strong> — les vraies raisons (souvent invisibles) qui font qu'un nom apparaît dans les réponses et un autre non. Et le plan exact pour basculer du mauvais côté au bon.</li>
+          </ul>
+
+          <div class="label">Livrable</div>
+          <p><strong>Audit GEO de départ&nbsp;:</strong> où es-tu cité aujourd'hui sur Perplexity, ChatGPT, Claude et Gemini, à partir de 10 prompts types liés à ton activité. Tu repars avec une photo claire de ton point de départ.</p>
+        </div>
+      </details>
+
+      <details class="module">
+        <summary>
+          <div class="module-num">02</div>
+          <div class="module-head">
+            <div class="module-eyebrow">Module 02 — Le socle</div>
+            <div class="module-title">Construire un site web GEO-ready avec Antigravity + Claude</div>
+          </div>
+          <div class="module-toggle">+</div>
+        </summary>
+        <div class="module-body">
+          <div class="label">Objectif</div>
+          <p>Passer de zéro site (ou d'un site daté) à un site GEO-optimisé en quelques jours, <strong>sans coder une ligne</strong>.</p>
+
+          <div class="label">Contenu</div>
+          <ul class="module-list">
+            <li><strong>Pourquoi sans site personnel les IA t'ignorent</strong> — et pourquoi ta page Spotify, ta fiche Bandcamp et ton Linktree ne suffisent pas pour devenir une source citable.</li>
+            <li><strong>Prise en main d'Antigravity</strong>, l'IDE agent de Google — pas une ligne de code à écrire, tu décris ce que tu veux et l'agent construit.</li>
+            <li><strong>Le workflow Claude + Antigravity</strong> pour générer ton site complet en quelques heures (HTML, Astro ou Next.js — on choisit ensemble selon ton niveau).</li>
+            <li><strong>Comment structurer chaque page pour que les IA la "lisent" facilement</strong> — balises sémantiques, H1/H2 calés sur les questions des fans, sections Q/R, FAQ schema.</li>
+            <li><strong>Mettre ton site en ligne en 5 minutes</strong> sur Hostinger ou Vercel — et brancher ton nom de domaine perso (ton-nom.com).</li>
+          </ul>
+
+          <div class="label">Livrable</div>
+          <p><strong>Ton site personnel ou ton site label en ligne</strong>, avec page accueil, page À propos, page Expertise, page Articles et page Contact — le tout structuré pour être chunkable par les IA.</p>
+        </div>
+      </details>
+
+      <details class="module">
+        <summary>
+          <div class="module-num">03</div>
+          <div class="module-head">
+            <div class="module-eyebrow">Module 03 — Le module qui justifie le prix à lui seul</div>
+            <div class="module-title">Architecture d'entité de marque</div>
+          </div>
+          <div class="module-toggle">+</div>
+        </summary>
+        <div class="module-body">
+          <div class="label">Objectif</div>
+          <p>Devenir une <strong>entité reconnue par les IA</strong> — pas juste un site. C'est la différence entre "il existe" et "il est cité".</p>
+
+          <div class="label">Contenu</div>
+          <ul class="module-list">
+            <li><strong>Le code "secret" qui dit aux IA qui tu es vraiment</strong> — JSON-LD appliqué à un artiste, un groupe ou un label (Person, MusicGroup, Organization). C'est ce qui transforme ton site d'une "page web" en "entité reconnue".</li>
+            <li><strong>Créer ta fiche Wikidata pas à pas</strong> — c'est ce qui fait que ChatGPT, Perplexity et Gemini te reconnaissent comme une vraie entité, pas comme un homonyme aléatoire.</li>
+            <li><strong>Rédiger et soumettre ton brouillon Wikipedia</strong> en wikicode — oui, c'est faisable même sans dossier de presse impressionnant, à condition de respecter les règles précises de la communauté.</li>
+            <li><strong>Harmoniser ta présence sur 8 plateformes minimum</strong> — bio identique, photo identique, liens identiques sur YouTube, Instagram, LinkedIn, Spotify for Artists, IMDb, Discogs… pour que les IA arrêtent de te confondre avec quelqu'un d'autre.</li>
+            <li><strong>Décrocher ton Knowledge Panel Google</strong> — la petite carte qui apparaît sur la droite quand on tape ton nom. Le signal d'autorité ultime aux yeux des IA.</li>
+          </ul>
+
+          <div class="label">Livrable</div>
+          <p><strong>Ton entité complète déployée</strong>&nbsp;: Wikidata créé, Wikipedia soumis, JSON-LD installé sur ton site, bio harmonisée sur 8 plateformes minimum. C'est exactement ce que j'ai fait pour Muzisecur et pour moi-même — je te transmets la méthode pas à pas.</p>
+        </div>
+      </details>
+
+      <details class="module">
+        <summary>
+          <div class="module-num">04</div>
+          <div class="module-head">
+            <div class="module-eyebrow">Module 04 — Le contenu</div>
+            <div class="module-title">Produire du contenu citable</div>
+          </div>
+          <div class="module-toggle">+</div>
+        </summary>
+        <div class="module-body">
+          <div class="label">Objectif</div>
+          <p>Créer <strong>10 contenus piliers</strong> que les IA vont citer.</p>
+
+          <div class="label">Contenu</div>
+          <ul class="module-list">
+            <li><strong>La structure exacte d'un article que les IA citent</strong> — question en H1, réponse directe en 40 mots dans les 100 premiers mots, développement, preuves, données, citations. Le moule à respecter scrupuleusement.</li>
+            <li><strong>Trouver les vraies questions que tes futurs fans posent à ChatGPT</strong> — la longue traîne IA spécifique à ton style musical, et comment la cartographier en 30 minutes.</li>
+            <li><strong>Les formats que les IA adorent</strong> (listes structurées, tableaux comparatifs, FAQ schema) — et ceux qu'elles ignorent ou pénalisent.</li>
+            <li><strong>Le ton et le niveau de preuve qui font la différence</strong> — comment intégrer des données chiffrées et des sources officielles (SACEM, CNM, SNEP, ADAMI, IFPI) qui rassurent les IA sur ta crédibilité.</li>
+            <li><strong>Devenir la meilleure réponse possible</strong> sur ton sujet — sans tomber dans le contenu IA générique que les IA elles-mêmes détestent et déclassent.</li>
+          </ul>
+
+          <div class="label">Livrable</div>
+          <p><strong>5 articles piliers rédigés et publiés</strong> sur ton site, avec un workflow Claude pour accélérer la production sans tomber dans le contenu IA générique que les IA détestent.</p>
+        </div>
+      </details>
+
+      <details class="module">
+        <summary>
+          <div class="module-num">05</div>
+          <div class="module-head">
+            <div class="module-eyebrow">Module 05 — Le canal sous-coté</div>
+            <div class="module-title">Reddit, la machine à signaux d'autorité pour les IA</div>
+          </div>
+          <div class="module-toggle">+</div>
+        </summary>
+        <div class="module-body">
+          <div class="label">Objectif</div>
+          <p>Utiliser Reddit comme <strong>machine à signaux d'autorité</strong> pour les IA — le canal que personne n'utilise correctement, alors que c'est le plus rentable.</p>
+
+          <div class="label">Contenu</div>
+          <ul class="module-list">
+            <li><strong>Pourquoi Reddit est devenu une mine d'or pour les IA</strong> — deal Reddit-Google de 60M$/an + scraping massif par OpenAI et Anthropic. Si ton nom apparaît bien sur Reddit, il finit dans les réponses des IA.</li>
+            <li><strong>La stratégie 2 vitesses</strong> : subreddits FR pour toucher de vrais fans (et faire des streams), subreddits EN pour les signaux GEO qui font citer ton nom à l'international (r/WeAreTheMusicMakers, r/MusicIndustry, r/musicproduction, r/independentmusic).</li>
+            <li><strong>Préparer ton compte Reddit pour qu'il ne soit pas grillé</strong> dès la première semaine — karma, ancienneté, historique cohérent, account warming.</li>
+            <li><strong>Les règles invisibles de la plateforme</strong> : zéro emoji, zéro markdown bold/italic, zéro em dash, voix authentique d'artiste — pas de copier-coller IA détectable à 10km.</li>
+            <li><strong>Les 4 formats qui marchent</strong> sur Reddit (vulnérabilité, deep-dive guide, AMA, breakdown de cas) + accès à mon swipe file de posts qui ont fait des milliers d'upvotes.</li>
+            <li><strong>Glisser ta marque subtilement sans te faire bannir</strong> — et répondre aux questions en mode "je veux être cité par l'IA quand quelqu'un cherchera ce sujet dans 6 mois".</li>
+          </ul>
+
+          <div class="label">Livrable</div>
+          <p><strong>3 posts publiés</strong> (1 FR, 2 EN), <strong>1 plan de présence Reddit 90 jours</strong>, accès à mon swipe file de posts qui ont marché.</p>
+        </div>
+      </details>
+
+      <details class="module">
+        <summary>
+          <div class="module-num">06</div>
+          <div class="module-head">
+            <div class="module-eyebrow">Module 06 — Earned media</div>
+            <div class="module-title">Qwoted, HARO, Featured et presse spé musique</div>
+          </div>
+          <div class="module-toggle">+</div>
+        </summary>
+        <div class="module-body">
+          <div class="label">Objectif</div>
+          <p>Décrocher <strong>3 à 5 citations dans des médias en 30 jours</strong> — qui deviennent des signaux GEO premium auprès des LLMs.</p>
+
+          <div class="label">Contenu</div>
+          <ul class="module-list">
+            <li><strong>Pourquoi une citation dans un média établi vaut 100 posts Insta pour les IA</strong> — les LLMs surpondèrent les domaines à autorité. Une mention sur Tsugi pèse plus que 6 mois de reels.</li>
+            <li><strong>Les 5 plateformes où des journalistes te demandent direct ta vision</strong> — Qwoted, Featured.com, Source of Sources, JournoRequest sur X, Help a B2B Writer. Tu réponds, tu te fais citer.</li>
+            <li><strong>Construire ton profil expert Qwoted</strong> pour être contacté plutôt que de chasser — la méthode pour passer du pitch actif au pitch passif.</li>
+            <li><strong>La méthode de pitch qui décroche des citations</strong> — greeting personnalisé, intro avec credentials, réponse directe à la query en 7 à 12 phrases, summary avec contact. Modèle de mail français inclus.</li>
+            <li><strong>Pitcher en direct les médias musique français</strong> (Tsugi, Trax, Pure Charts, Booska-P, Music Business France) sans passer par une plateforme intermédiaire.</li>
+            <li><strong>Afficher tes citations sur ton site en mode "As featured in"</strong> — pour booster ta crédibilité auprès des IA et de tout humain qui débarque sur ton site.</li>
+          </ul>
+
+          <div class="label">Livrable</div>
+          <p><strong>Profil Qwoted en ligne</strong>, <strong>5 pitches envoyés</strong>, <strong>base journalistes à jour</strong>, modèle de pitch mail français, <strong>1 page "Press" sur ton site</strong>.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BONUS ============================== -->
+<section class="bonus-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Les bonus</span>
+      <h2>3 bonus offerts (valeur 5500€) <em>+ un bonus d'action rapide exclusif</em></h2>
+      <p>Pas du remplissage. Trois ressources que j'ai construites pour mes propres marques et que je te livre prêtes à l'emploi.</p>
+    </div>
+
+    <div class="bonus-grid">
+      <div class="bonus-card">
+        <div class="bonus-tag">Bonus 1</div>
+        <h3>Ton site web clé en main</h3>
+        <p>Un site personnel ou label complet, déployé pour toi avec la structure GEO optimisée du Module 2. Tu n'as plus qu'à remplir.</p>
+        <span class="bonus-value">Valeur 1500€</span>
+      </div>
+      <div class="bonus-card">
+        <div class="bonus-tag">Bonus 2</div>
+        <h3>Base de 5 000+ journalistes musicaux</h3>
+        <p>Plus de 5 000 journalistes spécialisés musique cartographiés à l'international (média, beat couvert, format préféré, contact). L'arme secrète pour décrocher des citations médias partout dans le monde.</p>
+        <span class="bonus-value">Valeur 2500€</span>
+      </div>
+      <div class="bonus-card">
+        <div class="bonus-tag">Bonus 3</div>
+        <h3>Skill clé en main pour articles piliers</h3>
+        <p>Un agent Claude packagé qui rédige tes articles piliers GEO-optimisés en suivant exactement la méthode du Module 4. Installation guidée incluse.</p>
+        <span class="bonus-value">Valeur 1500€</span>
+      </div>
+    </div>
+
+    <div class="bonus-vip">
+      <div class="bonus-vip-head">
+        <span class="bonus-vip-tag">★ Bonus d'action rapide pour les 10 premiers</span>
+        <h3>1 place VIP pour 2 personnes à la Garden Party Muzisecur 2026</h3>
+      </div>
+      <p>Un grand hôtel parisien, été 2026. Repas, conférences, networking direct avec des décideurs du music business. <strong>Trois invités déjà confirmés&nbsp;:</strong></p>
+      <div class="invites">
+        <div class="invite">
+          <div class="invite-name">Pamela Charbit</div>
+          <div class="invite-role">General Manager chez Warner Music USA</div>
+        </div>
+        <div class="invite">
+          <div class="invite-name">Gil Attali</div>
+          <div class="invite-role">30 ans de promo radio dans le music business français</div>
+        </div>
+        <div class="invite">
+          <div class="invite-name">Wayne</div>
+          <div class="invite-role">Fondateur de l'agence promo digitale n°1 aujourd'hui</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== TARIF ============================== -->
+<section class="pricing" id="tarif">
+  <div class="container-narrow">
+    <div class="section-head">
+      <div class="urgency-banner">Le prix passe à 1497€ dès demain</div>
+      <h2>Accès immédiat <em>et à vie</em></h2>
+      <p>Un seul investissement. Toutes les futures mises à jour incluses — parce que les IA évoluent vite, et la méthode aussi.</p>
+    </div>
+
+    <div class="price-card">
+      <div class="price-card-tag">Offre de lancement</div>
+      <div class="price-name">Cité par les IA</div>
+      <div class="price-sub">La formation complète + 3 bonus + bonus d'action rapide</div>
+
+      <div class="price-amount">
+        <span class="price-old">1497€</span>
+        <span class="price-now">997<span class="price-currency">€</span></span>
+      </div>
+      <span class="price-savings">— Tu économises 500€</span>
+
+      <div class="price-options">
+        <div class="price-option highlight">
+          <strong>997€</strong>
+          en 1 fois
+        </div>
+        <div class="price-option">
+          <strong>2 × 499€</strong>
+          paiement en 2 fois
+        </div>
+        <div class="price-option">
+          <strong>3 × 337€</strong>
+          paiement en 3 fois
+        </div>
+      </div>
+
+      <div class="price-includes">
+        <div class="price-includes-title">Ce qui est inclus</div>
+        <ul>
+          <li>Accès immédiat et à vie à la formation <strong>Cité par les IA</strong> ainsi qu'à toutes les mises à jour futures</li>
+          <li><strong>Bonus 1</strong> — Ton site web clé en main <em>(valeur 1500€)</em></li>
+          <li><strong>Bonus 2</strong> — Base de 5 000+ journalistes musicaux à l'international <em>(valeur 2500€)</em></li>
+          <li><strong>Bonus 3</strong> — Skill clé en main pour articles piliers <em>(valeur 1500€)</em></li>
+          <li><strong>Bonus d'action rapide</strong> (10 premiers) — 1 place VIP pour 2 personnes à la Garden Party Muzisecur 2026 (grand hôtel parisien, été 2026)</li>
+        </ul>
+        <div class="price-value">
+          Valeur totale&nbsp;: <strong>5500€+</strong> — Aujourd'hui à 997€.
+        </div>
+      </div>
+
+      <div class="price-cta">
+        <a href="#" class="btn btn-primary btn-large btn-arrow">Je rejoins maintenant — 997€</a>
+      </div>
+
+      <div class="price-guarantee">
+        🔒 Paiement sécurisé Stripe — Accès immédiat après paiement
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== ABOUT / TARIK ============================== -->
+<section class="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-photo" aria-label="Photo de Tarik Hamiche"></div>
+      <div>
+        <span class="eyebrow">Qui te transmet ça</span>
+        <h2>Tarik Hamiche — <em>je transmets exactement ce que j'ai fait pour mes marques</em></h2>
+        <p>
+          Je suis le fondateur de <strong>Muzisecur</strong> et de <strong>Producteur à Succès</strong>. Auteur de trois livres sur le music business <em>(Comment vivre de sa musique, Créer son label simplement, 99 stratégies promo)</em>.
+        </p>
+        <p>
+          Cette formation, ce n'est pas une théorie. C'est <strong>exactement la méthode que j'ai appliquée à mes propres marques</strong> — Wikidata, Wikipedia, JSON-LD, articles piliers, Reddit, Qwoted, base journalistes. Aujourd'hui, quand quelqu'un demande à ChatGPT ou à Perplexity un conseil sur le music business indépendant en France, mes contenus et mes marques font partie des sources citées.
+        </p>
+        <p>
+          Je ne te transmets pas ce que j'ai lu sur un blog américain. Je te transmets ce qui marche, ici, en français, sur le marché qui est le tien.
+        </p>
+        <div class="credentials">
+          <span class="cred">Fondateur Muzisecur</span>
+          <span class="cred">Producteur à Succès</span>
+          <span class="cred">3 livres music business</span>
+          <span class="cred">15+ ans dans l'industrie</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FAQ ============================== -->
+<section id="faq">
+  <div class="container-narrow">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Les questions que tu te poses</h2>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Combien de temps avant de voir des résultats ?</summary>
+        <div class="faq-body">
+          Les premiers signaux GEO (mentions Wikidata, indexation Reddit, première citation Perplexity sur des requêtes très précises) apparaissent généralement en <strong>2 à 4 semaines</strong> après la mise en place du Module 3. Les citations sur ChatGPT et Google AI Overview prennent plus de temps — généralement 6 à 10 semaines, le temps que les nouveaux signaux soient ingérés dans les modèles. La promesse "30 jours" porte sur la mise en place du système complet, pas sur le délai d'apparition dans tous les LLMs.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Je débute complètement, est-ce que c'est pour moi ?</summary>
+        <div class="faq-body">
+          Oui, à condition que tu sois prêt à mettre les mains dans la prise. La formation est conçue pour être suivie sans bagage technique — tout est expliqué pas à pas, avec des workflows assistés par Claude. En revanche, si tu refuses d'utiliser le moindre outil un peu technique (créer un compte Wikidata, modifier ton site, publier sur Reddit), ce n'est pas la bonne formation pour toi.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Et si ça ne marche pas pour mon style musical ?</summary>
+        <div class="faq-body">
+          La méthode GEO est <strong>structurelle</strong>, pas stylistique. Que tu fasses du rap, de l'électro, de la chanson, du jazz ou du metal, les principes sont les mêmes&nbsp;: construire une entité, produire du contenu citable, multiplier les signaux d'autorité. Le contenu de tes articles, de tes posts Reddit et de tes citations médias sera évidemment adapté à ton univers — mais le système fonctionne pour n'importe quel artiste, label ou pro de l'industrie.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>L'accès est vraiment à vie ?</summary>
+        <div class="faq-body">
+          Oui, à vie — y compris toutes les mises à jour futures. Comme les IA évoluent en permanence (nouveaux modèles, nouveaux algorithmes, nouvelles plateformes de citation), je mets régulièrement la formation à jour. Tu y as accès sans frais supplémentaires.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Les bonus, je les reçois quand ?</summary>
+        <div class="faq-body">
+          Les Bonus 1, 2 et 3 (site clé en main, base journalistes, skill articles piliers) sont disponibles <strong>dès ton inscription</strong>, dans l'espace membre. Le Bonus d'action rapide Garden Party (réservé aux 10 premiers inscrits) te sera confirmé par email dans les 48h après ton paiement.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Pourquoi le prix passe à 1497€ demain ?</summary>
+        <div class="faq-body">
+          Parce que c'est une offre de lancement. Le tarif normal de la formation, hors lancement, est de 1497€. Le prix de 997€ est valable uniquement jusqu'à demain pour récompenser ceux qui s'engagent vite — c'est aussi comme ça que je sélectionne les profils les plus actifs, ceux qui obtiennent les meilleurs résultats.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Tu offres une garantie ?</summary>
+        <div class="faq-body">
+          La formation est en accès immédiat à vie, donc juridiquement le droit de rétractation classique de 14 jours ne s'applique pas. En revanche, si tu suis sérieusement les modules 1, 2 et 3, fais le travail demandé, et que tu n'es pas satisfait, on en parle directement. Je ne suis pas dans une logique de volume — je veux des élèves qui réussissent.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Je peux te poser des questions pendant la formation ?</summary>
+        <div class="faq-body">
+          Oui — un canal d'échange est disponible pour les élèves de la promotion. Tu peux poser tes questions, partager tes livrables et recevoir mes retours sur ta mise en place. Je suis présent activement, ce n'est pas un robot.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FINAL CTA ============================== -->
+<section class="final-cta">
+  <div class="container-narrow final-cta-content">
+    <h2>Dans 30 jours, tu peux être <em>la réponse que les IA citent</em>.</h2>
+    <p>Ou tu peux continuer à publier dans le vide pendant que les IA recommandent les autres. Le choix t'appartient.</p>
+    <a href="#tarif" class="btn btn-primary btn-large btn-arrow">Je rejoins la formation — 997€</a>
+    <div class="final-meta">
+      Accès immédiat • Accès à vie • Paiement en 1, 2 ou 3 fois
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FOOTER ============================== -->
+<footer>
+  <div class="container">
+    © 2026 Tarik Hamiche — Muzisecur • <a href="#">Mentions légales</a> • <a href="#">CGV</a> • <a href="#">Contact</a>
+  </div>
+</footer>
+
+<!-- ============================== STICKY MOBILE CTA ============================== -->
+<div class="sticky-cta">
+  <div><strong>997€</strong> au lieu de 1497€</div>
+  <a href="#tarif" class="btn btn-primary">Rejoindre →</a>
+</div>
+
+</body>
+</html>
