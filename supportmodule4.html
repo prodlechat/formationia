@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Module 04 — Produire du contenu citable. Structure d'article GEO, longue traîne IA, formats que les IA adorent, ton & autorité, sources officielles, workflow Claude. 5 articles piliers à publier en une semaine." />
+<title>Module 04 — Produire du contenu citable | Cité par les IA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:           #F7F1E8;
+    --bg-soft:      #FCF8F2;
+    --bg-card:      #FFFFFF;
+    --ink:          #1F1A15;
+    --ink-soft:     #5C4F42;
+    --ink-muted:    #8A7A6A;
+    --accent:       #5B14FF;
+    --accent-dark:  #4910CC;
+    --accent-soft:  #EDE9FE;
+    --accent-line:  #A78BFA;
+    --border:       #E8DDC9;
+    --border-soft:  #F0E6D4;
+    --warning:      #C2410C;
+    --warning-soft: #FFEDD5;
+    --success:      #15803D;
+    --success-soft: #DCFCE7;
+    --shadow-sm:    0 1px 2px rgba(31, 26, 21, 0.04);
+    --shadow-md:    0 4px 16px rgba(31, 26, 21, 0.06);
+    --shadow-lg:    0 16px 48px rgba(31, 26, 21, 0.08);
+    --radius-sm:    8px;
+    --radius-md:    14px;
+    --radius-lg:    24px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+  }
+  h1 { font-size: clamp(2.4rem, 5.5vw, 4rem); line-height: 1.05; }
+  h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); }
+  h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 700; }
+  h4 { font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
+  p { margin-bottom: 1.1rem; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 700; }
+  em { font-style: normal; color: var(--accent); font-weight: 800; }
+  a { color: var(--accent); text-decoration: none; transition: color .15s ease; }
+  a:hover { color: var(--accent-dark); }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.85em;
+  }
+
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+  .container-narrow { max-width: 760px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* —————— Progress bar —————— */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-line));
+    z-index: 9999;
+    transition: width 0.1s ease;
+  }
+
+  /* —————— Top header —————— */
+  header.top-nav {
+    position: sticky;
+    top: 0;
+    background: rgba(247, 241, 232, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-soft);
+    z-index: 100;
+  }
+  .nav-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .brand-mark {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .brand-mark em { color: var(--accent); font-style: normal; }
+  .nav-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+  }
+  .nav-meta span:not(:last-child)::after {
+    content: '·';
+    margin-left: 1rem;
+    color: var(--border);
+  }
+  @media (max-width: 600px) { .nav-meta { display: none; } }
+
+  /* —————— Hero —————— */
+  .hero {
+    padding: 5rem 0 4rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.22) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    right: -150px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(91, 20, 255, 0.14) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 1.8rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .hero h1 { margin-bottom: 1.5rem; }
+  .hero-lead {
+    font-size: clamp(1.1rem, 1.7vw, 1.3rem);
+    color: var(--ink-soft);
+    max-width: 720px;
+    margin: 0 auto 3rem;
+    line-height: 1.55;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    max-width: 880px;
+    margin: 3rem auto 0;
+  }
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .stat-num {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    line-height: 1.35;
+  }
+  @media (max-width: 720px) { .hero-stats { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 420px) { .hero-stats { grid-template-columns: 1fr; } }
+
+  /* —————— Section labels —————— */
+  .section-label {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  /* —————— TOC —————— */
+  .toc-section {
+    padding: 4rem 0;
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+    text-align: center;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    max-width: 800px;
+    margin: 1rem auto 0;
+  }
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.3rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    text-align: left;
+    color: var(--ink);
+    transition: all 0.15s ease;
+  }
+  .toc-item:hover {
+    border-color: var(--accent);
+    transform: translateX(2px);
+    box-shadow: var(--shadow-sm);
+    color: var(--ink);
+  }
+  .toc-num {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    width: 36px;
+  }
+  .toc-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+  @media (max-width: 600px) { .toc-grid { grid-template-columns: 1fr; } }
+
+  /* —————— Module sections —————— */
+  section.module {
+    padding: 6rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  section.module:nth-child(even) {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  section.module::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: -180px;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.16) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  section.module > .container,
+  section.module > .container-narrow {
+    position: relative;
+    z-index: 1;
+  }
+  .module-header { margin-bottom: 2.5rem; }
+  .module-num {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .module-lead {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    margin: 1.5rem 0 2.5rem;
+    line-height: 1.55;
+    max-width: 720px;
+  }
+
+  /* —————— Prose —————— */
+  .prose p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 1.3rem;
+  }
+  .prose p strong { color: var(--ink); }
+  .prose ul {
+    margin: 1rem 0 1.5rem;
+    padding-left: 1.5rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+  .prose ul li { margin-bottom: 0.6rem; }
+  .prose ul li strong { color: var(--ink); }
+
+  /* —————— Callouts —————— */
+  .callout {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-md);
+    padding: 1.6rem 1.8rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-sm);
+  }
+  .callout.warning {
+    border-left-color: var(--warning);
+    background: linear-gradient(135deg, var(--warning-soft) 0%, var(--bg-card) 60%);
+  }
+  .callout.success {
+    border-left-color: var(--success);
+    background: linear-gradient(135deg, var(--success-soft) 0%, var(--bg-card) 60%);
+  }
+  .callout-tag {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .callout.warning .callout-tag { color: var(--warning); }
+  .callout.success .callout-tag { color: var(--success); }
+  .callout p { margin: 0; color: var(--ink); line-height: 1.55; }
+
+  /* —————— Flow / step components —————— */
+  .flow {
+    margin: 2.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .flow-step {
+    display: flex;
+    gap: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s ease;
+  }
+  .flow-step:hover { border-color: var(--accent-line); }
+  .flow-circle {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    box-shadow: 0 6px 20px rgba(91, 20, 255, 0.3);
+  }
+  .flow-step > div:last-child { flex: 1; min-width: 0; }
+  .step-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+    margin-bottom: 0.4rem;
+  }
+  .flow-step h4 { margin-bottom: 0.6rem; }
+  .flow-step p { margin: 0 0 0.8rem; line-height: 1.55; }
+  .flow-step p:last-child { margin-bottom: 0; }
+
+  /* —————— Article anatomy diagram —————— */
+  .article-anatomy {
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .anatomy-row {
+    display: flex;
+    gap: 0.9rem;
+    padding: 0.85rem 1rem;
+    background: var(--bg-soft);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--accent);
+    align-items: flex-start;
+  }
+  .anatomy-row.h1-row { border-left-color: var(--accent-dark); background: var(--accent-soft); }
+  .anatomy-row.answer-row { border-left-color: var(--success); background: var(--success-soft); }
+  .anatomy-row.proof-row { border-left-color: var(--warning); background: var(--warning-soft); }
+  .anatomy-tag {
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent-dark);
+    background: rgba(255, 255, 255, 0.7);
+    padding: 0.25rem 0.55rem;
+    border-radius: 4px;
+    margin-top: 0.1rem;
+    white-space: nowrap;
+  }
+  .anatomy-row.answer-row .anatomy-tag { color: var(--success); }
+  .anatomy-row.proof-row .anatomy-tag { color: var(--warning); }
+  .anatomy-content { flex: 1; min-width: 0; font-size: 0.92rem; line-height: 1.5; color: var(--ink); }
+  .anatomy-content strong { color: var(--ink); }
+  .anatomy-arrow {
+    text-align: center;
+    color: var(--accent);
+    font-size: 1.2rem;
+    font-weight: 800;
+    line-height: 0.6;
+    margin: -0.2rem 0;
+  }
+  @media (max-width: 600px) {
+    .anatomy-row { flex-direction: column; gap: 0.4rem; }
+  }
+
+  /* —————— Question examples list —————— */
+  .questions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin: 2rem 0;
+  }
+  .question-row {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.1rem 1.3rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .q-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    margin-top: 0.05rem;
+  }
+  .q-content { flex: 1; min-width: 0; }
+  .q-text {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--ink);
+    line-height: 1.4;
+    margin-bottom: 0.25rem;
+  }
+  .q-source {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+  }
+  .q-source strong { color: var(--accent); font-weight: 700; }
+
+  /* —————— Format cards (lists, tables, FAQ) —————— */
+  .formats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    margin: 2rem 0;
+  }
+  .format-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .format-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .format-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  .format-name {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .format-card h4 { margin-bottom: 0.8rem; }
+  .format-card > p { font-size: 0.95rem; line-height: 1.55; margin-bottom: 1rem; }
+  .format-why {
+    background: var(--accent-soft);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .format-why strong {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  @media (max-width: 740px) { .formats-grid { grid-template-columns: 1fr; } }
+
+  /* —————— Code block —————— */
+  .code-block {
+    background: #1a1612;
+    color: #e5e7eb;
+    padding: 1.4rem 1.6rem;
+    border-radius: var(--radius-md);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    white-space: pre;
+  }
+  .code-comment { color: rgba(255, 255, 255, 0.45); font-style: italic; }
+  .code-tag { color: #ff9b9b; }
+  .code-attr { color: #b8b8ff; }
+  .code-string { color: #9ec8ff; }
+  .code-prop { color: #ffd591; }
+  .code-h1 { color: #fde68a; font-weight: 700; }
+  @media (max-width: 600px) {
+    .code-block { font-size: 0.75rem; padding: 1.1rem 1.2rem; }
+  }
+
+  /* —————— Comparison table (good vs bad) —————— */
+  .compare-good-bad {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin: 2rem 0;
+  }
+  .compare-side {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.6rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .compare-side.bad { border-left: 4px solid var(--warning); }
+  .compare-side.good { border-left: 4px solid var(--success); }
+  .compare-side-tag {
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.8rem;
+  }
+  .compare-side.bad .compare-side-tag { color: var(--warning); }
+  .compare-side.good .compare-side-tag { color: var(--success); }
+  .compare-side h4 { margin-bottom: 0.6rem; }
+  .compare-side p { font-size: 0.9rem; line-height: 1.5; margin: 0; color: var(--ink-soft); }
+  .compare-side p strong { color: var(--ink); }
+  @media (max-width: 720px) { .compare-good-bad { grid-template-columns: 1fr; } }
+
+  /* —————— Sources grid (SACEM, CNM, etc.) —————— */
+  .sources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .source-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.4rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.15s ease;
+  }
+  .source-card:hover { border-color: var(--accent-line); }
+  .source-name {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.2rem;
+  }
+  .source-full {
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+  }
+  .source-data {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    line-height: 1.45;
+    margin-bottom: 0.7rem;
+  }
+  .source-data strong { color: var(--ink); }
+  .source-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    word-break: break-all;
+  }
+
+  /* —————— Deliverable checklist —————— */
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin: 2rem 0;
+  }
+  .check-item {
+    display: flex;
+    gap: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.2rem 1.4rem;
+    cursor: pointer;
+    user-select: none;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .check-item:hover { border-color: var(--accent-line); }
+  .check-item.checked {
+    background: var(--success-soft);
+    border-color: var(--success);
+  }
+  .check-box {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: transparent;
+    background: var(--bg-soft);
+    transition: all 0.15s ease;
+    margin-top: 0.15rem;
+  }
+  .check-item.checked .check-box {
+    background: var(--success);
+    border-color: var(--success);
+    color: #FFF;
+  }
+  .check-content { flex: 1; min-width: 0; }
+  .check-title {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+    line-height: 1.4;
+  }
+  .check-desc {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+
+  /* —————— Recap —————— */
+  .recap {
+    background: var(--ink);
+    color: rgba(247, 241, 232, 0.9);
+    padding: 4rem 0;
+    margin-top: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .recap::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(91, 20, 255, 0.25) 0%, transparent 60%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .recap > .container { position: relative; z-index: 1; }
+  .recap h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: #FFF;
+    margin-bottom: 1.5rem;
+  }
+  .recap-list {
+    list-style: none;
+    counter-reset: item;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 760px;
+  }
+  .recap-list li {
+    counter-increment: item;
+    padding-left: 3rem;
+    position: relative;
+    line-height: 1.55;
+    color: rgba(247, 241, 232, 0.85);
+  }
+  .recap-list li::before {
+    content: counter(item, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0.05em;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--accent-line);
+    letter-spacing: -0.02em;
+  }
+  .recap-list li strong { color: #FFF; }
+
+  /* —————— Inline CTA banner —————— */
+  .next-cta {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    margin: 4rem auto;
+    max-width: 760px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+  }
+  .next-cta h3 { margin-bottom: 1rem; }
+  .next-cta p { margin-bottom: 1.5rem; font-size: 1.05rem; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1.1rem 2.2rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #FFF;
+    box-shadow: 0 6px 20px rgba(91, 20, 255, 0.3);
+  }
+  .btn-primary:hover {
+    background: var(--accent-dark);
+    color: #FFF;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px rgba(91, 20, 255, 0.4);
+  }
+
+  /* —————— Footer —————— */
+  footer.site-footer {
+    background: var(--ink);
+    color: rgba(247, 241, 232, 0.5);
+    padding: 2.5rem 0;
+    text-align: center;
+    font-size: 0.88rem;
+    border-top: 1px solid rgba(247, 241, 232, 0.08);
+  }
+  footer.site-footer a { color: rgba(247, 241, 232, 0.7); }
+
+  /* —————— Mobile —————— */
+  @media (max-width: 860px) {
+    section.module { padding: 4rem 0; }
+    .toc-section { padding: 3rem 0; }
+    .module-header { margin-bottom: 1.8rem; }
+    .module-lead { font-size: 1.05rem; margin: 1rem 0 1.8rem; }
+    .flow-step { padding: 1.4rem; gap: 1rem; }
+    .flow-circle { width: 48px; height: 48px; font-size: 1.3rem; }
+    .next-cta { padding: 1.8rem 1.4rem; }
+    .recap-list li { padding-left: 2.4rem; }
+    section.module::before { width: 320px !important; height: 320px !important; }
+  }
+  @media (max-width: 480px) {
+    .hero { padding: 3rem 0 2.5rem; }
+    .hero h1 { font-size: 2rem; }
+    .flow-step { flex-direction: column; gap: 0.8rem; }
+    .flow-circle { align-self: flex-start; }
+  }
+
+  /* —————— Fade in animation —————— */
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress-bar"></div>
+
+<header class="top-nav">
+  <div class="nav-inner">
+    <a href="https://ia.producteurasucces.com/" class="brand-mark">Cité par les <em>IA</em></a>
+    <div class="nav-meta">
+      <span>Module 04 / 06</span>
+      <span>Producteur à Succès</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== HERO ============================== -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-tag">Module 04 — Le contenu citable</span>
+    <h1>Produire <em>5 articles piliers</em> que les IA vont citer.</h1>
+    <p class="hero-lead">La structure exacte d'un article que les IA citent. Les vraies questions que tes futurs fans posent à ChatGPT. Les formats que les IA adorent. Le ton qui distingue ton contenu du slop générique. <strong>Le moule à respecter scrupuleusement.</strong></p>
+
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Articles piliers à publier pendant la semaine</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">40 mots</div>
+        <div class="stat-label">La réponse parfaite à placer dans les 100 premiers mots</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">20-30</div>
+        <div class="stat-label">Requêtes différentes citables par article bien structuré</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3-5 ans</div>
+        <div class="stat-label">Durée de vie d'un bon article pilier en GEO</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== TABLE OF CONTENTS ============================== -->
+<section class="toc-section">
+  <div class="container-narrow">
+    <div class="section-label">Plan du module</div>
+    <div class="toc-grid">
+      <a href="#why-piliers" class="toc-item"><span class="toc-num">01</span><span class="toc-title">Pourquoi 5 articles piliers &gt; 50 articles génériques</span></a>
+      <a href="#anatomy" class="toc-item"><span class="toc-num">02</span><span class="toc-title">L'anatomie d'un article GEO citable</span></a>
+      <a href="#longtail" class="toc-item"><span class="toc-num">03</span><span class="toc-title">Trouver tes vraies questions de longue traîne IA</span></a>
+      <a href="#formats" class="toc-item"><span class="toc-num">04</span><span class="toc-title">Les formats que les IA adorent</span></a>
+      <a href="#voice" class="toc-item"><span class="toc-num">05</span><span class="toc-title">Le ton et l'autorité qui te distinguent</span></a>
+      <a href="#sources" class="toc-item"><span class="toc-num">06</span><span class="toc-title">Données chiffrées et sources officielles</span></a>
+      <a href="#workflow" class="toc-item"><span class="toc-num">07</span><span class="toc-title">Le workflow Claude pour accélérer (sans devenir générique)</span></a>
+      <a href="#deliverable" class="toc-item"><span class="toc-num">08</span><span class="toc-title">Livrable, 5 articles publiés sur ton site</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 01 — WHY PILIERS ============================== -->
+<section class="module" id="why-piliers">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 01 / 08</span>
+      <h2>Pourquoi <em>5 articles piliers</em> battent 50 articles génériques</h2>
+    </div>
+    <p class="module-lead">L'instinct dit "plus de contenu = plus de visibilité". En GEO, c'est l'inverse. Les IA cherchent <strong>la meilleure réponse</strong>, pas la plus de réponses. Mieux vaut 5 articles d'autorité que 50 articles dilués.</p>
+
+    <div class="prose">
+      <p>Souviens-toi du Module 1 : les IA travaillent par chunks. Quand quelqu'un pose une question, l'IA va chercher les <strong>3 à 5 meilleurs chunks</strong> dans sa base vectorielle. Si ton article est superficiel, tes chunks seront battus systématiquement par des chunks d'articles plus profonds.</p>
+
+      <p>Un <strong>article pilier</strong> est un article long-form (2000-4000 mots) qui répond exhaustivement à une question majeure de ton audience. Il contient :</p>
+      <ul>
+        <li>Une <strong>réponse synthétique</strong> en début (les 100 premiers mots)</li>
+        <li>4 à 8 <strong>sous-questions</strong> en H2, chacune avec sa réponse</li>
+        <li>Des <strong>données chiffrées</strong> sourcées (organismes officiels)</li>
+        <li>Des <strong>exemples concrets</strong> tirés de ton expérience</li>
+        <li>Des <strong>tableaux comparatifs</strong> ou listes structurées</li>
+        <li>Une <strong>FAQ schema</strong> en bas (5-8 questions/réponses)</li>
+      </ul>
+
+      <p>Cette structure produit <strong>20 à 30 chunks citables</strong> par article. Avec 5 articles bien faits, tu génères 100 à 150 chunks différents qui peuvent être récupérés sur autant de requêtes différentes. Pour les IA, tu deviens une <strong>source de référence</strong> sur ton domaine.</p>
+    </div>
+
+    <div class="callout warning">
+      <div class="callout-tag">⚠ Le piège du blog quotidien</div>
+      <p>Publier un article par jour pendant 6 mois (= 180 articles courts) peut donner moins de citations IA qu'un mois de travail concentré sur 5 articles piliers de 3000 mots chacun. Pourquoi ? Parce qu'un article superficiel produit des <strong>chunks superficiels</strong>, qui perdent systématiquement face à des chunks denses et structurés. <strong>Volume sans profondeur = invisible.</strong></p>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ La règle du ROI long terme</div>
+      <p>Un bon article pilier reste citable pendant <strong>3 à 5 ans</strong>. Tu écris 5 fois en une semaine. Pendant les 3 années suivantes, ces 5 articles te génèrent des centaines de citations IA passives. <strong>C'est le levier avec le meilleur ratio temps/résultat de toute la formation.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 02 — ANATOMY ============================== -->
+<section class="module" id="anatomy">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 02 / 08</span>
+      <h2>L'<em>anatomie</em> d'un article GEO citable</h2>
+    </div>
+    <p class="module-lead">Six blocs dans cet ordre précis. Pas de variation. C'est le format que les IA reconnaissent et privilégient depuis 18 mois — et qui n'est pas près de changer.</p>
+
+    <div class="article-anatomy">
+      <div class="anatomy-row h1-row">
+        <span class="anatomy-tag">H1</span>
+        <div class="anatomy-content"><strong>La question principale</strong> formulée exactement comme un fan la taperait dans Perplexity. Pas un slogan. Une vraie question.</div>
+      </div>
+      <div class="anatomy-arrow">↓</div>
+
+      <div class="anatomy-row answer-row">
+        <span class="anatomy-tag">100 mots</span>
+        <div class="anatomy-content"><strong>La réponse synthétique en 40 mots</strong>, dans le 1er paragraphe. C'est ce chunk qui sera sorti tel quel par l'IA. Direct, factuel, citable.</div>
+      </div>
+      <div class="anatomy-arrow">↓</div>
+
+      <div class="anatomy-row">
+        <span class="anatomy-tag">200-400 mots</span>
+        <div class="anatomy-content"><strong>Le contexte</strong> — pourquoi cette question se pose, à qui ça s'adresse, ce que l'article va couvrir. Permet aux IA de comprendre la pertinence.</div>
+      </div>
+      <div class="anatomy-arrow">↓</div>
+
+      <div class="anatomy-row">
+        <span class="anatomy-tag">H2 × 4-8</span>
+        <div class="anatomy-content"><strong>Les sous-questions développées</strong>. Chaque H2 = une sous-question précise. Sous chaque H2, réponse en 40 mots dans le 1er paragraphe, puis développement.</div>
+      </div>
+      <div class="anatomy-arrow">↓</div>
+
+      <div class="anatomy-row proof-row">
+        <span class="anatomy-tag">Preuves</span>
+        <div class="anatomy-content"><strong>Données chiffrées + sources officielles</strong>. SACEM, CNM, IFPI, etc. Au minimum 3 chiffres sourcés par article. Plus un tableau comparatif ou une liste structurée.</div>
+      </div>
+      <div class="anatomy-arrow">↓</div>
+
+      <div class="anatomy-row">
+        <span class="anatomy-tag">FAQ JSON-LD</span>
+        <div class="anatomy-content"><strong>Section FAQ structurée</strong> avec schéma JSON-LD FAQPage. 5 à 8 questions/réponses qui couvrent les variations de ta question principale.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-tag">★ La règle des 40 mots</div>
+      <p>Sous chaque H1 ET sous chaque H2, le premier paragraphe doit répondre à la question en <strong>40 mots maximum</strong>. C'est la longueur idéale pour que l'IA cite ce paragraphe tel quel comme réponse synthétique. Plus court : pas assez d'info. Plus long : l'IA tronque ou choisit un concurrent plus dense.</p>
+    </div>
+
+    <pre class="code-block"><span class="code-tag">&lt;h1&gt;</span><span class="code-h1">Comment vivre de sa musique en 2026 ?</span><span class="code-tag">&lt;/h1&gt;</span>
+
+<span class="code-tag">&lt;p&gt;</span>En 2026, vivre de sa musique demande de combiner
+4 sources de revenus complémentaires : streaming (~30%),
+sync placement (~35%), live et merch (~25%), droits SACEM
+(~10%). Le streaming seul ne suffit plus.<span class="code-tag">&lt;/p&gt;</span>
+
+<span class="code-comment">&lt;!-- Contexte 200-400 mots --&gt;</span>
+
+<span class="code-tag">&lt;h2&gt;</span>Combien faut-il de streams pour un SMIC ?<span class="code-tag">&lt;/h2&gt;</span>
+<span class="code-tag">&lt;p&gt;</span>Il faut environ 250 000 écoutes mensuelles sur
+Spotify pour générer un revenu équivalent au SMIC
+français net (1426€). Le taux moyen est de
+0,003 à 0,005€ par stream selon les pays.<span class="code-tag">&lt;/p&gt;</span>
+
+<span class="code-comment">&lt;!-- Développement, données, exemples --&gt;</span>
+
+<span class="code-tag">&lt;h2&gt;</span>Quels revenus complémentaires viser ?<span class="code-tag">&lt;/h2&gt;</span>
+<span class="code-tag">&lt;p&gt;</span><span class="code-comment">[40 mots de réponse synthétique]</span><span class="code-tag">&lt;/p&gt;</span>
+<span class="code-comment">[...]</span></pre>
+  </div>
+</section>
+
+<!-- ============================== 03 — LONG TAIL ============================== -->
+<section class="module" id="longtail">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 03 / 08</span>
+      <h2>Trouver tes <em>vraies questions</em> de longue traîne IA</h2>
+    </div>
+    <p class="module-lead">Pas les keywords génériques type "music business" ou "streaming". Les <strong>vraies questions conversationnelles</strong> que tes futurs fans tapent dans ChatGPT et Perplexity. C'est ça qu'il faut chasser.</p>
+
+    <div class="prose">
+      <p>La longue traîne SEO classique pensait en mots-clés ("comment gagner argent musique"). La longue traîne IA pense en <strong>questions complètes formulées comme à un humain</strong> ("comment un beatmaker indépendant peut gagner sa vie en 2026 sans label"). Plus la question est longue et précise, plus elle est citable — parce que ton chunk sera plus pertinent que les concurrents.</p>
+
+      <p>Voici les 4 sources où trouver ces vraies questions :</p>
+    </div>
+
+    <div class="questions-list">
+      <div class="question-row">
+        <div class="q-icon">1</div>
+        <div class="q-content">
+          <div class="q-text">Demander à ChatGPT directement</div>
+          <div class="q-source"><strong>Prompt :</strong> "Donne-moi 50 questions précises que se posent les artistes indépendants français en 2026 à propos de [ton sujet]"</div>
+        </div>
+      </div>
+      <div class="question-row">
+        <div class="q-icon">2</div>
+        <div class="q-content">
+          <div class="q-text">AnswerThePublic / AlsoAsked</div>
+          <div class="q-source"><strong>Outil :</strong> Saisis ton thème, tu obtiens une visualisation des questions en arborescence. Gratuit jusqu'à 3 recherches/jour.</div>
+        </div>
+      </div>
+      <div class="question-row">
+        <div class="q-icon">3</div>
+        <div class="q-content">
+          <div class="q-text">Mining Reddit</div>
+          <div class="q-source"><strong>Subreddits FR :</strong> r/MusiqueProduction, r/musiquefr, r/BeatMakerFR. <strong>Subreddits EN :</strong> r/WeAreTheMusicMakers, r/MusicIndustry. Tri par "Top all time", lis les titres = ce sont les vraies questions.</div>
+        </div>
+      </div>
+      <div class="question-row">
+        <div class="q-icon">4</div>
+        <div class="q-content">
+          <div class="q-text">Tes propres DM et commentaires</div>
+          <div class="q-source"><strong>Méthode :</strong> Note les 20 dernières questions qui t'ont été posées en DM, en commentaires YouTube/Insta, ou en MP de ta newsletter. Ces questions sont des <strong>signaux gold</strong> — quelqu'un les a vraiment posées.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-tag">★ Le filtre des 3 critères</div>
+      <p>Une fois que tu as 50-100 questions, garde seulement celles qui cochent les 3 cases : (1) <strong>longue traîne</strong> — assez précise pour ne pas avoir 10 000 concurrents, (2) <strong>volume réel</strong> — au moins 100 personnes par mois la posent (vérifiable via Google Trends ou Ahrefs), (3) <strong>alignée avec toi</strong> — tu peux y répondre avec autorité parce que tu l'as vécu. Des 100 questions, 5-10 cochent les 3 cases. Ce sont tes futurs articles piliers.</p>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Exemples concrets pour artistes français</div>
+      <p>Voilà 5 questions qui cochent les 3 cases pour un producteur indé : <em>"Comment vivre de sa musique en France en 2026 sans label ?"</em> · <em>"Combien coûte une inscription SACEM et combien de temps prend la déclaration ?"</em> · <em>"Quels sync placements rapportent vraiment en 2026 pour un beatmaker français ?"</em> · <em>"Comment monter son label de musique indé en 2026 (statut, démarches, coûts) ?"</em> · <em>"Quelles sont les vraies différences entre SACEM, ADAMI, SPEDIDAM, CNM ?"</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 04 — FORMATS ============================== -->
+<section class="module" id="formats">
+  <div class="container">
+    <div class="module-header">
+      <span class="module-num">— 04 / 08</span>
+      <h2>Les formats que les IA <em>adorent</em></h2>
+    </div>
+    <p class="module-lead">Au-delà du H1/H2, les IA privilégient certains formats parce qu'ils sont <strong>structurellement faciles à chunker et à citer</strong>. Glisser ces 4 formats dans tes articles multiplie tes chances par 3-5×.</p>
+
+    <div class="formats-grid">
+      <div class="format-card">
+        <div class="format-icon">≡</div>
+        <div class="format-name">Format 01</div>
+        <h4>Listes numérotées et à puces</h4>
+        <p>Quand tu dis "il y a 5 raisons", liste-les en <code>&lt;ol&gt;</code> ou <code>&lt;ul&gt;</code>. Les IA chunkent chaque item séparément, ce qui démultiplie tes chances de citation. Idéal pour : étapes, raisons, types, exemples.</p>
+        <div class="format-why">
+          <strong>Pourquoi ça marche</strong>
+          Une liste = N chunks autonomes. Chaque item peut être cité indépendamment quand un fan pose une question sur l'un d'eux.
+        </div>
+      </div>
+
+      <div class="format-card">
+        <div class="format-icon">⊞</div>
+        <div class="format-name">Format 02</div>
+        <h4>Tableaux comparatifs</h4>
+        <p>Pour toute comparaison "X vs Y vs Z" : SACEM vs ADAMI, distributeur A vs B, plateformes de sync placement... Un tableau bien structuré devient la source citée par défaut sur ces requêtes.</p>
+        <div class="format-why">
+          <strong>Pourquoi ça marche</strong>
+          Les IA reconnaissent les tableaux et les utilisent comme réponse structurée. Format ultra-citable sur les requêtes comparatives.
+        </div>
+      </div>
+
+      <div class="format-card">
+        <div class="format-icon">?</div>
+        <div class="format-name">Format 03</div>
+        <h4>FAQ avec schéma JSON-LD</h4>
+        <p>Une section FAQ en bas de chaque article pilier, avec balisage <code>FAQPage</code> en JSON-LD. Format préféré de Google AI Overview et de Perplexity pour extraire des réponses directes.</p>
+        <div class="format-why">
+          <strong>Pourquoi ça marche</strong>
+          Le schéma FAQPage dit explicitement à la machine "voici une question, voici la réponse". Aucune ambiguïté sur le chunking.
+        </div>
+      </div>
+
+      <div class="format-card">
+        <div class="format-icon">№</div>
+        <div class="format-name">Format 04</div>
+        <h4>Procédures pas à pas</h4>
+        <p>Pour les "how-to" : étape 1, étape 2, étape 3. Avec timing, coûts, prérequis. Format hyper citable sur les requêtes "comment faire X".</p>
+        <div class="format-why">
+          <strong>Pourquoi ça marche</strong>
+          Le balisage <code>HowTo</code> en JSON-LD est lu par les IA comme une recette. Très utilisé par AI Overview pour les requêtes pratiques.
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow" style="padding: 0;">
+      <pre class="code-block"><span class="code-comment">&lt;!-- FAQ schema en bas de chaque article pilier --&gt;</span>
+&lt;<span class="code-tag">script</span> <span class="code-attr">type</span>=<span class="code-string">"application/ld+json"</span>&gt;
+{
+  <span class="code-prop">"@context"</span>: <span class="code-string">"https://schema.org"</span>,
+  <span class="code-prop">"@type"</span>: <span class="code-string">"FAQPage"</span>,
+  <span class="code-prop">"mainEntity"</span>: [
+    {
+      <span class="code-prop">"@type"</span>: <span class="code-string">"Question"</span>,
+      <span class="code-prop">"name"</span>: <span class="code-string">"Combien coûte une inscription SACEM en 2026 ?"</span>,
+      <span class="code-prop">"acceptedAnswer"</span>: {
+        <span class="code-prop">"@type"</span>: <span class="code-string">"Answer"</span>,
+        <span class="code-prop">"text"</span>: <span class="code-string">"L'inscription SACEM coûte 154€ pour les auteurs..."</span>
+      }
+    },
+    {
+      <span class="code-prop">"@type"</span>: <span class="code-string">"Question"</span>,
+      <span class="code-prop">"name"</span>: <span class="code-string">"Combien de temps pour la déclaration ?"</span>,
+      <span class="code-prop">"acceptedAnswer"</span>: {
+        <span class="code-prop">"@type"</span>: <span class="code-string">"Answer"</span>,
+        <span class="code-prop">"text"</span>: <span class="code-string">"Le délai moyen est de 4 à 6 semaines..."</span>
+      }
+    }
+  ]
+}
+&lt;/<span class="code-tag">script</span>&gt;</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 05 — VOICE & AUTHORITY ============================== -->
+<section class="module" id="voice">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 05 / 08</span>
+      <h2>Le <em>ton et l'autorité</em> qui te distinguent</h2>
+    </div>
+    <p class="module-lead">Les IA sont entraînées à <strong>détecter le contenu IA générique</strong> et à le pénaliser. Ton avantage compétitif, c'est ton vécu, tes opinions tranchées, tes anecdotes datées. C'est tout ce qu'une IA seule ne peut pas produire.</p>
+
+    <div class="compare-good-bad">
+      <div class="compare-side bad">
+        <div class="compare-side-tag">⚠ Évite</div>
+        <h4>Le contenu IA générique</h4>
+        <p>"Le music business est un secteur passionnant qui évolue rapidement. Il est important de bien se positionner et de comprendre les enjeux. <strong>Les artistes doivent s'adapter aux nouvelles tendances</strong> pour réussir."</p>
+      </div>
+      <div class="compare-side good">
+        <div class="compare-side-tag">✓ Vise</div>
+        <h4>Le contenu de praticien</h4>
+        <p>"En 2017 j'ai perdu 14 000€ parce que j'avais signé une clause de cession sans la relire. Aujourd'hui je passe <strong>3h sur chaque contrat</strong> avant de signer. Voilà les 5 points que je vérifie systématiquement."</p>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Six réflexes à intégrer dans ton écriture pour battre le contenu générique :</p>
+      <ul>
+        <li><strong>Verbes au passé personnel</strong> : "j'ai signé", "j'ai perdu", "j'ai testé" — pas "il faut", "on doit"</li>
+        <li><strong>Chiffres précis</strong> : "1426€" plutôt que "le SMIC", "250 000 streams" plutôt que "beaucoup d'écoutes"</li>
+        <li><strong>Dates explicites</strong> : "en 2019", "depuis février 2024" — pas "récemment" ou "il y a quelques années"</li>
+        <li><strong>Entités nommées</strong> : "SACEM, ADAMI, CNM" — pas "les organismes de gestion collective"</li>
+        <li><strong>Anecdotes datées</strong> : un échec raconté, une signature, un appel précis. Une seule par article suffit pour l'authentifier.</li>
+        <li><strong>Opinions tranchées</strong> : "je déconseille fortement", "le plus rentable est sans doute", "à éviter à tout prix" — assume tes points de vue</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <div class="callout-tag">★ Le test de l'authenticité</div>
+      <p>Relis chaque paragraphe et demande-toi : <em>"est-ce qu'une IA aurait pu écrire ça ?"</em>. Si la réponse est oui, le paragraphe est trop générique. Réécris-le en injectant un chiffre précis, une date, un exemple personnel ou une opinion. <strong>Le minimum vital : 1 anecdote personnelle + 3 chiffres sourcés par article pilier.</strong></p>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Pourquoi les IA pénalisent le contenu IA</div>
+      <p>Depuis 2024, les IA s'entraînent sur du contenu mixte (humain + IA). Elles ont appris à reconnaître les patterns du contenu IA pur (formulations vagues, conclusion en bullet point, "il est important de...", absence de chiffres précis). Quand un nouveau contenu présente ces patterns, son score E-E-A-T baisse mécaniquement. <strong>Le contenu purement IA est un signal négatif.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 06 — SOURCES OFFICIELLES ============================== -->
+<section class="module" id="sources">
+  <div class="container">
+    <div class="module-header">
+      <span class="module-num">— 06 / 08</span>
+      <h2>Données chiffrées et <em>sources officielles</em></h2>
+    </div>
+    <p class="module-lead">Pour le music business français, 5 sources institutionnelles dominent l'autorité. Citer ces sources avec leurs chiffres récents fait basculer ton article du côté "source de référence" pour les IA.</p>
+
+    <div class="sources-grid">
+      <div class="source-card">
+        <div class="source-name">SACEM</div>
+        <div class="source-full">Société des auteurs, compositeurs et éditeurs de musique</div>
+        <div class="source-data"><strong>Données disponibles :</strong> répartitions annuelles, droits d'auteur collectés (~1,5 Md€/an), nombre de membres (~210 000), tarifs et procédures.</div>
+        <div class="source-link">sacem.fr/ressources</div>
+      </div>
+
+      <div class="source-card">
+        <div class="source-name">CNM</div>
+        <div class="source-full">Centre National de la Musique</div>
+        <div class="source-data"><strong>Données disponibles :</strong> baromètres annuels du marché, études sectorielles, aides et subventions, panorama du streaming français.</div>
+        <div class="source-link">cnm.fr/observatoire</div>
+      </div>
+
+      <div class="source-card">
+        <div class="source-name">SNEP</div>
+        <div class="source-full">Syndicat National de l'Édition Phonographique</div>
+        <div class="source-data"><strong>Données disponibles :</strong> rapport annuel du marché de la musique enregistrée, certifications (or, platine, diamant), tops streaming et ventes.</div>
+        <div class="source-link">snepmusique.com/marche</div>
+      </div>
+
+      <div class="source-card">
+        <div class="source-name">ADAMI</div>
+        <div class="source-full">Société civile pour les droits voisins</div>
+        <div class="source-data"><strong>Données disponibles :</strong> répartitions aux artistes interprètes, aides à la création, études sur les revenus des artistes.</div>
+        <div class="source-link">adami.fr/etudes</div>
+      </div>
+
+      <div class="source-card">
+        <div class="source-name">IFPI</div>
+        <div class="source-full">International Federation of the Phonographic Industry</div>
+        <div class="source-data"><strong>Données disponibles :</strong> Global Music Report annuel, marché mondial, top countries, top artistes globaux. La référence pour les chiffres internationaux.</div>
+        <div class="source-link">ifpi.org/global-music-report</div>
+      </div>
+
+      <div class="source-card">
+        <div class="source-name">+ SPEDIDAM, SCPP, SPPF</div>
+        <div class="source-full">Sociétés de gestion collective</div>
+        <div class="source-data"><strong>Données disponibles :</strong> répartitions spécifiques par catégorie (artistes interprètes, producteurs phonographiques majors, indé). Sources d'autorité pour les chiffres précis.</div>
+        <div class="source-link">spedidam.fr · scpp.fr · sppf.com</div>
+      </div>
+    </div>
+
+    <div class="container-narrow" style="padding: 0;">
+      <div class="callout">
+        <div class="callout-tag">★ La règle des 3 chiffres minimum</div>
+        <p>Chaque article pilier doit contenir <strong>au moins 3 données chiffrées sourcées</strong> avec : (1) le chiffre précis, (2) la source explicitement nommée, (3) l'année. Format type : <em>"Le marché français du streaming a atteint 480M€ en 2024 (source : SNEP, rapport annuel 2025)."</em> Sans ces 3 éléments, ton chiffre n'a pas de valeur d'autorité aux yeux des IA.</p>
+      </div>
+
+      <div class="callout success">
+        <div class="callout-tag">✓ Bonus : Wikidata et Wikipedia</div>
+        <p>En complément des organismes officiels, citer Wikipedia et Wikidata renforce ton autorité. Les IA traitent ces sources avec un poids très élevé. Lien direct vers la page Wikipedia de la SACEM ou de l'IFPI dans tes articles = signal d'expertise documentée.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 07 — WORKFLOW CLAUDE ============================== -->
+<section class="module" id="workflow">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 07 / 08</span>
+      <h2>Le workflow Claude pour <em>accélérer</em> sans devenir générique</h2>
+    </div>
+    <p class="module-lead">Claude peut t'aider à produire 5 articles piliers en une semaine au lieu de 5 mois. Mais sans méthode, tu finis avec du contenu IA générique que les IA pénalisent. Voilà le workflow qui marche.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-circle">1</div>
+        <div>
+          <span class="step-tag">Phase 01 — Brief stratégique</span>
+          <h4>Tu prépares un brief détaillé</h4>
+          <p>Pour chaque article, tu rédiges un brief de 200 mots à Claude qui contient : <strong>la question H1 exacte</strong>, le persona cible (artiste indé débutant ? producteur établi ?), les 4-6 sous-questions H2 visées, ton angle personnel (ce que tu veux absolument dire), tes anecdotes pertinentes, les sources officielles à intégrer.</p>
+          <p><strong>Temps :</strong> 20-30 minutes par article.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-circle">2</div>
+        <div>
+          <span class="step-tag">Phase 02 — Première version</span>
+          <h4>Claude génère la structure complète</h4>
+          <p>Tu demandes à Claude de produire une <strong>première version complète</strong> en respectant la structure GEO (H1 question, réponse 40 mots, H2 sous-questions, paragraphes développés, FAQ structurée). Tu ne touches à rien encore. Tu lis pour vérifier que la logique tient et que les sources sont correctes.</p>
+          <p><strong>Temps :</strong> 5 minutes de génération + 15 minutes de relecture.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-circle">3</div>
+        <div>
+          <span class="step-tag">Phase 03 — Injection d'expertise</span>
+          <h4>Tu injectes 30-50% de ton contenu personnel</h4>
+          <p>C'est l'étape qui distingue le contenu acceptable du contenu citable. Tu reprends chaque section et tu ajoutes : <strong>tes anecdotes datées, tes chiffres précis, tes opinions tranchées, tes erreurs racontées</strong>. Tu remplaces les généralités par du vécu. Si une section sonne IA générique, tu la réécris à la main.</p>
+          <p><strong>Temps :</strong> 1h-2h par article.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-circle">4</div>
+        <div>
+          <span class="step-tag">Phase 04 — Polish GEO</span>
+          <h4>Claude polit le format final</h4>
+          <p>Tu redonnes à Claude la version enrichie avec une demande précise : <em>"polis le format en respectant la structure GEO : H1 = question, réponse 40 mots dans les 100 premiers mots, H2 = sous-questions, FAQ schema en bas, balisage HTML5 sémantique. Ne change pas mes anecdotes ni mes chiffres."</em></p>
+          <p><strong>Temps :</strong> 15-30 minutes par article.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warning">
+      <div class="callout-tag">⚠ La règle du 50/50</div>
+      <p>Si moins de <strong>50% du contenu final est de toi</strong> (anecdotes, chiffres, opinions, exemples vécus), c'est trop IA. L'article sera détecté comme générique et pénalisé. Le workflow Claude doit servir à <strong>structurer et accélérer</strong>, pas à remplacer ton expertise. Si tu te dis "Claude a tout fait", tu as raté.</p>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Le résultat attendu</div>
+      <p>Avec ce workflow, tu produis <strong>1 article pilier de qualité par jour</strong>. Sur 5 jours, 5 articles complets, chacun avec sa structure GEO, ses 3-5 chiffres sourcés, ses anecdotes personnelles, sa FAQ schema. C'est exactement le rythme attendu pour cocher le livrable du module.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 08 — DELIVERABLE ============================== -->
+<section class="module" id="deliverable">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 08 / 08</span>
+      <h2>Livrable — <em>5 articles piliers</em> publiés sur ton site</h2>
+    </div>
+    <p class="module-lead">À la fin de la semaine, tu dois avoir 5 articles piliers en ligne, chacun structuré pour être citable. Voici les 10 critères à cocher pour valider ton livrable.</p>
+
+    <div class="checklist">
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">5 questions de longue traîne IA validées</div>
+        <div class="check-desc">Chaque question coche les 3 critères : longue traîne, volume réel (100+ recherches/mois), alignée avec ton expertise vécue</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">5 H1 formulés exactement comme une question</div>
+        <div class="check-desc">Pas de slogan poétique. Une vraie question conversationnelle qu'un fan taperait dans Perplexity</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">Réponse en 40 mots dans les 100 premiers mots de chaque article</div>
+        <div class="check-desc">Premier paragraphe direct, factuel, citable tel quel par une IA</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">4 à 8 H2 sous-questions par article</div>
+        <div class="check-desc">Chaque H2 = une vraie sous-question, avec sa propre réponse en 40 mots dans le 1er paragraphe</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">3+ chiffres sourcés par article (SACEM, CNM, SNEP, ADAMI, IFPI)</div>
+        <div class="check-desc">Format : chiffre précis + source nommée + année. Pas de "il y a beaucoup de" ou "récemment"</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">1+ anecdote personnelle vécue par article</div>
+        <div class="check-desc">Une histoire datée, chiffrée, racontée à la 1ère personne. Ce qui rend le contenu impossible à confondre avec du IA générique</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">1 tableau comparatif ou liste structurée par article</div>
+        <div class="check-desc">Format que les IA adorent : SACEM vs ADAMI, distributeurs comparés, étapes pas à pas</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">FAQ schema JSON-LD en bas de chaque article</div>
+        <div class="check-desc">5-8 questions/réponses balisées en FAQPage. Validé via Schema Markup Validator</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">5 articles publiés et accessibles sur ton site (Module 2)</div>
+        <div class="check-desc">URLs propres, indexées par Google, lien depuis ta page Articles, balisage Article en JSON-LD</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">Test final dans Perplexity (1 prompt par article)</div>
+        <div class="check-desc">Tu poses la question H1 dans Perplexity. Au moins 1 article doit être cité dans la réponse sous 2-3 semaines après publication.</div>
+      </div></div>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Comment lire ton score</div>
+      <p><strong>10/10</strong> : tes 5 articles sont GEO-ready et déjà repérés par les IA — tu peux passer au Module 5 (Reddit). <strong>7-9/10</strong> : tes articles sont publiés, identifie les manques (sources, FAQ, anecdotes) et complète. <strong>Moins de 7/10</strong> : ne passe pas au Module 5 — sans contenu citable solide, les signaux d'autorité Reddit et presse n'auront rien à amplifier.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== RECAP ============================== -->
+<section class="recap">
+  <div class="container-narrow">
+    <div class="section-label" style="color: var(--accent-line);">Synthèse</div>
+    <h3>Ce que tu dois retenir de ce module</h3>
+    <ol class="recap-list">
+      <li><strong>5 articles piliers profonds</strong> battent 50 articles génériques. Chaque pilier produit 20-30 chunks citables qui restent valables 3-5 ans.</li>
+      <li>L'<strong>anatomie d'un article GEO</strong> tient en 6 blocs ordonnés : H1 question, réponse 40 mots, contexte, H2 sous-questions, preuves chiffrées, FAQ schema.</li>
+      <li>La <strong>longue traîne IA</strong> = vraies questions conversationnelles. 4 sources : ChatGPT direct, AnswerThePublic, Reddit, tes propres DM/commentaires.</li>
+      <li>Quatre <strong>formats que les IA adorent</strong> : listes, tableaux comparatifs, FAQ JSON-LD, procédures pas à pas. Glisser ces 4 formats multiplie les citations par 3-5×.</li>
+      <li>Le <strong>contenu de praticien</strong> bat le contenu IA générique. 6 réflexes : verbes au passé personnel, chiffres précis, dates explicites, entités nommées, anecdotes datées, opinions tranchées.</li>
+      <li>Cinq <strong>sources officielles françaises</strong> incontournables : SACEM, CNM, SNEP, ADAMI, IFPI. Plus SPEDIDAM, SCPP, SPPF en complément. Au minimum 3 chiffres sourcés par article.</li>
+      <li>Le <strong>workflow Claude</strong> en 4 phases (brief → génération → injection 30-50% perso → polish GEO) te permet de produire 1 article par jour sans devenir générique.</li>
+      <li>Livrable : <strong>5 articles publiés en ligne</strong> avec les 10 critères cochés. Test Perplexity dans les 2-3 semaines pour valider que les IA commencent à te citer.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================== NEXT CTA ============================== -->
+<div class="next-cta">
+  <h3>Prêt pour le <em>Module 05</em> ?</h3>
+  <p>Reddit, le canal sous-coté du GEO — comment utiliser Reddit comme machine à signaux d'autorité pour les IA.</p>
+  <a href="https://ia.producteurasucces.com/" class="btn btn-primary">Retour à la formation</a>
+</div>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="site-footer">
+  <div class="container">
+    © 2026 Tarik Hamiche — Producteur à Succès • <a href="https://drive.google.com/file/d/1j34jogzEWH8ggeVDIT8qRimJGh30SV38/view?usp=sharing" target="_blank" rel="noopener">Mentions légales &amp; Confidentialité</a> • <a href="https://drive.google.com/file/d/1POBlG9RlTZgRYuJWRe_bHUIqdLE2vpVn/view?usp=sharing" target="_blank" rel="noopener">CGV</a> • <a href="mailto:tarik@producteurasucces.com">Contact</a>
+  </div>
+</footer>
+
+<!-- ============================== CRISP CHAT ============================== -->
+<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="1c4155b7-339c-4746-99b4-8d1a09e952ad";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+
+<!-- ============================== JS ============================== -->
+<script>
+  // Progress bar
+  (function(){
+    const bar = document.getElementById('progress-bar');
+    if (!bar) return;
+    function update(){
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      bar.style.width = progress + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+
+  // Checklist toggle
+  (function(){
+    document.querySelectorAll('.check-item').forEach(function(item){
+      item.addEventListener('click', function(){ item.classList.toggle('checked'); });
+    });
+  })();
+
+  // Fade-in on scroll
+  (function(){
+    if (!('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('section.module, .toc-section, .recap, .next-cta').forEach(function(el){
+      el.classList.add('fade-up');
+      observer.observe(el);
+    });
+  })();
+</script>
+
+</body>
+</html>
