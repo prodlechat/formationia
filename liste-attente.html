@@ -2390,34 +2390,28 @@
       if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
     });
 
-    // Form submission via fetch to FormSubmit AJAX endpoint
-    form.addEventListener('submit', async function(e){
+    // Form submission — show success IMMEDIATELY, send in background (fire & forget)
+    form.addEventListener('submit', function(e){
       e.preventDefault();
-      const submitBtn = form.querySelector('button[type=submit]');
-      const originalText = submitBtn.textContent;
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Envoi en cours…';
+      console.log('[Waitlist] Form submitted — showing success and sending to FormSubmit');
 
-      function showSuccess(){
-        form.style.display = 'none';
-        successState.style.display = 'block';
-      }
+      // 1. Capture form data BEFORE we hide the form
+      const formData = new FormData(form);
 
-      try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json' },
-          body: new FormData(form)
-        });
-        const data = await response.json().catch(function(){ return {}; });
-        console.log('FormSubmit response:', data);
-        // Show success regardless — FormSubmit returns success even on first activation submission
-        showSuccess();
-      } catch (err) {
-        console.error('Waitlist submission error:', err);
-        // Still show success — the request was likely sent, network may just be slow
-        showSuccess();
-      }
+      // 2. Show success state IMMEDIATELY (no waiting for network)
+      form.style.display = 'none';
+      successState.style.display = 'block';
+
+      // 3. Send to FormSubmit in background — fire & forget, no await, no blocking
+      fetch('https://formsubmit.co/ajax/hamiche.t@gmail.com', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      }).then(function(r){ return r.json().catch(function(){ return {}; }); })
+        .then(function(d){ console.log('[Waitlist] FormSubmit response:', d); })
+        .catch(function(err){ console.warn('[Waitlist] Network warn (email may still arrive):', err); });
+
+      return false;
     });
   })();
 </script>
