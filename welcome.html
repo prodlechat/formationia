@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Bienvenue dans la formation Cité par les IA — Tarik Hamiche / Producteur à Succès" />
+<title>Bienvenue dans la formation — Cité par les IA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:           #F7F1E8;
+    --bg-soft:      #FCF8F2;
+    --bg-card:      #FFFFFF;
+    --ink:          #1F1A15;
+    --ink-soft:     #5C4F42;
+    --ink-muted:    #8A7A6A;
+    --accent:       #5B14FF;
+    --accent-dark:  #4910CC;
+    --accent-soft:  #EDE9FE;
+    --accent-line:  #A78BFA;
+    --border:       #E8DDC9;
+    --border-soft:  #F0E6D4;
+    --whatsapp:     #25D366;
+    --whatsapp-dark: #1FAA53;
+    --shadow-sm:    0 1px 2px rgba(31, 26, 21, 0.04);
+    --shadow-md:    0 4px 16px rgba(31, 26, 21, 0.06);
+    --shadow-lg:    0 16px 48px rgba(31, 26, 21, 0.08);
+    --radius-sm:    8px;
+    --radius-md:    14px;
+    --radius-lg:    24px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+  }
+
+  h1 { font-size: clamp(2.4rem, 5.5vw, 4rem); }
+  h2 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); }
+  h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 700; line-height: 1.2; }
+
+  p { margin-bottom: 1.1rem; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 700; }
+  em { font-style: normal; color: var(--accent); font-weight: 800; }
+
+  a { color: var(--accent); text-decoration: none; transition: color .15s ease; }
+  a:hover { color: var(--accent-dark); }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .container-narrow {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  section { padding: 5rem 0; }
+
+  /* —————— Buttons —————— */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    padding: 1.1rem 2.2rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .btn-large { padding: 1.3rem 2.4rem; font-size: 1.02rem; }
+  .btn svg { flex-shrink: 0; }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #FFF;
+    box-shadow: 0 6px 20px rgba(91, 20, 255, 0.3);
+  }
+  .btn-primary:hover {
+    background: var(--accent-dark);
+    color: #FFF;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px rgba(91, 20, 255, 0.4);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+  }
+  .btn-secondary:hover {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .btn-whatsapp {
+    background: var(--whatsapp);
+    color: #FFF;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+  }
+  .btn-whatsapp:hover {
+    background: var(--whatsapp-dark);
+    color: #FFF;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px rgba(37, 211, 102, 0.4);
+  }
+
+  /* —————— Hero —————— */
+  .hero {
+    padding: 4rem 0 3rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.22) 0%, transparent 65%);
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -160px;
+    left: -180px;
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle, rgba(91, 20, 255, 0.16) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-content {
+    max-width: 880px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 em {
+    color: var(--accent);
+    font-style: normal;
+    font-weight: 800;
+  }
+
+  .hero-video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    max-width: 760px;
+    margin: 3rem auto 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: #1F1A15;
+    box-shadow: var(--shadow-lg);
+  }
+  .hero-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* —————— Section heads —————— */
+  .section-head {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .section-head h2 { margin-bottom: 1rem; }
+  .section-head p {
+    font-size: 1.1rem;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+  .section-head .eyebrow {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  /* —————— Contact section —————— */
+  .contact-section {
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-section::before {
+    content: '';
+    position: absolute;
+    top: 8%;
+    right: -180px;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.22) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .contact-section::after {
+    content: '';
+    position: absolute;
+    bottom: 8%;
+    left: -200px;
+    width: 540px;
+    height: 540px;
+    background: radial-gradient(circle, rgba(91, 20, 255, 0.13) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .contact-section > .container-narrow {
+    position: relative;
+    z-index: 1;
+  }
+  .contact-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  /* —————— Calendly section —————— */
+  .calendly-section {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+    position: relative;
+    overflow: hidden;
+  }
+  .calendly-section::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.18) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .calendly-section::after {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    right: -200px;
+    width: 580px;
+    height: 580px;
+    background: radial-gradient(circle, rgba(91, 20, 255, 0.13) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .calendly-section > .container {
+    position: relative;
+    z-index: 1;
+  }
+  .calendly-inline-widget {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    margin-top: 2rem;
+    min-width: 320px;
+    height: 700px;
+  }
+
+  /* —————— Footer —————— */
+  footer {
+    background: var(--ink);
+    color: rgba(250, 246, 240, 0.5);
+    padding: 2.5rem 0;
+    text-align: center;
+    font-size: 0.88rem;
+    border-top: 1px solid rgba(250, 246, 240, 0.08);
+  }
+  footer a { color: rgba(250, 246, 240, 0.7); }
+
+  /* —————— Mobile —————— */
+  @media (max-width: 860px) {
+    section { padding: 3.5rem 0; }
+    .hero { padding: 2.5rem 0 2rem; }
+    .container, .container-narrow { padding: 0 1.4rem; }
+    .calendly-inline-widget { height: 750px; }
+    .contact-section::before, .contact-section::after,
+    .calendly-section::before, .calendly-section::after,
+    .hero::before, .hero::after {
+      width: 380px !important;
+      height: 380px !important;
+    }
+  }
+  @media (max-width: 480px) {
+    section { padding: 3rem 0; }
+    .container, .container-narrow { padding: 0 1.1rem; }
+    .hero h1 { font-size: 2rem; line-height: 1.15; }
+    .btn-large { padding: 1.1rem 1.6rem; font-size: 0.95rem; }
+    .contact-cta { flex-direction: column; align-items: stretch; }
+    .contact-cta .btn { width: 100%; }
+    .calendly-inline-widget { height: 800px; }
+    .contact-section::before, .contact-section::after,
+    .calendly-section::before, .calendly-section::after,
+    .hero::before, .hero::after {
+      width: 280px !important;
+      height: 280px !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================== HERO ============================== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Bienvenue dans la formation, regardez bien cette vidéo — <em>elle est fondamentale</em>.</h1>
+
+      <div class="hero-video">
+        <iframe src="https://player.vimeo.com/video/1186877722?h=4596343039&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Vidéo de bienvenue — Cité par les IA"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CONTACT CTAs ============================== -->
+<section class="contact-section">
+  <div class="container-narrow">
+    <div class="section-head">
+      <span class="eyebrow">Une question ? Un blocage ?</span>
+      <h2>Je suis <em>là pour toi</em>.</h2>
+      <p>Choisis le canal qui te convient le mieux — réponse rapide garantie.</p>
+    </div>
+    <div class="contact-cta">
+      <a href="https://wa.me/33768523973" target="_blank" rel="noopener" class="btn btn-whatsapp btn-large">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        Contacter sur WhatsApp
+      </a>
+      <a href="mailto:tarik@producteurasucces.com" class="btn btn-secondary btn-large">
+        Envoyer un email
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CALENDLY ============================== -->
+<section class="calendly-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Pour aller plus loin</span>
+      <h2>Réserve un <em>consulting 1-vs-1</em> avec moi</h2>
+      <p>Pour un point stratégique sur ta présence GEO, ton site, ton entité de marque ou ta première mise en place — choisis ton créneau ci-dessous.</p>
+    </div>
+    <div class="calendly-inline-widget" data-url="https://calendly.com/producteurasuccescoaching/consulting-1vs1-avec-tarik"></div>
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  </div>
+</section>
+
+<!-- ============================== FOOTER ============================== -->
+<footer>
+  <div class="container">
+    © 2026 Tarik Hamiche — Producteur à Succès • <a href="https://drive.google.com/file/d/1j34jogzEWH8ggeVDIT8qRimJGh30SV38/view?usp=sharing" target="_blank" rel="noopener">Mentions légales &amp; Confidentialité</a> • <a href="https://drive.google.com/file/d/1POBlG9RlTZgRYuJWRe_bHUIqdLE2vpVn/view?usp=sharing" target="_blank" rel="noopener">CGV</a> • <a href="mailto:tarik@producteurasucces.com">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
