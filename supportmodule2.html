@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Module 02 — Construire un site web GEO-ready avec Antigravity et Claude. De zéro site (ou site daté) à un site optimisé pour être cité par les IA en 1 semaine, sans coder." />
+<title>Module 02 — Construire ton site GEO-ready avec Antigravity + Claude | Cité par les IA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:           #F7F1E8;
+    --bg-soft:      #FCF8F2;
+    --bg-card:      #FFFFFF;
+    --ink:          #1F1A15;
+    --ink-soft:     #5C4F42;
+    --ink-muted:    #8A7A6A;
+    --accent:       #5B14FF;
+    --accent-dark:  #4910CC;
+    --accent-soft:  #EDE9FE;
+    --accent-line:  #A78BFA;
+    --border:       #E8DDC9;
+    --border-soft:  #F0E6D4;
+    --warning:      #C2410C;
+    --warning-soft: #FFEDD5;
+    --success:      #15803D;
+    --success-soft: #DCFCE7;
+    --shadow-sm:    0 1px 2px rgba(31, 26, 21, 0.04);
+    --shadow-md:    0 4px 16px rgba(31, 26, 21, 0.06);
+    --shadow-lg:    0 16px 48px rgba(31, 26, 21, 0.08);
+    --radius-sm:    8px;
+    --radius-md:    14px;
+    --radius-lg:    24px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+  }
+  h1 { font-size: clamp(2.4rem, 5.5vw, 4rem); line-height: 1.05; }
+  h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); }
+  h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 700; }
+  h4 { font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
+  p { margin-bottom: 1.1rem; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 700; }
+  em { font-style: normal; color: var(--accent); font-weight: 800; }
+  a { color: var(--accent); text-decoration: none; transition: color .15s ease; }
+  a:hover { color: var(--accent-dark); }
+
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+  .container-narrow { max-width: 760px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* —————— Progress bar (top scroll) —————— */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-line));
+    z-index: 9999;
+    transition: width 0.1s ease;
+  }
+
+  /* —————— Top header —————— */
+  header.top-nav {
+    position: sticky;
+    top: 0;
+    background: rgba(247, 241, 232, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-soft);
+    z-index: 100;
+  }
+  .nav-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .brand-mark {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .brand-mark em {
+    color: var(--accent);
+    font-style: normal;
+  }
+  .nav-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+  }
+  .nav-meta span:not(:last-child)::after {
+    content: '·';
+    margin-left: 1rem;
+    color: var(--border);
+  }
+  @media (max-width: 600px) { .nav-meta { display: none; } }
+
+  /* —————— Hero —————— */
+  .hero {
+    padding: 5rem 0 4rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.22) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    right: -150px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(91, 20, 255, 0.14) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 1.8rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .hero h1 { margin-bottom: 1.5rem; }
+  .hero-lead {
+    font-size: clamp(1.1rem, 1.7vw, 1.3rem);
+    color: var(--ink-soft);
+    max-width: 720px;
+    margin: 0 auto 3rem;
+    line-height: 1.55;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    max-width: 880px;
+    margin: 3rem auto 0;
+  }
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .stat-num {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    line-height: 1.35;
+  }
+  @media (max-width: 720px) { .hero-stats { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 420px) { .hero-stats { grid-template-columns: 1fr; } }
+
+  /* —————— Section labels —————— */
+  .section-label {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  /* —————— TOC —————— */
+  .toc-section {
+    padding: 4rem 0;
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+    text-align: center;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    max-width: 800px;
+    margin: 1rem auto 0;
+  }
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.3rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    text-align: left;
+    color: var(--ink);
+    transition: all 0.15s ease;
+  }
+  .toc-item:hover {
+    border-color: var(--accent);
+    transform: translateX(2px);
+    box-shadow: var(--shadow-sm);
+    color: var(--ink);
+  }
+  .toc-num {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    width: 36px;
+  }
+  .toc-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+  @media (max-width: 600px) { .toc-grid { grid-template-columns: 1fr; } }
+
+  /* —————— Module sections —————— */
+  section.module {
+    padding: 6rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  section.module:nth-child(even) {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  section.module::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: -180px;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.16) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  section.module > .container,
+  section.module > .container-narrow {
+    position: relative;
+    z-index: 1;
+  }
+  .module-header { margin-bottom: 2.5rem; }
+  .module-num {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .module-lead {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    margin: 1.5rem 0 2.5rem;
+    line-height: 1.55;
+    max-width: 720px;
+  }
+
+  /* —————— Prose —————— */
+  .prose p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 1.3rem;
+  }
+  .prose p strong { color: var(--ink); }
+  .prose ul {
+    margin: 1rem 0 1.5rem;
+    padding-left: 1.5rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+  .prose ul li { margin-bottom: 0.6rem; }
+  .prose ul li strong { color: var(--ink); }
+
+  /* —————— Callouts —————— */
+  .callout {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-md);
+    padding: 1.6rem 1.8rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-sm);
+  }
+  .callout.warning {
+    border-left-color: var(--warning);
+    background: linear-gradient(135deg, var(--warning-soft) 0%, var(--bg-card) 60%);
+  }
+  .callout.success {
+    border-left-color: var(--success);
+    background: linear-gradient(135deg, var(--success-soft) 0%, var(--bg-card) 60%);
+  }
+  .callout-tag {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .callout.warning .callout-tag { color: var(--warning); }
+  .callout.success .callout-tag { color: var(--success); }
+  .callout p {
+    margin: 0;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+
+  /* —————— Workflow / step components (reuses RAG style) —————— */
+  .flow {
+    margin: 2.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .flow-step {
+    display: flex;
+    gap: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s ease;
+  }
+  .flow-step:hover { border-color: var(--accent-line); }
+  .flow-circle {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    box-shadow: 0 6px 20px rgba(91, 20, 255, 0.3);
+  }
+  .flow-step > div:last-child { flex: 1; min-width: 0; }
+  .step-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+    margin-bottom: 0.4rem;
+  }
+  .flow-step h4 { margin-bottom: 0.6rem; }
+  .flow-step p { margin: 0 0 0.8rem; line-height: 1.55; }
+  .flow-step p:last-child { margin-bottom: 0; }
+
+  /* —————— Page architecture grid (5 essential pages) —————— */
+  .pages-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    margin: 2rem 0;
+  }
+  .page-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .page-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .page-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  .page-name {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .page-card h4 { margin-bottom: 0.8rem; }
+  .page-card > p { font-size: 0.95rem; line-height: 1.55; margin-bottom: 1.2rem; }
+  .page-essentials {
+    background: var(--accent-soft);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .page-essentials strong {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  @media (max-width: 740px) { .pages-grid { grid-template-columns: 1fr; } }
+
+  /* —————— 2-column comparison (Hostinger vs Vercel) —————— */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    margin: 2rem 0;
+  }
+  .compare-col {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 2rem 1.8rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+  }
+  .compare-col.featured {
+    border: 2px solid var(--accent);
+    background: linear-gradient(180deg, var(--accent-soft) 0%, var(--bg-card) 50%);
+    transform: scale(1.02);
+    box-shadow: var(--shadow-md);
+    position: relative;
+  }
+  .compare-col.featured::before {
+    content: 'Recommandé';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #FFF;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .compare-name {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: var(--ink);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.4rem;
+  }
+  .compare-tagline {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+  .compare-list {
+    list-style: none;
+    text-align: left;
+    margin: 1rem 0;
+  }
+  .compare-list li {
+    padding: 0.5rem 0 0.5rem 1.6rem;
+    position: relative;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .compare-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    color: var(--accent);
+    font-weight: 800;
+  }
+  .compare-list li:last-child { border-bottom: none; }
+  .compare-list li strong { color: var(--ink); }
+  .compare-price {
+    margin-top: 1.2rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border);
+    font-size: 0.85rem;
+    color: var(--ink);
+  }
+  .compare-price strong {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+  }
+  @media (max-width: 760px) {
+    .compare-grid { grid-template-columns: 1fr; }
+    .compare-col.featured { transform: none; }
+  }
+
+  /* —————— Tags / Semantic tag list —————— */
+  .tag-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+  .tag-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.2rem;
+  }
+  .tag-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+  }
+  .tag-desc {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    line-height: 1.45;
+  }
+
+  /* —————— Code block —————— */
+  .code-block {
+    background: #1a1612;
+    color: #e5e7eb;
+    padding: 1.4rem 1.6rem;
+    border-radius: var(--radius-md);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    white-space: pre;
+  }
+  .code-comment { color: rgba(255, 255, 255, 0.45); font-style: italic; }
+  .code-tag { color: #ff9b9b; }
+  .code-attr { color: #b8b8ff; }
+  .code-string { color: #9ec8ff; }
+  .code-prop { color: #ffd591; }
+  .code-h1 { color: #fde68a; font-weight: 700; }
+  @media (max-width: 600px) {
+    .code-block { font-size: 0.75rem; padding: 1.1rem 1.2rem; }
+  }
+
+  /* —————— Deliverable checklist —————— */
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin: 2rem 0;
+  }
+  .check-item {
+    display: flex;
+    gap: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.2rem 1.4rem;
+    cursor: pointer;
+    user-select: none;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .check-item:hover { border-color: var(--accent-line); }
+  .check-item.checked {
+    background: var(--success-soft);
+    border-color: var(--success);
+  }
+  .check-box {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: transparent;
+    background: var(--bg-soft);
+    transition: all 0.15s ease;
+    margin-top: 0.15rem;
+  }
+  .check-item.checked .check-box {
+    background: var(--success);
+    border-color: var(--success);
+    color: #FFF;
+  }
+  .check-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .check-title {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+    line-height: 1.4;
+  }
+  .check-desc {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+
+  /* —————— Recap —————— */
+  .recap {
+    background: var(--ink);
+    color: rgba(247, 241, 232, 0.9);
+    padding: 4rem 0;
+    margin-top: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .recap::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(91, 20, 255, 0.25) 0%, transparent 60%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .recap > .container { position: relative; z-index: 1; }
+  .recap h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: #FFF;
+    margin-bottom: 1.5rem;
+  }
+  .recap-list {
+    list-style: none;
+    counter-reset: item;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 760px;
+  }
+  .recap-list li {
+    counter-increment: item;
+    padding-left: 3rem;
+    position: relative;
+    line-height: 1.55;
+    color: rgba(247, 241, 232, 0.85);
+  }
+  .recap-list li::before {
+    content: counter(item, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0.05em;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--accent-line);
+    letter-spacing: -0.02em;
+  }
+  .recap-list li strong { color: #FFF; }
+
+  /* —————— Inline CTA banner —————— */
+  .next-cta {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    margin: 4rem auto;
+    max-width: 760px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+  }
+  .next-cta h3 { margin-bottom: 1rem; }
+  .next-cta p { margin-bottom: 1.5rem; font-size: 1.05rem; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1.1rem 2.2rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #FFF;
+    box-shadow: 0 6px 20px rgba(91, 20, 255, 0.3);
+  }
+  .btn-primary:hover {
+    background: var(--accent-dark);
+    color: #FFF;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px rgba(91, 20, 255, 0.4);
+  }
+
+  /* —————— Footer —————— */
+  footer.site-footer {
+    background: var(--ink);
+    color: rgba(247, 241, 232, 0.5);
+    padding: 2.5rem 0;
+    text-align: center;
+    font-size: 0.88rem;
+    border-top: 1px solid rgba(247, 241, 232, 0.08);
+  }
+  footer.site-footer a { color: rgba(247, 241, 232, 0.7); }
+
+  /* —————— Mobile —————— */
+  @media (max-width: 860px) {
+    section.module { padding: 4rem 0; }
+    .toc-section { padding: 3rem 0; }
+    .module-header { margin-bottom: 1.8rem; }
+    .module-lead { font-size: 1.05rem; margin: 1rem 0 1.8rem; }
+    .flow-step { padding: 1.4rem; gap: 1rem; }
+    .flow-circle { width: 48px; height: 48px; font-size: 1.3rem; }
+    .next-cta { padding: 1.8rem 1.4rem; }
+    .recap-list li { padding-left: 2.4rem; }
+    section.module::before { width: 320px !important; height: 320px !important; }
+  }
+  @media (max-width: 480px) {
+    .hero { padding: 3rem 0 2.5rem; }
+    .hero h1 { font-size: 2rem; }
+    .flow-step {
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .flow-circle {
+      align-self: flex-start;
+    }
+  }
+
+  /* —————— Fade in animation —————— */
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress-bar"></div>
+
+<header class="top-nav">
+  <div class="nav-inner">
+    <a href="https://ia.producteurasucces.com/" class="brand-mark">Cité par les <em>IA</em></a>
+    <div class="nav-meta">
+      <span>Module 02 / 06</span>
+      <span>Producteur à Succès</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== HERO ============================== -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-tag">Module 02 — Le socle</span>
+    <h1>Construire ton site <em>GEO-ready</em> avec Antigravity + Claude.</h1>
+    <p class="hero-lead">De zéro site (ou site daté) à un site optimisé pour être cité par les IA — en une semaine, sans coder une seule ligne. Accueil, À propos, Expertise, Articles, Contact. Le tout structuré pour être chunkable.</p>
+
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">1 sem.</div>
+        <div class="stat-label">Pour passer de zéro site à un site GEO-ready en ligne</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">0</div>
+        <div class="stat-label">Ligne de code à écrire — l'agent fait le travail</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Pages essentielles pour démarrer ton entité GEO</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">5-8×</div>
+        <div class="stat-label">Plus de citations IA avec un site personnel vs sans</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== TABLE OF CONTENTS ============================== -->
+<section class="toc-section">
+  <div class="container-narrow">
+    <div class="section-label">Plan du module</div>
+    <div class="toc-grid">
+      <a href="#why-site" class="toc-item"><span class="toc-num">01</span><span class="toc-title">Pourquoi sans site, ton GEO est bancal</span></a>
+      <a href="#antigravity" class="toc-item"><span class="toc-num">02</span><span class="toc-title">Antigravity, l'IDE agent de Google</span></a>
+      <a href="#workflow" class="toc-item"><span class="toc-num">03</span><span class="toc-title">Le workflow Claude + Antigravity en 3 phases</span></a>
+      <a href="#pages" class="toc-item"><span class="toc-num">04</span><span class="toc-title">L'architecture des 5 pages essentielles</span></a>
+      <a href="#semantic" class="toc-item"><span class="toc-num">05</span><span class="toc-title">Les balises sémantiques qui comptent</span></a>
+      <a href="#headings" class="toc-item"><span class="toc-num">06</span><span class="toc-title">H1/H2 calés sur les questions des IA</span></a>
+      <a href="#deploy" class="toc-item"><span class="toc-num">07</span><span class="toc-title">Déploiement, Hostinger ou Vercel</span></a>
+      <a href="#deliverable" class="toc-item"><span class="toc-num">08</span><span class="toc-title">Livrable, ton site GEO-ready en ligne</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 01 — WHY SITE ============================== -->
+<section class="module" id="why-site">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 01 / 08</span>
+      <h2>Pourquoi sans site, ta stratégie GEO est <em>bancale</em></h2>
+    </div>
+    <p class="module-lead">Tu peux poster 200 fois par mois sur Instagram, avoir 50K abonnés YouTube, vendre des places de concert sur Eventbrite. Si tu n'as pas de domaine propre, les IA te citent <strong>en pointant ailleurs</strong> — donc rarement, mal, ou jamais.</p>
+
+    <div class="prose">
+      <p>Les IA classent les sources par <strong>autorité de domaine</strong>. Un domaine racine genre <em>tonnom.com</em> a un poids fondamentalement différent d'une page <em>instagram.com/tonnom</em> ou <em>spotify.com/artist/xxx</em>. Le premier, c'est ton territoire que tu contrôles à 100%. Les autres, c'est de l'espace loué dans le silo de quelqu'un d'autre.</p>
+
+      <p>Quand un fan demande à Perplexity "qui est tel beatmaker français", l'IA va privilégier les sources qui <strong>parlent de toi de manière structurée et autorisée</strong>. Une fiche Spotify ne répond pas à ça. Une bio Instagram non plus. Un site personnel avec page À propos, expertise détaillée, et articles signés — oui.</p>
+    </div>
+
+    <div class="callout warning">
+      <div class="callout-tag">⚠ Le piège du "j'ai un Linktree"</div>
+      <p>Linktree, Beacons, About.me, Carrd : ce sont des silos sur le domaine de quelqu'un d'autre. Pour les IA, c'est l'équivalent d'un post sur le mur de quelqu'un. Ça ne <strong>te</strong> représente pas comme entité. Tu existes uniquement à travers ce silo, qui peut fermer demain ou changer ses règles.</p>
+    </div>
+
+    <div class="prose">
+      <p>Un site personnel résout 4 problèmes en même temps :</p>
+      <ul>
+        <li><strong>Domaine propre</strong> = identité unique reconnue par les IA et Google</li>
+        <li><strong>Contenu structuré</strong> = chunks identifiables (H1, H2, sections, FAQ)</li>
+        <li><strong>JSON-LD intégré</strong> = ton entité (Person, MusicGroup, Course) est explicitement déclarée</li>
+        <li><strong>Stabilité dans le temps</strong> = les IA ré-indexent les domaines stables, pas les profils éphémères</li>
+      </ul>
+
+      <p>Sans ces 4 piliers, tu peux multiplier les contenus, tu resteras invisible aux IA. <strong>Le site, c'est le socle.</strong> Tout le reste de la formation s'empile dessus.</p>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ La preuve par l'exemple</div>
+      <p>Mes 2 marques (Producteur à Succès et Muzisecur) sont citées aujourd'hui par ChatGPT et Perplexity quand quelqu'un cherche "formation music business française" ou "SaaS pour label indé". Ces deux marques ont un point commun : <strong>chacune a son propre site, sur son propre domaine</strong>. Aucune n'est citée à travers Insta, YouTube ou Linktree.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 02 — ANTIGRAVITY ============================== -->
+<section class="module" id="antigravity">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 02 / 08</span>
+      <h2>Antigravity, <em>l'IDE agent</em> de Google</h2>
+    </div>
+    <p class="module-lead">Sorti fin 2025 par Google, Antigravity est un <strong>IDE agentique</strong> : tu décris ce que tu veux en langage naturel, l'agent code, teste, déploie. Pas une ligne à écrire si tu ne veux pas.</p>
+
+    <div class="prose">
+      <p>Avant Antigravity, créer un site de zéro demandait soit un dev (1500-5000€), soit du temps à apprendre HTML/CSS/JS, soit un builder no-code limité (Wix, Squarespace, Webflow) qui produit du code <strong>pas optimal pour le GEO</strong>.</p>
+
+      <p>Antigravity change tout parce qu'il combine 3 choses :</p>
+      <ul>
+        <li><strong>Un agent IA Gemini intégré</strong> qui comprend ton brief et génère du code propre</li>
+        <li><strong>Un IDE complet</strong> où tu vois le code, l'aperçu, et tu peux modifier à tout moment</li>
+        <li><strong>Un déploiement intégré</strong> vers Vercel, Netlify, GitHub Pages en un clic</li>
+      </ul>
+
+      <p>Le résultat : tu obtiens un site <strong>en code natif</strong> (HTML, Astro ou Next.js), donc ultra-rapide, ultra-propre, et 100% modifiable plus tard. Pas un truc visuel imbriqué dans un éditeur fermé comme avec Wix.</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-tag">★ Pourquoi c'est game-changer pour les artistes</div>
+      <p>Les artistes n'ont pas le temps d'apprendre à coder. Ils n'ont pas non plus le budget pour un dev pro tous les 6 mois quand ils veulent ajuster leur site. Antigravity supprime ces deux blocages : tu décris ton ajustement à l'agent, il l'implémente, tu valides. <strong>Le site devient un outil que tu maîtrises toi-même.</strong></p>
+    </div>
+
+    <div class="prose">
+      <p>À noter : Antigravity est aujourd'hui en accès gratuit (preview Google). Il faut un compte Google et c'est tout. L'installation prend 5 minutes — l'app est cross-platform (Mac, Windows, Linux).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 03 — WORKFLOW ============================== -->
+<section class="module" id="workflow">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 03 / 08</span>
+      <h2>Le workflow Claude + Antigravity en <em>3 phases</em></h2>
+    </div>
+    <p class="module-lead">Antigravity est puissant, mais l'agent est meilleur quand il reçoit un <strong>brief stratégique propre</strong>. Et c'est Claude qui prépare ce brief. Voilà le workflow exact à reproduire.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-circle">1</div>
+        <div>
+          <span class="step-tag">Phase 01 — Brief</span>
+          <h4>Claude rédige ton plan d'architecture</h4>
+          <p>Tu ouvres une nouvelle conversation Claude et tu lui donnes : ton positionnement (artiste/producteur/label), tes 3 audiences cibles, tes 3 pages prioritaires, ton ton (formel, cool, expert), tes références visuelles. En sortie, Claude te livre un brief de 2-3 pages : structure complète, contenu de chaque page, balises sémantiques, JSON-LD à intégrer.</p>
+          <p><strong>Temps :</strong> 30 minutes, dont 20 minutes de dialogue avec Claude pour affiner.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-circle">2</div>
+        <div>
+          <span class="step-tag">Phase 02 — Génération</span>
+          <h4>Antigravity construit le site à partir du brief</h4>
+          <p>Tu ouvres Antigravity, tu colles le brief Claude dans le prompt initial : <em>"Construis-moi ce site selon cette spécification, en HTML/CSS vanilla et Astro, avec structure GEO-friendly."</em> L'agent commence à coder en live. Tu vois le code se créer, l'aperçu apparaître. Tu peux interrompre, ajuster, demander : <em>"refais le hero plus impactant"</em>, <em>"change la palette pour quelque chose de plus chaud"</em>.</p>
+          <p><strong>Temps :</strong> 2-4 heures pour un site de 5 pages complet.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-circle">3</div>
+        <div>
+          <span class="step-tag">Phase 03 — Itération + déploiement</span>
+          <h4>Tu raffines le contenu et tu mets en ligne</h4>
+          <p>Le squelette est là. Tu rentres ton vrai contenu (bio précise, articles, photos), tu vérifies le mobile, tu ajoutes ton JSON-LD personnel (avec le template du Module 3). Puis tu déploies en un clic vers Vercel ou Hostinger. Antigravity te donne l'URL live — tu peux brancher ton domaine perso (ton-nom.com) en 5 minutes.</p>
+          <p><strong>Temps :</strong> 1 à 2 jours répartis sur la semaine pour finaliser proprement.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Pourquoi pas Antigravity tout seul ?</div>
+      <p>Tu peux. Mais l'agent code mieux quand il a une <strong>vraie spec en entrée</strong>, pas un prompt vague. Claude est meilleur pour rédiger la spec (positionnement, ton, micro-copy, structure). Antigravity est meilleur pour exécuter (coder, déboguer, déployer). Diviser le travail entre les deux te donne un résultat <strong>plus stratégique et plus propre</strong> qu'avec un seul.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 04 — 5 PAGES ============================== -->
+<section class="module" id="pages">
+  <div class="container">
+    <div class="module-header">
+      <span class="module-num">— 04 / 08</span>
+      <h2>L'architecture des <em>5 pages essentielles</em></h2>
+    </div>
+    <p class="module-lead">Pas 20 pages. Pas un blog avec 80 articles. <strong>5 pages</strong>, avec une structure cristalline, chacune répondant à une question précise des IA.</p>
+
+    <div class="pages-grid">
+      <div class="page-card">
+        <div class="page-icon">/</div>
+        <div class="page-name">01 — Accueil</div>
+        <h4>Ton entité en 30 secondes</h4>
+        <p>Hero clair, qui tu es en une phrase, ce que tu fais, et ce que le visiteur peut faire ici. Trois sections en dessous : preuves d'autorité (médias, chiffres), liens vers Expertise + Articles, CTA contact.</p>
+        <div class="page-essentials">
+          <strong>Doit contenir</strong>
+          H1 = ton titre métier précis. JSON-LD Person ou Organization. Liens internes vers les 4 autres pages. Sections chunkables de 200-400 mots.
+        </div>
+      </div>
+
+      <div class="page-card">
+        <div class="page-icon">/à</div>
+        <div class="page-name">02 — À propos</div>
+        <h4>Ton histoire et tes preuves</h4>
+        <p>Bio détaillée à la troisième personne (les IA préfèrent), parcours daté (2008-2015, 2015-2020...), réalisations chiffrées, médias qui ont parlé de toi, photo pro. C'est la page que les IA citent le plus pour répondre à "qui est X".</p>
+        <div class="page-essentials">
+          <strong>Doit contenir</strong>
+          Bio à la 3e personne. Dates explicites. Chiffres. JSON-LD Person enrichi. Liens vers tes profils externes (Wikipedia, IMDb, Discogs, MusicBrainz).
+        </div>
+      </div>
+
+      <div class="page-card">
+        <div class="page-icon">/ex</div>
+        <div class="page-name">03 — Expertise</div>
+        <h4>Ce que tu fais et comment</h4>
+        <p>Liste structurée de tes services / domaines d'expertise / projets phares. Chaque expertise = un H2 avec une description courte + un bénéfice client. Format Q/R pour faciliter le chunking.</p>
+        <div class="page-essentials">
+          <strong>Doit contenir</strong>
+          1 H2 par expertise. Réponse en 40 mots dans le 1er paragraphe sous chaque H2. Chiffres et exemples concrets. JSON-LD Service ou Course si applicable.
+        </div>
+      </div>
+
+      <div class="page-card">
+        <div class="page-icon">/ar</div>
+        <div class="page-name">04 — Articles</div>
+        <h4>Ton hub de contenus piliers</h4>
+        <p>Liste de tes articles longs (les "piliers" qu'on construit dans le Module 4). Au démarrage, 3-5 articles suffisent. Chaque article a sa propre URL avec une question en H1 et une réponse structurée.</p>
+        <div class="page-essentials">
+          <strong>Doit contenir</strong>
+          Index avec extraits. Chaque article : H1 = question. JSON-LD Article. Date publication + mise à jour visible. FAQ structurée en bas.
+        </div>
+      </div>
+
+      <div class="page-card">
+        <div class="page-icon">/co</div>
+        <div class="page-name">05 — Contact</div>
+        <h4>Tes canaux + JSON-LD ContactPoint</h4>
+        <p>Formulaire simple (3 champs max), email direct, et tes canaux pros (LinkedIn, WhatsApp Business, Calendly). Pas de réseaux perso. Une page courte mais nette.</p>
+        <div class="page-essentials">
+          <strong>Doit contenir</strong>
+          Formulaire fonctionnel. Email visible. JSON-LD ContactPoint. Mentions légales et CGV en lien (footer). SIRET si pro.
+        </div>
+      </div>
+
+      <div class="page-card">
+        <div class="page-icon">+</div>
+        <div class="page-name">Bonus — Plus tard</div>
+        <h4>Page Press, page Formation, page Boutique</h4>
+        <p>Quand tu auras décroché 3-5 citations médias (Module 6), tu ajouteras une page Press en mode "As featured in". Quand tu lanceras une formation/produit, tu ajouteras une page dédiée. Pas avant.</p>
+        <div class="page-essentials">
+          <strong>Doit contenir (plus tard)</strong>
+          Logos médias autorisés. Citations exactes avec lien vers la source. JSON-LD MediaObject pour chaque mention.
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow" style="padding: 0;">
+      <div class="callout warning">
+        <div class="callout-tag">⚠ Erreur classique</div>
+        <p>Vouloir 20 pages dès le départ. Multiplier les pages dilue ton autorité GEO. Mieux vaut <strong>5 pages très denses, très chunkables, très signées</strong> que 20 pages creuses qui se cannibalisent mutuellement. La règle : une page nouvelle uniquement si elle apporte une réponse que les 5 existantes ne traitent pas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 05 — SEMANTIC ============================== -->
+<section class="module" id="semantic">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 05 / 08</span>
+      <h2>Les balises sémantiques <em>qui comptent</em></h2>
+    </div>
+    <p class="module-lead">Les IA crawlent ton HTML. Si tout est dans des <code style="font-family: 'JetBrains Mono', monospace; background: var(--accent-soft); padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.85em; color: var(--accent-dark);">&lt;div&gt;</code>, elles ne savent pas ce qui est un titre, une section, un article, un menu. Les balises sémantiques disent <strong>explicitement</strong> à la machine "voilà la nature de ce bloc".</p>
+
+    <div class="tag-grid">
+      <div class="tag-card">
+        <div class="tag-name">&lt;header&gt;</div>
+        <div class="tag-desc">En-tête de page (logo, navigation principale)</div>
+      </div>
+      <div class="tag-card">
+        <div class="tag-name">&lt;nav&gt;</div>
+        <div class="tag-desc">Bloc de navigation (menus, breadcrumbs)</div>
+      </div>
+      <div class="tag-card">
+        <div class="tag-name">&lt;main&gt;</div>
+        <div class="tag-desc">Contenu principal de la page (1 seul par page)</div>
+      </div>
+      <div class="tag-card">
+        <div class="tag-name">&lt;article&gt;</div>
+        <div class="tag-desc">Contenu autonome (post, article, fiche)</div>
+      </div>
+      <div class="tag-card">
+        <div class="tag-name">&lt;section&gt;</div>
+        <div class="tag-desc">Bloc thématique au sein du contenu</div>
+      </div>
+      <div class="tag-card">
+        <div class="tag-name">&lt;aside&gt;</div>
+        <div class="tag-desc">Contenu connexe (sidebar, encadré)</div>
+      </div>
+      <div class="tag-card">
+        <div class="tag-name">&lt;footer&gt;</div>
+        <div class="tag-desc">Pied de page (mentions, contact, social)</div>
+      </div>
+      <div class="tag-card">
+        <div class="tag-name">&lt;figure&gt; + &lt;figcaption&gt;</div>
+        <div class="tag-desc">Image avec légende décrite</div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Voilà à quoi ressemble une page À propos correctement structurée. Ce n'est pas plus compliqué qu'une suite de divs — c'est juste plus <strong>parlant pour les machines</strong>.</p>
+    </div>
+
+    <pre class="code-block"><span class="code-comment">&lt;!-- Page À propos --&gt;</span>
+&lt;<span class="code-tag">main</span>&gt;
+  &lt;<span class="code-tag">article</span>&gt;
+    &lt;<span class="code-tag">header</span>&gt;
+      &lt;<span class="code-tag">h1</span>&gt;<span class="code-h1">Qui est Tarik Hamiche ?</span>&lt;/<span class="code-tag">h1</span>&gt;
+      &lt;<span class="code-tag">p</span>&gt;Fondateur de Producteur à Succès et Muzisecur...&lt;/<span class="code-tag">p</span>&gt;
+    &lt;/<span class="code-tag">header</span>&gt;
+
+    &lt;<span class="code-tag">section</span>&gt;
+      &lt;<span class="code-tag">h2</span>&gt;Parcours&lt;/<span class="code-tag">h2</span>&gt;
+      &lt;<span class="code-tag">p</span>&gt;En 2008, j'ai signé mon premier...&lt;/<span class="code-tag">p</span>&gt;
+    &lt;/<span class="code-tag">section</span>&gt;
+
+    &lt;<span class="code-tag">section</span>&gt;
+      &lt;<span class="code-tag">h2</span>&gt;Réalisations&lt;/<span class="code-tag">h2</span>&gt;
+      &lt;<span class="code-tag">p</span>&gt;Disque d'or 2019 avec...&lt;/<span class="code-tag">p</span>&gt;
+    &lt;/<span class="code-tag">section</span>&gt;
+
+    &lt;<span class="code-tag">aside</span>&gt;
+      &lt;<span class="code-tag">h3</span>&gt;Médias qui ont parlé de moi&lt;/<span class="code-tag">h3</span>&gt;
+      &lt;<span class="code-tag">ul</span>&gt; <span class="code-comment">... liens ...</span> &lt;/<span class="code-tag">ul</span>&gt;
+    &lt;/<span class="code-tag">aside</span>&gt;
+  &lt;/<span class="code-tag">article</span>&gt;
+&lt;/<span class="code-tag">main</span>&gt;</pre>
+
+    <div class="callout">
+      <div class="callout-tag">★ Le réflexe à adopter</div>
+      <p>Quand tu briefes Antigravity, demande explicitement : <em>"Utilise les balises sémantiques HTML5 partout (header, main, article, section, aside, nav, footer). Pas de div à la place de balises sémantiques."</em> L'agent le fera. Sans cette consigne, il tombe parfois dans le piège div-soup.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 06 — H1/H2 + Q/R ============================== -->
+<section class="module" id="headings">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 06 / 08</span>
+      <h2>H1/H2 calés sur les <em>questions des IA</em></h2>
+    </div>
+    <p class="module-lead">Une page = une question principale (H1). Des sous-questions (H2). Une réponse claire en 40 mots dans le premier paragraphe sous chaque H2. <strong>C'est le format que les IA vont chercher.</strong></p>
+
+    <div class="prose">
+      <p>Un H1 efficace pour le GEO ressemble à une question de recherche réelle, pas à un slogan poétique. Compare :</p>
+      <ul>
+        <li><strong>Mauvais :</strong> <em>"L'art de vivre de sa musique"</em></li>
+        <li><strong>Bon :</strong> <em>"Comment vivre de sa musique en 2026 quand on est artiste indépendant ?"</em></li>
+      </ul>
+      <p>Le second formule la question exacte qu'un fan tape dans Perplexity. Quand l'IA cherche une réponse, ton chunk a infiniment plus de chances d'être récupéré parce que le vecteur de ton H1 ressemble au vecteur de la question.</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-tag">★ La règle des 40 mots</div>
+      <p>Sous chaque H2, le <strong>premier paragraphe doit répondre à la question en 40 mots maximum</strong>. C'est la longueur idéale pour qu'un LLM citent ce paragraphe tel quel comme réponse synthétique. Plus court : pas assez d'info. Plus long : l'IA tronque ou choisit un chunk concurrent plus dense.</p>
+    </div>
+
+    <div class="prose">
+      <p>Voici un exemple concret de structure Q/R bien optimisée pour le GEO sur un article pilier :</p>
+    </div>
+
+    <pre class="code-block"><span class="code-tag">&lt;h1&gt;</span><span class="code-h1">Comment vivre de sa musique en 2026 ?</span><span class="code-tag">&lt;/h1&gt;</span>
+
+<span class="code-tag">&lt;h2&gt;</span>Combien faut-il de streams pour un SMIC ?<span class="code-tag">&lt;/h2&gt;</span>
+<span class="code-tag">&lt;p&gt;</span>En 2026, il faut environ 250 000 écoutes mensuelles
+sur Spotify pour générer un revenu équivalent au SMIC
+français net (1426€). Le taux moyen est de 0,003 à
+0,005€ par stream selon les pays.<span class="code-tag">&lt;/p&gt;</span>
+
+<span class="code-tag">&lt;h2&gt;</span>Quels revenus complémentaires viser ?<span class="code-tag">&lt;/h2&gt;</span>
+<span class="code-tag">&lt;p&gt;</span>Quatre piliers complémentaires sont rentables...<span class="code-tag">&lt;/p&gt;</span>
+
+<span class="code-tag">&lt;h2&gt;</span>Quelle plateforme pour le sync placement ?<span class="code-tag">&lt;/h2&gt;</span>
+<span class="code-tag">&lt;p&gt;</span>...<span class="code-tag">&lt;/p&gt;</span></pre>
+
+    <div class="prose">
+      <p>Au-delà des H1/H2, ajoute une <strong>section FAQ structurée</strong> en bas de chaque article pilier. C'est le format préféré de Google AI Overview et de Perplexity quand ils veulent extraire une réponse rapide.</p>
+    </div>
+
+    <pre class="code-block"><span class="code-comment">&lt;!-- FAQ schema, format JSON-LD --&gt;</span>
+&lt;<span class="code-tag">script</span> <span class="code-attr">type</span>=<span class="code-string">"application/ld+json"</span>&gt;
+{
+  <span class="code-prop">"@context"</span>: <span class="code-string">"https://schema.org"</span>,
+  <span class="code-prop">"@type"</span>: <span class="code-string">"FAQPage"</span>,
+  <span class="code-prop">"mainEntity"</span>: [{
+    <span class="code-prop">"@type"</span>: <span class="code-string">"Question"</span>,
+    <span class="code-prop">"name"</span>: <span class="code-string">"Combien faut-il de streams pour un SMIC ?"</span>,
+    <span class="code-prop">"acceptedAnswer"</span>: {
+      <span class="code-prop">"@type"</span>: <span class="code-string">"Answer"</span>,
+      <span class="code-prop">"text"</span>: <span class="code-string">"En 2026, il faut environ 250 000 écoutes..."</span>
+    }
+  }]
+}
+&lt;/<span class="code-tag">script</span>&gt;</pre>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ L'effet boule de neige</div>
+      <p>Quand tu structures tes 5 articles piliers comme ça (H1 question, H2 sous-questions, réponses 40 mots, FAQ schema en bas), tu deviens citable sur <strong>20 à 30 requêtes différentes</strong> avec un seul article. C'est ce qui fait la rentabilité énorme du GEO bien fait : un bon article pilier peut te générer des citations IA pendant 3-5 ans.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 07 — DEPLOY ============================== -->
+<section class="module" id="deploy">
+  <div class="container">
+    <div class="module-header">
+      <span class="module-num">— 07 / 08</span>
+      <h2>Déploiement, <em>Hostinger ou Vercel</em></h2>
+    </div>
+    <p class="module-lead">Antigravity te génère le site, mais il faut le mettre en ligne sur un hébergeur. Deux options principales — chacune adaptée à un profil. Mon préféré pour 95% des artistes : <strong>Vercel</strong>.</p>
+
+    <div class="compare-grid">
+      <div class="compare-col">
+        <div class="compare-name">Hostinger</div>
+        <div class="compare-tagline">L'hébergeur classique cPanel</div>
+        <ul class="compare-list">
+          <li><strong>Idéal si tu veux WordPress</strong> ou un site PHP classique</li>
+          <li>Interface cPanel familière, bcp de tutos en français</li>
+          <li><strong>Domaine inclus</strong> dans la plupart des plans</li>
+          <li>Email pro inclus (artiste@ton-nom.com)</li>
+          <li>Support FR, chat 24/7</li>
+          <li>Convient aux <strong>sites WordPress</strong> avec plugins</li>
+        </ul>
+        <div class="compare-price">
+          <strong>Tarif</strong>
+          ~3-12€/mois selon le plan. Domaine offert la 1ère année.
+        </div>
+      </div>
+
+      <div class="compare-col featured">
+        <div class="compare-name">Vercel</div>
+        <div class="compare-tagline">Le standard pour sites modernes</div>
+        <ul class="compare-list">
+          <li><strong>Gratuit pour la plupart des cas</strong> personnels (plan Hobby)</li>
+          <li>Déploiement <strong>git-based</strong>, intégration Antigravity native</li>
+          <li>Performance maximale (CDN global, edge functions)</li>
+          <li>HTTPS auto, certificat SSL gratuit</li>
+          <li>Domaine perso brançable en 5 minutes</li>
+          <li>Convient aux <strong>sites Astro, Next.js, HTML statiques</strong></li>
+        </ul>
+        <div class="compare-price">
+          <strong>Tarif</strong>
+          0€/mois (plan Hobby personnel). 20€/mois si tu passes en pro.
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow" style="padding: 0;">
+      <div class="callout">
+        <div class="callout-tag">★ Mon choix recommandé</div>
+        <p><strong>Vercel</strong>, presque toujours. Pourquoi : (1) gratuit, (2) ultra-rapide, (3) intégration native avec Antigravity (déploiement en un clic), (4) ré-déploiement automatique à chaque modif via git, (5) Vercel Analytics inclus pour suivre ton trafic. Hostinger reste pertinent si tu veux gérer un blog WordPress traditionnel ou que tu as besoin d'un email pro inclus dans le tarif.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 08 — DELIVERABLE ============================== -->
+<section class="module" id="deliverable">
+  <div class="container-narrow">
+    <div class="module-header">
+      <span class="module-num">— 08 / 08</span>
+      <h2>Livrable — ton <em>site GEO-ready</em> en ligne</h2>
+    </div>
+    <p class="module-lead">À la fin de la semaine, tu dois cocher chacun de ces 10 items. Si tu en coches moins de 8, ne passe pas au Module 3. Le site est le socle — les modules suivants ne fonctionnent que si ce socle est en place.</p>
+
+    <div class="checklist">
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">Domaine perso branché</div>
+        <div class="check-desc">ton-nom.com (ou .fr, ou domain de label) actif et pointant sur ton site</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">5 pages en ligne</div>
+        <div class="check-desc">Accueil, À propos, Expertise, Articles, Contact — toutes accessibles depuis le menu principal</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">Balises sémantiques HTML5 partout</div>
+        <div class="check-desc">header, main, article, section, aside, nav, footer — vérifiable en inspectant le code</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">H1 unique par page formulé en question</div>
+        <div class="check-desc">"Qui est X", "Comment faire Y", "Pourquoi Z" — pas de slogans poétiques</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">Réponse en 40 mots sous chaque H2</div>
+        <div class="check-desc">Premier paragraphe direct, factuel, citable tel quel par une IA</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">Au moins 1 FAQ structurée par page Articles</div>
+        <div class="check-desc">JSON-LD FAQPage en bas, avec 4-6 questions/réponses</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">JSON-LD Person / Organization sur Accueil</div>
+        <div class="check-desc">Ton entité explicitement déclarée (template fourni en Module 3)</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">Open Graph + meta description sur chaque page</div>
+        <div class="check-desc">Pour le partage social ET pour aider les IA à indexer le contexte</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">Mobile responsive vérifié (DevTools mobile)</div>
+        <div class="check-desc">Toutes les pages s'affichent correctement sur 375px de large minimum</div>
+      </div></div>
+
+      <div class="check-item"><div class="check-box">✓</div><div class="check-content">
+        <div class="check-title">Score Lighthouse > 90 (Performance + SEO)</div>
+        <div class="check-desc">Test Chrome DevTools → onglet Lighthouse → mobile + desktop</div>
+      </div></div>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-tag">✓ Comment lire ton score</div>
+      <p><strong>10/10</strong> : ton site est prêt pour les modules suivants, tu peux passer au Module 3 (Architecture d'entité). <strong>8-9/10</strong> : ton site est correct, identifie ce qui manque et corrige avant d'avancer. <strong>Moins de 8/10</strong> : ne passe pas au Module 3, reviens sur les sections concernées de ce module. Les modules 3 à 6 dépendent <strong>structurellement</strong> de ce socle.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== RECAP ============================== -->
+<section class="recap">
+  <div class="container-narrow">
+    <div class="section-label" style="color: var(--accent-line);">Synthèse</div>
+    <h3>Ce que tu dois retenir de ce module</h3>
+    <ol class="recap-list">
+      <li>Sans <strong>domaine propre</strong>, ta stratégie GEO est bancale — Spotify, Insta, Linktree ne suffisent pas comme entité aux yeux des IA.</li>
+      <li><strong>Antigravity</strong> est l'IDE agent de Google qui code à ta place. Combiné à Claude pour le brief stratégique, c'est le combo le plus rapide pour un site propre.</li>
+      <li>Le workflow tient en 3 phases : <strong>Brief Claude → Génération Antigravity → Itération + déploiement</strong>. Compte 1 semaine total.</li>
+      <li>Cinq pages essentielles : <strong>Accueil, À propos, Expertise, Articles, Contact</strong>. Pas plus au démarrage. Quantité tue l'autorité.</li>
+      <li>Les balises sémantiques HTML5 (<strong>header, main, article, section, aside</strong>) parlent explicitement aux IA. Pas de div-soup.</li>
+      <li>H1 = question. H2 = sous-questions. <strong>Réponse en 40 mots</strong> sous chaque H2. FAQ structurée en bas de chaque article pilier.</li>
+      <li>Déploiement : <strong>Vercel pour 95% des cas</strong> (gratuit, rapide, intégration Antigravity). Hostinger si tu veux WordPress + email pro inclus.</li>
+      <li>Livrable : ton site complet en ligne, avec les <strong>10 items de la checklist cochés</strong>. Sans ça, ne passe pas au Module 3.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================== NEXT CTA ============================== -->
+<div class="next-cta">
+  <h3>Prêt pour le <em>Module 03</em> ?</h3>
+  <p>Construire ton entité de marque reconnue par les IA — Wikidata, Wikipedia, JSON-LD, Knowledge Panel.</p>
+  <a href="https://ia.producteurasucces.com/" class="btn btn-primary">Retour à la formation</a>
+</div>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="site-footer">
+  <div class="container">
+    © 2026 Tarik Hamiche — Producteur à Succès • <a href="https://drive.google.com/file/d/1j34jogzEWH8ggeVDIT8qRimJGh30SV38/view?usp=sharing" target="_blank" rel="noopener">Mentions légales &amp; Confidentialité</a> • <a href="https://drive.google.com/file/d/1POBlG9RlTZgRYuJWRe_bHUIqdLE2vpVn/view?usp=sharing" target="_blank" rel="noopener">CGV</a> • <a href="mailto:tarik@producteurasucces.com">Contact</a>
+  </div>
+</footer>
+
+<!-- ============================== CRISP CHAT ============================== -->
+<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="1c4155b7-339c-4746-99b4-8d1a09e952ad";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+
+<!-- ============================== JS — Progress bar + Checklist + Fade-in ============================== -->
+<script>
+  // Progress bar
+  (function(){
+    const bar = document.getElementById('progress-bar');
+    if (!bar) return;
+    function update(){
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      bar.style.width = progress + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+
+  // Checklist — click to toggle
+  (function(){
+    document.querySelectorAll('.check-item').forEach(function(item){
+      item.addEventListener('click', function(){
+        item.classList.toggle('checked');
+      });
+    });
+  })();
+
+  // Fade-in on scroll
+  (function(){
+    if (!('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('section.module, .toc-section, .recap, .next-cta').forEach(function(el){
+      el.classList.add('fade-up');
+      observer.observe(el);
+    });
+  })();
+</script>
+
+</body>
+</html>
