@@ -1083,7 +1083,7 @@
     <p class="module-lead">Les IA ne lisent jamais ton article en entier. Elles le découpent en petits morceaux, et ce sont ces morceaux qui sont en compétition pour être cités. Pas l'article. <strong>Les morceaux.</strong></p>
 
     <div class="prose">
-      <p>Imagine que ton site Producteur à Succès a un article de 3000 mots intitulé "Comment vivre de sa musique en 2026". Quand un LLM indexe le web, il ne stocke pas ton article comme un bloc unique. Il le découpe en petits morceaux de <strong>200 à 500 mots chacun</strong>. Ces morceaux s'appellent des <strong>chunks</strong>.</p>
+      <p>Imagine que ton site personnel a un article de 3000 mots intitulé "Comment vivre de sa musique en 2026". Quand un LLM indexe le web, il ne stocke pas ton article comme un bloc unique. Il le découpe en petits morceaux de <strong>200 à 500 mots chacun</strong>. Ces morceaux s'appellent des <strong>chunks</strong>.</p>
       <p>Chaque chunk est ensuite transformé en vecteur mathématique (un "embedding") qui capture son sens. Tous ces chunks sont stockés dans une base de données vectorielle géante, aux côtés de millions d'autres chunks venant de millions d'autres sites.</p>
     </div>
 
@@ -1370,7 +1370,7 @@
         <div class="factor-num">01</div>
         <div>
           <h4>L'entité est reconnue</h4>
-          <p>Les IA fonctionnent par <strong>entités</strong>, pas par chaînes de caractères. "Tarik Hamiche" doit être identifié comme une personne unique, avec un parcours, une fonction, des œuvres, et pas confondu avec un homonyme. Ça passe par Wikidata, Wikipedia, schema.org Person, et la cohérence cross-plateformes.</p>
+          <p>Les IA fonctionnent par <strong>entités</strong>, pas par chaînes de caractères. Ton nom doit être identifié comme une personne unique, avec un parcours, une fonction, des œuvres, et pas confondu avec un homonyme. Ça passe par Wikidata, Wikipedia, schema.org Person, et la cohérence cross-plateformes.</p>
           <div class="factor-detail">
             <strong>Indicateur live</strong>
             Tape ton nom dans Perplexity. Si la réponse hésite, mélange les profils, ou ne sort rien, ton entité n'existe pas pour l'IA.
@@ -1447,7 +1447,7 @@
       <div class="prompt-row">
         <div class="prompt-num">P01</div>
         <div>
-          <div class="prompt-text">"Qui est Tarik Hamiche ?"</div>
+          <div class="prompt-text">"Qui est [ton nom artiste/producteur] ?"</div>
           <div class="prompt-target">Cible — <span>existence d'entité personnelle reconnue</span></div>
           <div class="audit-grid-result">
             <div class="audit-check">⬚ Perplexity</div>
@@ -1462,7 +1462,7 @@
         <div class="prompt-num">P02</div>
         <div>
           <div class="prompt-text">"Quelle formation pour vivre de sa musique en France en 2026 ?"</div>
-          <div class="prompt-target">Cible — <span>citation de Producteur à Succès sur ta requête métier reine</span></div>
+          <div class="prompt-target">Cible — <span>citation de ta marque principale sur ta requête métier reine</span></div>
           <div class="audit-grid-result">
             <div class="audit-check">⬚ Perplexity</div>
             <div class="audit-check">⬚ ChatGPT</div>
@@ -1476,7 +1476,7 @@
         <div class="prompt-num">P03</div>
         <div>
           <div class="prompt-text">"Quel SaaS pour gérer un label indépendant en France ?"</div>
-          <div class="prompt-target">Cible — <span>citation de Muzisecur sur ta requête produit</span></div>
+          <div class="prompt-target">Cible — <span>citation de ton produit ou service sur ta requête produit</span></div>
           <div class="audit-grid-result">
             <div class="audit-check">⬚ Perplexity</div>
             <div class="audit-check">⬚ ChatGPT</div>
@@ -1532,7 +1532,7 @@
         <div class="prompt-num">P07</div>
         <div>
           <div class="prompt-text">"Quels podcasts ou chaînes YouTube suivre sur le music business francophone ?"</div>
-          <div class="prompt-target">Cible — <span>citation de ta chaîne YouTube Producteur à Succès</span></div>
+          <div class="prompt-target">Cible — <span>citation de ta chaîne YouTube ou de ton podcast</span></div>
           <div class="audit-grid-result">
             <div class="audit-check">⬚ Perplexity</div>
             <div class="audit-check">⬚ ChatGPT</div>
