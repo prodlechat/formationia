@@ -971,6 +971,14 @@
     font-size: 0.9rem;
     color: var(--ink-soft);
     background: var(--bg-soft);
+    cursor: pointer;
+    user-select: none;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .price-option:hover {
+    border-color: var(--accent-line);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(91, 20, 255, 0.08);
   }
   .price-option strong { display: block; font-size: 1.1rem; color: var(--ink); margin-bottom: 0.2rem; }
   .price-option.highlight {
@@ -1926,23 +1934,32 @@
       </div>
       <span class="price-savings">— Tu économises 500€</span>
 
-      <div class="price-options">
-        <div class="price-option highlight">
+      <div class="price-options" role="radiogroup" aria-label="Choisis ton mode de paiement">
+        <div class="price-option highlight" role="radio" tabindex="0" aria-checked="true"
+             data-url="https://wwwproducteurasucces.learnybox.com/order-form/eyJmIjoxNzU2MDF9/"
+             data-label="Je rejoins maintenant — 997€">
           <strong>997€</strong>
           en 1 fois
         </div>
-        <div class="price-option">
+        <div class="price-option" role="radio" tabindex="0" aria-checked="false"
+             data-url="https://wwwproducteurasucces.learnybox.com/order-form/eyJmIjoxNzU2MDZ9/"
+             data-label="Je rejoins maintenant — 2×499€">
           <strong>2 × 499€</strong>
           paiement en 2 fois
         </div>
-        <div class="price-option">
+        <div class="price-option" role="radio" tabindex="0" aria-checked="false"
+             data-url="https://wwwproducteurasucces.learnybox.com/order-form/eyJmIjoxNzU2MDd9/"
+             data-label="Je rejoins maintenant — 3×337€">
           <strong>3 × 337€</strong>
           paiement en 3 fois
         </div>
       </div>
 
       <div class="price-cta">
-        <a href="#" class="btn btn-primary btn-large btn-arrow">Je rejoins maintenant — 997€</a>
+        <a id="price-cta-btn"
+           href="https://wwwproducteurasucces.learnybox.com/order-form/eyJmIjoxNzU2MDF9/"
+           target="_blank" rel="noopener"
+           class="btn btn-primary btn-large btn-arrow">Je rejoins maintenant — 997€</a>
       </div>
 
       <div class="price-guarantee">
@@ -2074,6 +2091,36 @@
   <div><strong>997€</strong> au lieu de 1497€</div>
   <a href="#tarif" class="btn btn-primary">Rejoindre →</a>
 </div>
+
+<!-- ============================== PAYMENT OPTIONS HANDLER ============================== -->
+<script>
+  (function(){
+    const options = document.querySelectorAll('.price-option');
+    const cta = document.getElementById('price-cta-btn');
+    if (!cta || !options.length) return;
+
+    function selectOption(opt) {
+      options.forEach(function(o){
+        o.classList.remove('highlight');
+        o.setAttribute('aria-checked', 'false');
+      });
+      opt.classList.add('highlight');
+      opt.setAttribute('aria-checked', 'true');
+      cta.href = opt.dataset.url;
+      cta.textContent = opt.dataset.label;
+    }
+
+    options.forEach(function(opt){
+      opt.addEventListener('click', function(){ selectOption(opt); });
+      opt.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectOption(opt);
+        }
+      });
+    });
+  })();
+</script>
 
 <!-- ============================== CRISP CHAT ============================== -->
 <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="1c4155b7-339c-4746-99b4-8d1a09e952ad";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
